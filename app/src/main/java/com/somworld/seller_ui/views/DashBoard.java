@@ -22,7 +22,7 @@ public class DashBoard extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
         ListView offerList = (ListView)findViewById(R.id.dash_board_list);
-        List<OfferItems> offers = FactoryGirl.getOffers(5);
+        List<OfferItems> offers = FactoryGirl.getOffers(5,3);
         offerList.setAdapter(new DashBoardListAdapter(this,offers));
     }
 

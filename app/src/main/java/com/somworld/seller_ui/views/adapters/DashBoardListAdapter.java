@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.somworld.seller_ui.R;
+import com.somworld.seller_ui.helpers.OfferHelper;
 import com.somworld.seller_ui.models.OfferItems;
 
 import java.text.DateFormat;
@@ -61,15 +63,24 @@ public class DashBoardListAdapter extends BaseAdapter {
         TextView tProductDescription = (TextView)convertView.findViewById(R.id.dash_board_list__item_description);
         TextView tStartTime  = (TextView)convertView.findViewById(R.id.dash_board_list_item_start_time);
         TextView tEndTime = (TextView)convertView.findViewById(R.id.dash_board_list__item_end_time);
+        ImageView isActive = (ImageView)convertView.findViewById(R.id.dash_board_list_item_is_active);
 
         OfferItems currentoffer = (OfferItems)getItem(i);
+
         tProductName.setText(currentoffer.getProduct());
         tProductDescription.setText(currentoffer.getDescription());
         DateFormat df = DateFormat.getDateTimeInstance();
         df.setTimeZone(TimeZone.getDefault());
         tStartTime.setText("Offers Start From : "+ df.format(currentoffer.getStartTime()));
         tEndTime.setText("Offers End at : "+ df.format(currentoffer.getEndTime()));
+        if(OfferHelper.isValid(currentoffer)) {
 
+            isActive.setImageResource(R.drawable.offer_active);
+        }
+        else {
+
+            isActive.setImageResource(R.drawable.offer_deactive);
+        }
         return convertView;
     }
 }

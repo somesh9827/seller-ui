@@ -8,16 +8,29 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             >
+       <LinearLayout
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/dash_board_list__item_product_name"
             style="@style/OfferListProductName"
             />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="3sp"
+            android:id="@+id/dash_board_list_item_is_active"
+            android:src="@drawable/offer_active"
+            android:layout_gravity="center"
+            />
+       </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
