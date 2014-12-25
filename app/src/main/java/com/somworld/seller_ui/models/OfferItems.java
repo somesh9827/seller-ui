@@ -24,19 +24,19 @@ public class OfferItems {
     }
 
     public Date getStartTime() {
-        return startTime;
+        return new Date(startTime.getTime());
     }
 
     public void setStartTime(Date startTime) {
-        this.startTime = startTime;
+        this.startTime = new Date(startTime.getTime());
     }
 
     public Date getEndTime() {
-        return endTime;
+        return new Date(endTime.getTime());
     }
 
     public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+        this.endTime = new Date(endTime.getTime());;
     }
 
     public String getDiscount() {
@@ -54,6 +54,17 @@ public class OfferItems {
     public void setActive(boolean isActive) {
         this.isActive = isActive;
     }
+
+    public OfferItems(OfferItems offer) {
+        this.setProduct(offer.getProduct());
+        this.setDiscount(offer.getDiscount());
+        this.setActive(offer.isActive());
+        this.setDescription(offer.getDescription());
+        this.setStartTime(offer.getStartTime());
+        this.setEndTime(offer.getEndTime());
+    }
+
+    public OfferItems() {}
 
     private String product;
 

@@ -73,6 +73,7 @@ public class DashBoardListAdapter extends BaseAdapter {
         df.setTimeZone(TimeZone.getDefault());
         tStartTime.setText("Offers Start From : "+ df.format(currentoffer.getStartTime()));
         tEndTime.setText("Offers End at : "+ df.format(currentoffer.getEndTime()));
+
         if(OfferHelper.isValid(currentoffer)) {
 
             isActive.setImageResource(R.drawable.offer_active);

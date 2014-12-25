@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Date"
+        style="@style/default_text_heading"
+        />
+    <DatePicker
+        android:id="@+id/date_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/date_picker_height"
+        android:calendarViewShown="false"
+        >
+    </DatePicker>
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#787878"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Time"
+        style="@style/default_text_heading"
+        />
+    <TimePicker
+        android:id="@+id/time_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/time_picker_height">
+    </TimePicker>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_margin="5sp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="right"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/date_time_picker_save"
+            android:text="Save"
+            android:background="@drawable/default_button_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_marginLeft="10dp"
+            android:id="@+id/date_time_picker_cancel"
+            android:text="Cancle"
+            android:background="@drawable/default_button_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        </LinearLayout>
+</LinearLayout>

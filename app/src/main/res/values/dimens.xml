@@ -6,4 +6,10 @@
     <dimen name="list_item_padding_bottom">10dp</dimen>
     <dimen name="add_new_offer_image_height">60sp</dimen>
     <dimen name="add_new_offer_image_widht">60sp</dimen>
+
+    <dimen name="form_text_default_height">50sp</dimen>
+    <dimen name="form_text_area_default_height">150sp</dimen>
+    <dimen name="form_element_padding">15dp</dimen>
+    <dimen name="date_picker_height">150sp</dimen>
+    <dimen name="time_picker_height">150sp</dimen>
 </resources>
