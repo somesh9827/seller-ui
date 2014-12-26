@@ -1,17 +1,20 @@
 package com.somworld.seller_ui.views;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.somworld.seller_ui.R;
+import com.somworld.seller_ui.helpers.OfferHelper;
 import com.somworld.seller_ui.helpers.Utills;
+import com.somworld.seller_ui.models.OfferItems;
 import com.somworld.seller_ui.models.OnCompleteListener;
+import com.somworld.seller_ui.models.ParcelableKeys;
 
 import java.util.Date;
 import java.util.Map;
@@ -22,6 +25,8 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
     private static final int noDateContext = -1;
     private int dateContext  = -1 ;
 
+    private EditText product;
+    private EditText product_description;
     private EditText offer_start_time;
     private EditText offer_end_time;
 
@@ -46,12 +51,25 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
         else if(dateContext == endDateContext && offer_end_time != null) offer_end_time.setText("Valid till "+dateString);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_offer);
+        Intent intent = getIntent();
+        Bundle mBundle = intent.getExtras();
+        OfferItems offer = mBundle.getParcelable(ParcelableKeys.OFFER_ITEM);
+
         offer_start_time = (EditText)findViewById(R.id.update_offer_Start_time);
         offer_end_time = (EditText)findViewById(R.id.update_offer_End_time);
+        product = (EditText)findViewById(R.id.update_offer_product);
+        product_description = (EditText)findViewById(R.id.update_offer_description);
+
+        product.setText(offer.getProduct());
+        product_description.setText(offer.getDescription());
+        offer_start_time.setText(OfferHelper.formatDate(offer.getStartTime(), Utills.START_DATE_CONTEXT, Utills.getTimeFormat()));
+        offer_end_time.setText(OfferHelper.formatDate(offer.getStartTime(), Utills.END_DATE_CONTEXT, Utills.getTimeFormat()));
+
         offer_start_time.setOnClickListener(this);
         offer_end_time.setOnClickListener(this);
     }

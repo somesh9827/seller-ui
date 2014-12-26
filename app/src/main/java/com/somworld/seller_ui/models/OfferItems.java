@@ -1,11 +1,35 @@
 package com.somworld.seller_ui.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
 /**
  * Created by somesh.shrivastava on 13/12/14.
  */
-public class OfferItems {
+public class OfferItems implements Parcelable{
+
+    private String product;
+    private String description;
+    private Date startTime;
+    private Date endTime;
+    private String discount;
+    private boolean isActive;
+
+    public OfferItems(OfferItems offer) {
+        this.setProduct(offer.getProduct());
+        this.setDiscount(offer.getDiscount());
+        this.setActive(offer.isActive());
+        this.setDescription(offer.getDescription());
+        this.setStartTime(offer.getStartTime());
+        this.setEndTime(offer.getEndTime());
+    }
+
+
+
+    public OfferItems() {
+    }
 
     public String getProduct() {
         return product;
@@ -36,7 +60,7 @@ public class OfferItems {
     }
 
     public void setEndTime(Date endTime) {
-        this.endTime = new Date(endTime.getTime());;
+        this.endTime = new Date(endTime.getTime());
     }
 
     public String getDiscount() {
@@ -55,32 +79,37 @@ public class OfferItems {
         this.isActive = isActive;
     }
 
-    public OfferItems(OfferItems offer) {
-        this.setProduct(offer.getProduct());
-        this.setDiscount(offer.getDiscount());
-        this.setActive(offer.isActive());
-        this.setDescription(offer.getDescription());
-        this.setStartTime(offer.getStartTime());
-        this.setEndTime(offer.getEndTime());
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public OfferItems() {}
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(Boolean.toString(isActive));
+        parcel.writeLong(endTime.getTime());
+        parcel.writeLong(startTime.getTime());
+        parcel.writeString(description);
+        parcel.writeString(discount);
+        parcel.writeString(product);
+    }
 
-    private String product;
+    public static final Creator<OfferItems> CREATOR = new Creator<OfferItems>() {
+        @Override
+        public OfferItems createFromParcel(Parcel parcel) {
+            OfferItems mOfferItem = new OfferItems();
+            mOfferItem.setActive(Boolean.parseBoolean(parcel.readString()));
+            mOfferItem.setEndTime(new Date(parcel.readLong()));
+            mOfferItem.setStartTime(new Date(parcel.readLong()));
+            mOfferItem.setDescription(parcel.readString());
+            mOfferItem.setDiscount(parcel.readString());
+            mOfferItem.setProduct(parcel.readString());
+            return mOfferItem;
+        }
 
-
-    private String description;
-
-
-    private Date startTime;
-
-
-    private Date endTime;
-
-
-    private String discount;
-
-
-    private boolean isActive;
-
+        @Override
+        public OfferItems[] newArray(int size) {
+            return new OfferItems[size];
+        }
+    };
 }

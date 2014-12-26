@@ -15,7 +15,9 @@ import android.widget.ListView;
 import com.somworld.seller_ui.R;
 import com.somworld.seller_ui.helpers.FactoryGirl;
 import com.somworld.seller_ui.helpers.OfferHelper;
+import com.somworld.seller_ui.models.IntentKeys;
 import com.somworld.seller_ui.models.OfferItems;
+import com.somworld.seller_ui.models.ParcelableKeys;
 import com.somworld.seller_ui.views.adapters.DashBoardListAdapter;
 
 import java.util.List;
@@ -68,7 +70,7 @@ public class DashBoard extends Activity {
         } else if (item.getTitle() == "Enable") {
             EnableOffer(offers.get(info.position));
         } else if (item.getTitle() == "Edit") {
-            callUpdateOfferActivity(offers.get(info.position));
+            callUpdateOfferActivity(new OfferItems(offers.get(info.position)));
         }
         else {
             return false;
@@ -102,8 +104,11 @@ public class DashBoard extends Activity {
 
 
     private void callUpdateOfferActivity(OfferItems offer) {
-        Intent i = new Intent(this,UpdateOffer.class);
-        startActivity(i);
+        Intent intent = new Intent(this,UpdateOffer.class);
+        Bundle mBundle = new Bundle();
+        mBundle.putParcelable(ParcelableKeys.OFFER_ITEM,offer);
+        intent.putExtras(mBundle);
+        startActivity(intent);
     }
 
 
