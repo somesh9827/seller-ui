@@ -42,8 +42,8 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
 
     private void setDateToTextBox(String dateString) {
         if(dateContext == noDateContext) return;
-        else if(dateContext == startDateContext && offer_start_time != null) offer_start_time.setText("Offer Starts at " + dateString);
-        else if(dateContext == endDateContext && offer_end_time != null) offer_end_time.setText(dateString);
+        else if(dateContext == startDateContext && offer_start_time != null) offer_start_time.setText("Starts at " + dateString);
+        else if(dateContext == endDateContext && offer_end_time != null) offer_end_time.setText("Valid till "+dateString);
     }
 
     @Override

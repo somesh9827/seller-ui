@@ -9,14 +9,13 @@
       android:id="@+id/dash_board_list"
       android:layout_height="0dp"
       android:dividerHeight="1sp"
-      android:layout_weight="80"
-      android:background="#d1c7c7"
+      android:layout_weight="82"
       >
       </ListView>
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="0dp"
-       android:layout_weight="20"
+       android:layout_weight="18"
        >
       <Button
           android:layout_width="@dimen/add_new_offer_image_widht"

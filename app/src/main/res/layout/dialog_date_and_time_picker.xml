@@ -8,7 +8,7 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Date"
+        android:text="@string/select_date"
         style="@style/default_text_heading"
         />
     <DatePicker
@@ -27,7 +27,7 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Time"
+        android:text="@string/select_time"
         style="@style/default_text_heading"
         />
     <TimePicker
@@ -47,17 +47,19 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/date_time_picker_save"
-            android:text="Save"
-            android:background="@drawable/default_button_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <Button
-            android:layout_marginLeft="10dp"
             android:id="@+id/date_time_picker_cancel"
-            android:text="Cancle"
-            android:background="@drawable/default_button_style"
+            style="@style/default_button_style"
+            android:text="@string/cancel_button_text"
+            android:background="@drawable/default_cancel_button_style_selector"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="@dimen/date_picker_default_height" />
+        <Button
+            android:layout_marginLeft="15dp"
+            android:id="@+id/date_time_picker_save"
+            android:text="@string/save_button_text"
+            style="@style/default_button_style"
+            android:background="@drawable/default_save_button_style_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/date_picker_default_height" />
         </LinearLayout>
 </LinearLayout>
