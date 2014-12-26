@@ -37,7 +37,7 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
             if(data.containsKey("date"))
             {
                 Date date = new Date(((Date)(data.get("date"))).getTime());
-                setDateToTextBox(Utills.parsedDate(Utills.getTimeFormat(),date));
+                setDateToTextBox(date);
             }
 
         } else {
@@ -45,10 +45,12 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
         }
     }
 
-    private void setDateToTextBox(String dateString) {
-        if(dateContext == noDateContext) return;
-        else if(dateContext == startDateContext && offer_start_time != null) offer_start_time.setText("Starts at " + dateString);
-        else if(dateContext == endDateContext && offer_end_time != null) offer_end_time.setText("Valid till "+dateString);
+    private void setDateToTextBox(Date date) {
+        if(dateContext == Utills.START_DATE_CONTEXT && offer_start_time != null)
+            offer_start_time.setText(OfferHelper.formatDate(date, Utills.START_DATE_CONTEXT, Utills.getTimeFormat()));
+        else if(dateContext == Utills.END_DATE_CONTEXT && offer_end_time != null)
+            offer_end_time.setText(OfferHelper.formatDate(date, Utills.END_DATE_CONTEXT, Utills.getTimeFormat()));
+
     }
 
 
@@ -99,10 +101,10 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.update_offer_Start_time :
-                dateContext = startDateContext;
+                dateContext = Utills.START_DATE_CONTEXT;
                 break;
             case R.id.update_offer_End_time :
-                dateContext = endDateContext;
+                dateContext = Utills.END_DATE_CONTEXT;
                 break;
             default:
                 break;

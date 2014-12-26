@@ -31,18 +31,9 @@
             style="@style/default_form_edit_text"
             android:background="@drawable/default_form_text_selector"
             />
-        <LinearLayout
-            android:layout_marginTop="@dimen/form_element_padding"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-           <TextView
-               android:text="@string/offer_start_time_label"
-               android:layout_width="wrap_content"
-               style="@style/default_form_label"
-               android:layout_height="@dimen/form_text_default_height" />
+
         <EditText
-            android:layout_marginLeft="@dimen/form_element_padding"
+            android:layout_marginTop="@dimen/form_element_padding"
             android:id="@+id/update_offer_Start_time"
             android:layout_width="match_parent"
             android:layout_height="@dimen/form_text_default_height"
@@ -50,20 +41,9 @@
             android:focusable="false"
             android:background="@drawable/default_form_text_selector"
             />
-        </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="@dimen/form_element_padding"
-        android:orientation="horizontal"
-        android:gravity="right"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:text="@string/offer_end_time_label"
-            android:layout_width="wrap_content"
-            style="@style/default_form_label"
-            android:layout_height="@dimen/form_text_default_height" />
+
         <EditText
-            android:layout_marginLeft="@dimen/form_element_padding"
+            android:layout_marginTop="@dimen/form_element_padding"
             android:id="@+id/update_offer_End_time"
             android:layout_width="match_parent"
             android:editable="false"
@@ -72,7 +52,6 @@
             style="@style/default_form_edit_text"
             android:background="@drawable/default_form_text_selector"
             />
-        </LinearLayout>
         <Button
             android:id="@+id/update_offer_button"
             android:layout_marginTop="@dimen/form_element_padding"
