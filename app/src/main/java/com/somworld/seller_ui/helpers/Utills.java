@@ -16,6 +16,8 @@ public class Utills {
     public static final int START_DATE_CONTEXT = 0;
     public static final int END_DATE_CONTEXT = 1;
 
+    public static final int INVALID_ID = -1;
+
     public static DateFormat getTimeFormat() {
 
         return DateFormat.getDateTimeInstance();

@@ -3,13 +3,15 @@ package com.somworld.seller_ui.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.somworld.seller_ui.helpers.Utills;
+
 import java.util.Date;
 
 /**
  * Created by somesh.shrivastava on 13/12/14.
  */
 public class OfferItems implements Parcelable{
-
+    private int id;
     private String product;
     private String description;
     private Date startTime;
@@ -18,6 +20,7 @@ public class OfferItems implements Parcelable{
     private boolean isActive;
 
     public OfferItems(OfferItems offer) {
+        this.setId(offer.id);
         this.setProduct(offer.getProduct());
         this.setDiscount(offer.getDiscount());
         this.setActive(offer.isActive());
@@ -29,6 +32,7 @@ public class OfferItems implements Parcelable{
 
 
     public OfferItems() {
+        id = Utills.INVALID_ID;
     }
 
     public String getProduct() {
@@ -79,6 +83,14 @@ public class OfferItems implements Parcelable{
         this.isActive = isActive;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -86,6 +98,7 @@ public class OfferItems implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
         parcel.writeString(Boolean.toString(isActive));
         parcel.writeLong(endTime.getTime());
         parcel.writeLong(startTime.getTime());
@@ -98,6 +111,7 @@ public class OfferItems implements Parcelable{
         @Override
         public OfferItems createFromParcel(Parcel parcel) {
             OfferItems mOfferItem = new OfferItems();
+            mOfferItem.setId(parcel.readInt());
             mOfferItem.setActive(Boolean.parseBoolean(parcel.readString()));
             mOfferItem.setEndTime(new Date(parcel.readLong()));
             mOfferItem.setStartTime(new Date(parcel.readLong()));
@@ -112,4 +126,6 @@ public class OfferItems implements Parcelable{
             return new OfferItems[size];
         }
     };
+
+
 }

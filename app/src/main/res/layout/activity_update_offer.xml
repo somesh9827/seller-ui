@@ -53,7 +53,7 @@
             android:background="@drawable/default_form_text_selector"
             />
         <Button
-            android:id="@+id/update_offer_button"
+            android:id="@+id/update_offer_save_button"
             android:layout_marginTop="@dimen/form_element_padding"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
             />
 
         <Button
-            android:id="@+id/cancel_update_offer_button"
+            android:id="@+id/update_offer_cancel_button"
             android:layout_marginTop="@dimen/form_element_padding"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

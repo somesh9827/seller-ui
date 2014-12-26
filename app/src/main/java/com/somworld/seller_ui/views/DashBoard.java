@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.somworld.seller_ui.R;
 import com.somworld.seller_ui.helpers.FactoryGirl;
@@ -24,7 +25,8 @@ import java.util.List;
 
 
 public class DashBoard extends Activity {
-
+    private int currentItemPosition = -1;
+    private static final int invalidPosition = -1;
     private ListView offerList;
     private List<OfferItems> offers;
 
@@ -70,6 +72,7 @@ public class DashBoard extends Activity {
         } else if (item.getTitle() == "Enable") {
             EnableOffer(offers.get(info.position));
         } else if (item.getTitle() == "Edit") {
+            currentItemPosition = info.position;
             callUpdateOfferActivity(new OfferItems(offers.get(info.position)));
         }
         else {
@@ -108,8 +111,45 @@ public class DashBoard extends Activity {
         Bundle mBundle = new Bundle();
         mBundle.putParcelable(ParcelableKeys.OFFER_ITEM,offer);
         intent.putExtras(mBundle);
-        startActivity(intent);
+        startActivityForResult(intent,IntentKeys.UPDATE_OFFER);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case IntentKeys.UPDATE_OFFER :
+                if (resultCode == RESULT_OK) {
+                    Bundle mBundle = data.getExtras();
+                    OfferItems offer = mBundle.getParcelable(ParcelableKeys.OFFER_ITEM);
+                    updateListItem(currentItemPosition,offer);
+                }
+                else if (resultCode == RESULT_CANCELED) {
+                    Toast.makeText(this, "cancel", Toast.LENGTH_LONG).show();
+                }
+        }
 
+    }
+
+    private void updateListItem(int position, OfferItems newOffer) {
+        OfferItems oldOffer = offers.get(position);
+        if(isCurrentItemPositionValid() && newOffer.getId() == oldOffer.getId()) {
+            inValidateCurrentItemPosition();
+            oldOffer.setActive(newOffer.isActive());
+            oldOffer.setStartTime(newOffer.getStartTime());
+            oldOffer.setDescription(newOffer.getDescription());
+            oldOffer.setEndTime(newOffer.getEndTime());
+            oldOffer.setProduct(newOffer.getProduct());
+            oldOffer.setDiscount(newOffer.getDiscount());
+            ((BaseAdapter) offerList.getAdapter()).notifyDataSetChanged();
+        }
+    }
+
+    private void inValidateCurrentItemPosition() {
+        currentItemPosition = invalidPosition;
+    }
+
+    private boolean isCurrentItemPositionValid() {
+        return currentItemPosition != invalidPosition;
+    }
 }

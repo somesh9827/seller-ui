@@ -18,6 +18,7 @@ public class FactoryGirl {
         for( int i = 0; i < activeOfferCount; i++ ) {
 
             OfferItems offer = new OfferItems();
+            offer.setId(i);
             offer.setActive(true);
             offer.setProduct("Nike Shoes");
             offer.setDescription("20% Discount on All Nike Shoes");
@@ -32,6 +33,7 @@ public class FactoryGirl {
         for( int i = 0; i < inActiveOfferCount; i++ ) {
 
             OfferItems offer = new OfferItems();
+            offer.setId(i);
             offer.setActive(false);
             offer.setProduct("Nike Shoes");
             offer.setDescription("20% Discount on All Nike Shoes");
