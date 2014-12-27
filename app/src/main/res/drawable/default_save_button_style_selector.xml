@@ -3,15 +3,15 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <solid android:color="#336699"/>
-            <stroke android:color="#528BC5" android:width="2sp"/>
+            <solid android:color="@color/save_button_blue_solid_on_pressed_blue"/>
+            <stroke android:color="@color/save_button_blue_solid_blue" android:width="2sp"/>
             <corners android:radius="4dp"/>
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#528BC5"/>
-            <stroke android:color="#336699" android:width="1sp"/>
+            <solid android:color="@color/save_button_blue_solid_blue"/>
+            <stroke android:color="@color/save_button_blue_solid_on_pressed_blue" android:width="1sp"/>
             <corners android:radius="4dp"/>
         </shape>
     </item>

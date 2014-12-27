@@ -5,15 +5,15 @@
     <selector>
         <item android:state_pressed="true">
             <shape  android:shape="oval">
-                <solid android:color="#AF4036"></solid>
-                <stroke android:color="#db4437" android:width="1sp"></stroke>
+                <solid android:color="@color/add_new_button_stroke_red"/>
+                <stroke android:color="@color/add_new_button_solid_red" android:width="1sp"/>
                 <corners>5sp</corners>
             </shape>
         </item>
         <item>
             <shape  android:shape="oval">
-                <solid android:color="#db4437"></solid>
-                <stroke android:color="#AF4036" android:width="1sp"></stroke>
+                <solid android:color="@color/add_new_button_solid_red"/>
+                <stroke android:color="@color/add_new_button_stroke_red" android:width="1sp"/>
                 <corners>5sp</corners>
             </shape>
         </item>
@@ -22,5 +22,6 @@
 </item>
     <item>
         <bitmap android:src="@drawable/inbox_add_image" android:gravity="center"/>
+        <scale android:scaleHeight="0.5" android:scaleWidth="0.5"/>
     </item>
 </layer-list>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dashboard_product_title_black">#4c4c4c</color>
+    <color name="dashboard_list_item_heading_green">#00acc1</color>
+    <color name="add_new_button_solid_red">#db4437</color>
+    <color name="add_new_button_stroke_red">#AF4036</color>
+    <color name="action_bar_background_blue">#3b8dbd</color>
+    <color name="action_bar_title_white">#FFFFFF</color>
+    <color name="save_button_blue_solid_blue">#528BC5</color>
+    <color name="save_button_blue_solid_on_pressed_blue">#336699</color>
+    <color name="cancel_button_blue_solid_red">#99335A</color>
+    <color name="cancel_button_blue_solid_on_pressed_red">#842F50</color>
+    <color name="form_text_border_green">#64a1a9</color>
+    <color name="form_text_white">#FFFFFFFF</color>
+    <color name="dashboard_list_item_content_black">#4c4c4c</color>
+    <color name="form_edit_text_grey">#375155</color>
+    <color name="default_button_text_white">#FFFFFF</color>
+    <color name="default_heading_blue">#00acc1</color>
+</resources>
