@@ -3,7 +3,7 @@ package com.somworld.seller_ui.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.somworld.seller_ui.helpers.Utills;
+import com.somworld.seller_ui.helpers.Utils;
 
 import java.util.Date;
 
@@ -32,7 +32,7 @@ public class OfferItems implements Parcelable{
 
 
     public OfferItems() {
-        id = Utills.INVALID_ID;
+        id = Utils.INVALID_ID;
     }
 
     public String getProduct() {

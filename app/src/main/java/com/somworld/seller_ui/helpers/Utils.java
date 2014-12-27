@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by somesh.shrivastava on 17/12/14.
  */
-public class Utills {
+public class Utils {
 
     public static long ONE_DAY_INTERVAL = 1000 * 60 * 60 * 24;
 

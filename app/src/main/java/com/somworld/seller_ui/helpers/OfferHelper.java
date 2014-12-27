@@ -17,9 +17,9 @@ public class OfferHelper {
     }
 
     public static String formatDate(Date date,int dateContext,DateFormat format)  {
-        StringBuffer dateString = new StringBuffer(Utills.parsedDate(format, date));
-        if(dateContext == Utills.START_DATE_CONTEXT) return dateString.insert(0,"").toString();
-        if(dateContext == Utills.END_DATE_CONTEXT) return dateString.insert(0,"").toString();
+        StringBuffer dateString = new StringBuffer(Utils.parsedDate(format, date));
+        if(dateContext == Utils.START_DATE_CONTEXT) return dateString.insert(0,"").toString();
+        if(dateContext == Utils.END_DATE_CONTEXT) return dateString.insert(0,"").toString();
         else return "";
     }
 }

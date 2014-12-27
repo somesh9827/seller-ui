@@ -10,13 +10,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.somworld.seller_ui.R;
 import com.somworld.seller_ui.helpers.FactoryGirl;
 import com.somworld.seller_ui.helpers.OfferHelper;
-import com.somworld.seller_ui.models.IntentKeys;
+import com.somworld.seller_ui.helpers.IntentKeys;
 import com.somworld.seller_ui.models.OfferItems;
 import com.somworld.seller_ui.models.ParcelableKeys;
 import com.somworld.seller_ui.views.adapters.DashBoardListAdapter;
@@ -24,7 +25,7 @@ import com.somworld.seller_ui.views.adapters.DashBoardListAdapter;
 import java.util.List;
 
 
-public class DashBoard extends Activity {
+public class DashBoard extends Activity implements View.OnClickListener {
     private int currentItemPosition = -1;
     private static final int invalidPosition = -1;
     private ListView offerList;
@@ -38,6 +39,7 @@ public class DashBoard extends Activity {
         offerList = (ListView) findViewById(R.id.dash_board_list);
         offers = FactoryGirl.getOffers(5, 3);
         offerList.setAdapter(new DashBoardListAdapter(this, offers));
+        findViewById(R.id.dash_board_add_new_offer).setOnClickListener(this);
         registerForContextMenu(offerList);
     }
 
@@ -114,6 +116,11 @@ public class DashBoard extends Activity {
         startActivityForResult(intent,IntentKeys.UPDATE_OFFER);
     }
 
+    private void callAddNewOfferActivity() {
+        Intent addNewOfferIntent = new Intent(this,CreateOffer.class);
+        startActivityForResult(addNewOfferIntent,IntentKeys.ADD_NEW_OFFER);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -127,7 +134,21 @@ public class DashBoard extends Activity {
                 else if (resultCode == RESULT_CANCELED) {
                     Toast.makeText(this, "cancel", Toast.LENGTH_LONG).show();
                 }
+                break;
+            case IntentKeys.ADD_NEW_OFFER:
+                if(resultCode == RESULT_OK) {
+                    Bundle mBundle = data.getExtras();
+                    OfferItems offer =  mBundle.getParcelable(ParcelableKeys.OFFER_ITEM);
+                    pushNewListItem(offer);
+                }
+                else if(resultCode == RESULT_CANCELED) {
+                    Toast.makeText(this, "cancel", Toast.LENGTH_LONG).show();
+                }
+                break;
+            default:
+                break;
         }
+
 
     }
 
@@ -145,11 +166,27 @@ public class DashBoard extends Activity {
         }
     }
 
+    private void pushNewListItem(OfferItems newOffer) {
+        OfferItems temp = new OfferItems(newOffer);
+        offers.add(0,temp);
+        ((BaseAdapter) offerList.getAdapter()).notifyDataSetChanged();
+    }
+
     private void inValidateCurrentItemPosition() {
         currentItemPosition = invalidPosition;
     }
 
     private boolean isCurrentItemPositionValid() {
         return currentItemPosition != invalidPosition;
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.dash_board_add_new_offer :
+                callAddNewOfferActivity();
+                break;
+        }
     }
 }

@@ -25,7 +25,7 @@ public class FactoryGirl {
             offer.setDiscount("20%");
             offer.setStartTime(new Date());
             Date endDate = new Date();
-            endDate.setTime(System.currentTimeMillis() + Utills.ONE_DAY_INTERVAL);
+            endDate.setTime(System.currentTimeMillis() + Utils.ONE_DAY_INTERVAL);
             offer.setEndTime(endDate);
             offers.add(offer);
         }

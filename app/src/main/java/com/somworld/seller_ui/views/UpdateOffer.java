@@ -3,17 +3,16 @@ package com.somworld.seller_ui.views;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
 
 import com.somworld.seller_ui.R;
 import com.somworld.seller_ui.helpers.OfferHelper;
-import com.somworld.seller_ui.helpers.Utills;
+import com.somworld.seller_ui.helpers.Utils;
 import com.somworld.seller_ui.models.OfferItems;
 import com.somworld.seller_ui.models.OnCompleteListener;
 import com.somworld.seller_ui.models.ParcelableKeys;
@@ -49,10 +48,10 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
     }
 
     private void setDateToTextBox(Date date) {
-        if(dateContext == Utills.START_DATE_CONTEXT && offerStartTime != null)
-            offerStartTime.setText(OfferHelper.formatDate(date, Utills.START_DATE_CONTEXT, Utills.getTimeFormat()));
-        else if(dateContext == Utills.END_DATE_CONTEXT && offerEndTime != null)
-            offerEndTime.setText(OfferHelper.formatDate(date, Utills.END_DATE_CONTEXT, Utills.getTimeFormat()));
+        if(dateContext == Utils.START_DATE_CONTEXT && offerStartTime != null)
+            offerStartTime.setText(OfferHelper.formatDate(date, Utils.START_DATE_CONTEXT, Utils.getTimeFormat()));
+        else if(dateContext == Utils.END_DATE_CONTEXT && offerEndTime != null)
+            offerEndTime.setText(OfferHelper.formatDate(date, Utils.END_DATE_CONTEXT, Utils.getTimeFormat()));
 
     }
 
@@ -73,8 +72,8 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
 
         product.setText(mOffer.getProduct());
         productDescription.setText(mOffer.getDescription());
-        offerStartTime.setText(OfferHelper.formatDate(mOffer.getStartTime(), Utills.START_DATE_CONTEXT, Utills.getTimeFormat()));
-        offerEndTime.setText(OfferHelper.formatDate(mOffer.getEndTime(), Utills.END_DATE_CONTEXT, Utills.getTimeFormat()));
+        offerStartTime.setText(OfferHelper.formatDate(mOffer.getStartTime(), Utils.START_DATE_CONTEXT, Utils.getTimeFormat()));
+        offerEndTime.setText(OfferHelper.formatDate(mOffer.getEndTime(), Utils.END_DATE_CONTEXT, Utils.getTimeFormat()));
 
         saveButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
@@ -104,11 +103,11 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.update_offer_Start_time :
-                dateContext = Utills.START_DATE_CONTEXT;
+                dateContext = Utils.START_DATE_CONTEXT;
                 new DateAndTimePickerDialog(UpdateOffer.this, this).show();
                 break;
             case R.id.update_offer_End_time :
-                dateContext = Utills.END_DATE_CONTEXT;
+                dateContext = Utils.END_DATE_CONTEXT;
                 new DateAndTimePickerDialog(UpdateOffer.this, this).show();
                 break;
             case R.id.update_offer_save_button :
@@ -125,15 +124,15 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
         try {
             mOffer.setProduct(product.getText().toString());
             mOffer.setDescription(productDescription.getText().toString());
-            mOffer.setStartTime(Utills.getTimeFormat().parse(offerStartTime.getText().toString()));
-            mOffer.setEndTime(Utills.getTimeFormat().parse(offerEndTime.getText().toString()));
+            mOffer.setStartTime(Utils.getTimeFormat().parse(offerStartTime.getText().toString()));
+            mOffer.setEndTime(Utils.getTimeFormat().parse(offerEndTime.getText().toString()));
 
             Bundle mBundle = new Bundle();
             mBundle.putParcelable(ParcelableKeys.OFFER_ITEM,mOffer);
             Intent showDashBoardIntent = new Intent();
             showDashBoardIntent.putExtras(mBundle);
 
-            setResult(RESULT_OK,showDashBoardIntent);
+            setResult(RESULT_OK, showDashBoardIntent);
             finish();
         } catch (ParseException e) {
             e.printStackTrace();

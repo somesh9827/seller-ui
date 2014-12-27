@@ -8,10 +8,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.somworld.seller_ui.R;
-import com.somworld.seller_ui.helpers.Utills;
+import com.somworld.seller_ui.helpers.Utils;
 import com.somworld.seller_ui.models.OnCompleteListener;
 
 import java.util.Date;
@@ -61,7 +60,7 @@ public class DateAndTimePickerDialog extends Dialog implements View.OnClickListe
         int year = datePicker.getYear();
         int hour = timePicker.getCurrentHour();
         int mins = timePicker.getCurrentMinute();
-        return Utills.getDateFromYEAR_MONTH_DAY(year, month, day, hour, mins, 0);
+        return Utils.getDateFromYEAR_MONTH_DAY(year, month, day, hour, mins, 0);
     }
 
     @Override

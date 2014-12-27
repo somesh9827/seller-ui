@@ -1,4 +1,4 @@
-package com.somworld.seller_ui.models;
+package com.somworld.seller_ui.helpers;
 
 /**
  * Created by somesh.shrivastava on 27/12/14.
