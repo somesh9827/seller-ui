@@ -7,6 +7,7 @@
 
     <style name="Theme.defaultAppTheme.ActionBar" parent="@android:style/Widget.Holo.ActionBar">
         <item name="android:background">@color/action_bar_background_blue</item>
+        <item name="android:height">60sp</item>
         <item name="android:titleTextStyle">@style/Theme.defaultAppTheme.ActionBar.TitleTextStyle</item>
     </style>
 
