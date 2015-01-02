@@ -124,9 +124,10 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
         try {
             mOffer.setProduct(product.getText().toString());
             mOffer.setDescription(productDescription.getText().toString());
-            mOffer.setStartTime(Utils.getTimeFormat().parse(offerStartTime.getText().toString()));
-            mOffer.setEndTime(Utils.getTimeFormat().parse(offerEndTime.getText().toString()));
-
+            //mOffer.setStartTime(Utils.getTimeFormat().parse(offerStartTime.getText().toString()));
+            mOffer.setStartTime(offerStartTime.getText().toString(),Utils.getTimeFormat());
+            //mOffer.setEndTime(Utils.getTimeFormat().parse(offerEndTime.getText().toString()));
+            mOffer.setStartTime(offerEndTime.getText().toString(),Utils.getTimeFormat());
             Bundle mBundle = new Bundle();
             mBundle.putParcelable(ParcelableKeys.OFFER_ITEM,mOffer);
             Intent showDashBoardIntent = new Intent();
