@@ -5,6 +5,7 @@
     <color name="add_new_button_solid_red">#db4437</color>
     <color name="add_new_button_stroke_red">#AF4036</color>
     <color name="action_bar_background_blue">#3b8dbd</color>
+    <color name="menu_bar_background_blue">#3b8dbd</color>
     <color name="action_bar_title_white">#FFFFFF</color>
     <color name="save_button_blue_solid_blue">#528BC5</color>
     <color name="save_button_blue_solid_on_pressed_blue">#336699</color>
