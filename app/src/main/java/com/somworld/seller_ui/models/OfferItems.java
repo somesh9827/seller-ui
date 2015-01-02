@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.somworld.seller_ui.helpers.Utils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -59,6 +61,11 @@ public class OfferItems implements Parcelable{
         this.startTime = new Date(startTime.getTime());
     }
 
+    public void setStartTime(String dateString,DateFormat dateFormat) throws ParseException,NullPointerException{
+        if(dateFormat == null) throw new NullPointerException("Date Format should not be null");
+        this.startTime = dateFormat.parse(dateString);
+    }
+
     public Date getEndTime() {
         return new Date(endTime.getTime());
     }
@@ -66,6 +73,12 @@ public class OfferItems implements Parcelable{
     public void setEndTime(Date endTime) {
         this.endTime = new Date(endTime.getTime());
     }
+
+    public void setEndTime(String dateString,DateFormat dateFormat) throws ParseException,NullPointerException{
+        if(dateFormat == null) throw new NullPointerException("Date Format should not be null");
+        this.endTime = dateFormat.parse(dateString);
+    }
+
 
     public String getDiscount() {
         return discount;
