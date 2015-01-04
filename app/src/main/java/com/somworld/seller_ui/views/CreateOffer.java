@@ -23,8 +23,6 @@ import com.somworld.seller_ui.models.OfferItems;
 import com.somworld.seller_ui.models.OnCompleteListener;
 import com.somworld.seller_ui.models.ParcelableKeys;
 
-import org.mockito.internal.matchers.Not;
-
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -191,7 +189,7 @@ public class CreateOffer extends Activity {
                 validator.validate(ruleValueAdapters);
         }
             catch (ParseException e){
-                Toast.makeText(mParent,"In Correct Date",Toast.LENGTH_LONG).show();
+                Toast.makeText(mParent,"In Correct Data",Toast.LENGTH_LONG).show();
             }
 
         }
@@ -227,23 +225,26 @@ public class CreateOffer extends Activity {
         @Override
         public void onValidationSuccess(List<RuleValueAdapter> fields) {
             OfferItems offer = new OfferItems();
-            for (RuleValueAdapter field: fields){
-                switch (field.getId()){
-                    case R.id.create_offer_description :
+            for (RuleValueAdapter field: fields) {
+                switch (field.getId()) {
+                    case R.id.create_offer_description:
                         offer.setDescription(field.getValue().toString());
                         break;
-                    case R.id.create_offer_product :
+                    case R.id.create_offer_product:
                         offer.setProduct(field.getValue().toString());
                         break;
-                    case R.id.create_offer_Start_time :
+                    case R.id.create_offer_Start_time:
+                        Toast.makeText(mParent, "Start time", Toast.LENGTH_LONG).show();
                         offer.setStartTime((Date)field.getValue());
-                    case R.id.create_offer_End_time :
-                        offer.setEndTime((Date) field.getValue());
-
-                    default:break;
+                        break;
+                    case R.id.create_offer_End_time:
+                        offer.setEndTime((Date)field.getValue());
+                        break;
+                    default:
+                        break;
                 }
 
-
+            }
                 offer.setActive(true);
                 offer.setDiscount("");
                 offer.setActive(OfferHelper.isValid(offer));
@@ -256,7 +257,7 @@ public class CreateOffer extends Activity {
                 mParent.setResult(RESULT_OK, showDashBoardIntent);
                 mParent.finish();
 
-            }
+
 
         }
     }
