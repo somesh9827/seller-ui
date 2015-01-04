@@ -1,25 +1,37 @@
 package com.somworld.seller_ui.views;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.somworld.seller_ui.R;
 import com.somworld.seller_ui.helpers.OfferHelper;
 import com.somworld.seller_ui.helpers.Utils;
+import com.somworld.seller_ui.helpers.validators.IValidatorListener;
+import com.somworld.seller_ui.helpers.validators.RuleValueAdapter;
+import com.somworld.seller_ui.helpers.validators.ValidationError;
+import com.somworld.seller_ui.helpers.validators.Validator;
+import com.somworld.seller_ui.helpers.validators.rules.MinDate;
+import com.somworld.seller_ui.helpers.validators.rules.NotEmpty;
+import com.somworld.seller_ui.helpers.validators.rules.RULE;
 import com.somworld.seller_ui.models.OfferItems;
 import com.somworld.seller_ui.models.OnCompleteListener;
 import com.somworld.seller_ui.models.ParcelableKeys;
 
+import org.mockito.internal.matchers.Not;
+
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 public class CreateOffer extends Activity {
     int dateContext  = -1 ;
@@ -66,7 +78,8 @@ public class CreateOffer extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private static class CreateOfferOnClickListener implements View.OnClickListener, OnCompleteListener {
+
+    private static class CreateOfferOnClickListener implements View.OnClickListener, OnCompleteListener, IValidatorListener {
         CreateOffer mParent;
         CreateOfferOnClickListener (CreateOffer parent) {
             mParent = parent;
@@ -98,7 +111,7 @@ public class CreateOffer extends Activity {
 
         private void createNewOffer() {
             if(mParent == null) return;
-            try {
+           //try {
                 OfferItems offer = new OfferItems();
                 String description = ((EditText) mParent.findViewById(R.id.create_offer_description)).getText().toString();
                 String productName = ((EditText) mParent.findViewById(R.id.create_offer_product)).getText().toString();
@@ -108,7 +121,9 @@ public class CreateOffer extends Activity {
                 description = description.equals(mParent.getString(R.string.product_description)) ? "" : description;
                 productName = productName.equals(mParent.getString(R.string.product_name)) ? "" : productName;
 
-                Date startTime = Utils.getTimeFormat().parse(startTimeString);
+                validate();
+
+                /*Date startTime = Utils.getTimeFormat().parse(startTimeString);
                 Date endTime = Utils.getTimeFormat().parse(endTimeString);
                 offer.setActive(true);
                 offer.setDiscount("");
@@ -124,9 +139,60 @@ public class CreateOffer extends Activity {
                 showDashBoardIntent.putExtras(mBundle);
 
                 mParent.setResult(RESULT_OK, showDashBoardIntent);
-                mParent.finish();
+                mParent.finish();*/
 
-            }catch (ParseException ex) {}
+           // }catch (ParseException ex) {}
+
+        }
+
+        private void validate() {
+                if(mParent == null) return;
+
+            try {
+                String description = ((EditText) mParent.findViewById(R.id.create_offer_description)).getText().toString();
+                String productName = ((EditText) mParent.findViewById(R.id.create_offer_product)).getText().toString();
+                String startTimeString = ((EditText) mParent.findViewById(R.id.create_offer_Start_time)).getText().toString();
+                String endTimeString = ((EditText) mParent.findViewById(R.id.create_offer_End_time)).getText().toString();
+
+                Date startTime = Utils.getTimeFormat().parse(startTimeString);
+                Date endTime = Utils.getTimeFormat().parse(endTimeString);
+
+
+                description = description.equals(mParent.getString(R.string.product_description)) ? "" : description;
+                productName = productName.equals(mParent.getString(R.string.product_name)) ? "" : productName;
+
+                List<RuleValueAdapter> ruleValueAdapters = new ArrayList<RuleValueAdapter>();
+                RULE NotEmptyRule = new NotEmpty();
+                RuleValueAdapter<String> ruleValueAdapter1 = new RuleValueAdapter<String>(R.id.create_offer_description, description);
+                ruleValueAdapter1.addRule(NotEmptyRule, String.format(mParent.getString(R.string.not_empty),"Product Description"));
+                ruleValueAdapters.add(ruleValueAdapter1);
+
+                RULE NotEmptyRule2 = new NotEmpty();
+                RuleValueAdapter<String> ruleValueAdapter2 = new RuleValueAdapter<String>(R.id.create_offer_product, productName);
+                ruleValueAdapter2.addRule(NotEmptyRule2, String.format(mParent.getString(R.string.not_empty),"Product Name"));
+                ruleValueAdapters.add(ruleValueAdapter2);
+
+                RULE NotEmptyRule3 = new NotEmpty();
+                RULE minDateRule = new MinDate(startTime);
+                RuleValueAdapter<Date> ruleValueAdapter3 = new RuleValueAdapter<Date>(R.id.create_offer_End_time, endTime);
+                ruleValueAdapter3.addRule(NotEmptyRule3, String.format(mParent.getString(R.string.not_empty),"End Time"));
+                ruleValueAdapter3.addRule(minDateRule,String.format(mParent.getString(R.string.max_error),"End Time","Start Time"));
+                ruleValueAdapters.add(ruleValueAdapter3);
+
+                RULE NotEmptyRule4 = new NotEmpty();
+                RULE minDateRule1 = new MinDate(Utils.getMinAllowedStartTime(new Date()));
+                RuleValueAdapter<Date> ruleValueAdapter4 = new RuleValueAdapter<Date>(R.id.create_offer_Start_time, startTime);
+                ruleValueAdapter4.addRule(NotEmptyRule4, String.format(mParent.getString(R.string.not_empty),"Start Time"));
+                ruleValueAdapter4.addRule(minDateRule1,String.format(mParent.getString(R.string.max_error),"Start Time","Current Time"));
+                ruleValueAdapters.add(ruleValueAdapter4);
+
+                Validator validator = new Validator(this);
+
+                validator.validate(ruleValueAdapters);
+        }
+            catch (ParseException e){
+                Toast.makeText(mParent,"In Correct Date",Toast.LENGTH_LONG).show();
+            }
 
         }
 
@@ -149,5 +215,50 @@ public class CreateOffer extends Activity {
 
             }
         }
+
+        @Override
+        public void onValidationFail(ValidationError error) {
+            Vector<Integer> keys = error.getAllKeys();
+            int firstKey = keys.get(0);
+            String errorMessage = error.getConcatinatedErrorMessage(firstKey);
+            Toast.makeText(mParent,errorMessage,Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onValidationSuccess(List<RuleValueAdapter> fields) {
+            OfferItems offer = new OfferItems();
+            for (RuleValueAdapter field: fields){
+                switch (field.getId()){
+                    case R.id.create_offer_description :
+                        offer.setDescription(field.getValue().toString());
+                        break;
+                    case R.id.create_offer_product :
+                        offer.setProduct(field.getValue().toString());
+                        break;
+                    case R.id.create_offer_Start_time :
+                        offer.setStartTime((Date)field.getValue());
+                    case R.id.create_offer_End_time :
+                        offer.setEndTime((Date) field.getValue());
+
+                    default:break;
+                }
+
+
+                offer.setActive(true);
+                offer.setDiscount("");
+                offer.setActive(OfferHelper.isValid(offer));
+
+                Bundle mBundle = new Bundle();
+                mBundle.putParcelable(ParcelableKeys.OFFER_ITEM, offer);
+                Intent showDashBoardIntent = new Intent();
+                showDashBoardIntent.putExtras(mBundle);
+
+                mParent.setResult(RESULT_OK, showDashBoardIntent);
+                mParent.finish();
+
+            }
+
+        }
     }
 }
+

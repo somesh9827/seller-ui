@@ -2,6 +2,8 @@ package com.somworld.seller_ui.helpers.validators.rules;
 
 import com.somworld.seller_ui.helpers.validators.RuleValueAdapter;
 import com.somworld.seller_ui.helpers.validators.Validator;
+import com.somworld.seller_ui.helpers.validators.IValidatorListener;
+
 
 import junit.framework.TestCase;
 
@@ -15,9 +17,14 @@ import java.util.List;
 public class ValidatorTest extends TestCase {
 
     List<RuleValueAdapter> ruleValueAdapters;
+    IValidatorListener listener;
     @Override
     public void setUp() throws Exception {
         super.setUp();
+       // listener =  mock(IValidatorListener.class);
+
+        //verify(listener,times(1)).onValidationSuccess();
+
         ruleValueAdapters= new ArrayList<RuleValueAdapter>();
         RULE notEmptyRule = new NotEmpty();
         RuleValueAdapter ruleValueAdapter1 =  new RuleValueAdapter(1,"Somesh");
@@ -32,7 +39,8 @@ public class ValidatorTest extends TestCase {
     }
 
     public void testValidateShouldPass() throws Exception {
-
+        //listener =  mock(IValidatorListener.class);
+        //verify(listener,times(1)).onValidationSuccess();
         Validator validator = new Validator();
         validator.validate(ruleValueAdapters);
         assertEquals(true,true);

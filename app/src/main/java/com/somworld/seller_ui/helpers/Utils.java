@@ -13,6 +13,8 @@ public class Utils {
 
     public static long ONE_DAY_INTERVAL = 1000 * 60 * 60 * 24;
 
+    public static long FIVE_MINUTE_INTERVAL = 1000 * 60 * 5;
+
     public static final int START_DATE_CONTEXT = 0;
     public static final int END_DATE_CONTEXT = 1;
 
@@ -35,6 +37,11 @@ public class Utils {
         else
             return "";
 
+    }
+
+    public static Date getMinAllowedStartTime(final Date currentTime) {
+        if(currentTime == null) throw new IllegalArgumentException("Argument should not be null");
+        return new Date( currentTime.getTime() -  FIVE_MINUTE_INTERVAL);
     }
 
 }
