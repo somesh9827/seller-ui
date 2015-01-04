@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="min_error">%1$s should not be less than %2$s</string>
+    <string name="max_error">%1$s should not be greater than %2$s</string>
+    <string name="not_empty">%1$s should not be empty !!</string>
+    <string name="email_validation">Invalid email !!</string>
+</resources>
