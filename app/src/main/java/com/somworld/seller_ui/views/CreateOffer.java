@@ -110,7 +110,7 @@ public class CreateOffer extends Activity {
         private void createNewOffer() {
             if(mParent == null) return;
            //try {
-                OfferItems offer = new OfferItems();
+               /* OfferItems offer = new OfferItems();
                 String description = ((EditText) mParent.findViewById(R.id.create_offer_description)).getText().toString();
                 String productName = ((EditText) mParent.findViewById(R.id.create_offer_product)).getText().toString();
                 String startTimeString = ((EditText) mParent.findViewById(R.id.create_offer_Start_time)).getText().toString();
@@ -118,26 +118,10 @@ public class CreateOffer extends Activity {
 
                 description = description.equals(mParent.getString(R.string.product_description)) ? "" : description;
                 productName = productName.equals(mParent.getString(R.string.product_name)) ? "" : productName;
-
+*/
                 validate();
 
-                /*Date startTime = Utils.getTimeFormat().parse(startTimeString);
-                Date endTime = Utils.getTimeFormat().parse(endTimeString);
-                offer.setActive(true);
-                offer.setDiscount("");
-                offer.setDescription(description);
-                offer.setProduct(productName);
-                offer.setStartTime(startTime);
-                offer.setEndTime(endTime);
-                offer.setActive(OfferHelper.isValid(offer));
 
-                Bundle mBundle = new Bundle();
-                mBundle.putParcelable(ParcelableKeys.OFFER_ITEM,offer);
-                Intent showDashBoardIntent = new Intent();
-                showDashBoardIntent.putExtras(mBundle);
-
-                mParent.setResult(RESULT_OK, showDashBoardIntent);
-                mParent.finish();*/
 
            // }catch (ParseException ex) {}
 
@@ -234,7 +218,6 @@ public class CreateOffer extends Activity {
                         offer.setProduct(field.getValue().toString());
                         break;
                     case R.id.create_offer_Start_time:
-                        Toast.makeText(mParent, "Start time", Toast.LENGTH_LONG).show();
                         offer.setStartTime((Date)field.getValue());
                         break;
                     case R.id.create_offer_End_time:
