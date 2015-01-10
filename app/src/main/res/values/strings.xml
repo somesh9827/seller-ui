@@ -17,4 +17,8 @@
     <string name="title_activity_create_offer">Create New Offer</string>
     <string name="offer_start_time">Offer Start Time</string>
     <string name="offer_end_time">Offer End Time</string>
+    <string name="title_activity_seller_profile">Profile</string>
+    <string name="menu_dash_board">DashBoard</string>
+    <string name="menu_seller_profile">Profile</string>
+
 </resources>

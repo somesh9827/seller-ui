@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="dash_board_add_new_offer" type="id">dash_board_add_new_offer</item>
+    <item name="action_dash_board" type="id">action_dash_board</item>
 </resources>

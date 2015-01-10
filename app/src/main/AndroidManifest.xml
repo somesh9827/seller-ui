@@ -18,8 +18,7 @@
         <activity
             android:name=".views.UpdateOffer"
             android:label="@string/title_activity_update_offer"
-            android:parentActivityName=".views.DashBoard"
-            >
+            android:parentActivityName=".views.DashBoard" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.somworld.seller_ui.views.DashBoard" />
@@ -31,6 +30,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.somworld.seller_ui.views.DashBoard" />
+        </activity>
+        <activity
+            android:name=".views.sellerProfile"
+            android:label="@string/title_activity_seller_profile" >
         </activity>
     </application>
 

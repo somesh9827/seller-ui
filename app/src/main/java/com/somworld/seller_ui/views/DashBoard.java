@@ -25,7 +25,7 @@ import com.somworld.seller_ui.views.adapters.DashBoardListAdapter;
 import java.util.List;
 
 
-public class DashBoard extends Activity implements View.OnClickListener {
+public class DashBoard extends BaseActivity implements View.OnClickListener {
     private int currentItemPosition = -1;
     private static final int invalidPosition = -1;
     private ListView offerList;
@@ -43,13 +43,16 @@ public class DashBoard extends Activity implements View.OnClickListener {
         registerForContextMenu(offerList);
     }
 
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.dash_board, menu);
-        return true;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_dash_board) {
+            return false;
+        }
+        return super.onOptionsItemSelected(item);
     }
+
+
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
@@ -83,17 +86,6 @@ public class DashBoard extends Activity implements View.OnClickListener {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     private void EnableOffer(OfferItems offerItem) {
 
