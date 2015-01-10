@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.somworld.seller_ui.R;
@@ -33,17 +34,22 @@ import java.util.Vector;
 
 public class CreateOffer extends Activity {
     int dateContext  = -1 ;
+    private TextView errroTextView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        errroTextView = (TextView)findViewById(R.id.create_offer_error_message);
+
         setContentView(R.layout.activity_create_offer);
         WeakReference<CreateOffer> createOfferWeakReference = new WeakReference<CreateOffer>(this);
-        findViewById(R.id.create_offer_save_button).setOnClickListener(new CreateOfferOnClickListener(createOfferWeakReference.get()));
-        findViewById(R.id.create_offer_cancel_button).setOnClickListener(new CreateOfferOnClickListener(createOfferWeakReference.get()));
-        findViewById(R.id.create_offer_Start_time).setOnClickListener(new CreateOfferOnClickListener(createOfferWeakReference.get()));
-        findViewById(R.id.create_offer_End_time).setOnClickListener(new CreateOfferOnClickListener(createOfferWeakReference.get()));
+        CreateOfferOnClickListener createOfferOnClickListener = new CreateOfferOnClickListener(createOfferWeakReference.get());
+        findViewById(R.id.create_offer_save_button).setOnClickListener(createOfferOnClickListener);
+        findViewById(R.id.create_offer_cancel_button).setOnClickListener(createOfferOnClickListener);
+        findViewById(R.id.create_offer_Start_time).setOnClickListener(createOfferOnClickListener);
+        findViewById(R.id.create_offer_End_time).setOnClickListener(createOfferOnClickListener);
 
     }
 
@@ -55,6 +61,18 @@ public class CreateOffer extends Activity {
         else if(dateContext == Utils.END_DATE_CONTEXT && offerEndTime != null)
             offerEndTime.setText(OfferHelper.formatDate(date, Utils.END_DATE_CONTEXT, Utils.getTimeFormat()));
 
+    }
+
+    private void setErrorMessage(String errorMessage) {
+        TextView errorTextView = (TextView)findViewById(R.id.create_offer_error_message);
+        errorTextView.setText(errorMessage);
+        errorTextView.setVisibility(View.VISIBLE);
+    }
+
+    private void resetErrorMessage() {
+        TextView errorTextView = (TextView)findViewById(R.id.create_offer_error_message);
+        errorTextView.setText("");
+        errorTextView.setVisibility(View.GONE);
     }
 
 
@@ -107,6 +125,8 @@ public class CreateOffer extends Activity {
             }
         }
 
+
+
         private void createNewOffer() {
             if(mParent == null) return;
            //try {
@@ -144,15 +164,17 @@ public class CreateOffer extends Activity {
                 productName = productName.equals(mParent.getString(R.string.product_name)) ? "" : productName;
 
                 List<RuleValueAdapter> ruleValueAdapters = new ArrayList<RuleValueAdapter>();
-                RULE NotEmptyRule = new NotEmpty();
-                RuleValueAdapter<String> ruleValueAdapter1 = new RuleValueAdapter<String>(R.id.create_offer_description, description);
-                ruleValueAdapter1.addRule(NotEmptyRule, String.format(mParent.getString(R.string.not_empty),"Product Description"));
-                ruleValueAdapters.add(ruleValueAdapter1);
+
 
                 RULE NotEmptyRule2 = new NotEmpty();
                 RuleValueAdapter<String> ruleValueAdapter2 = new RuleValueAdapter<String>(R.id.create_offer_product, productName);
                 ruleValueAdapter2.addRule(NotEmptyRule2, String.format(mParent.getString(R.string.not_empty),"Product Name"));
                 ruleValueAdapters.add(ruleValueAdapter2);
+
+                RULE NotEmptyRule = new NotEmpty();
+                RuleValueAdapter<String> ruleValueAdapter1 = new RuleValueAdapter<String>(R.id.create_offer_description, description);
+                ruleValueAdapter1.addRule(NotEmptyRule, String.format(mParent.getString(R.string.not_empty),"Product Description"));
+                ruleValueAdapters.add(ruleValueAdapter1);
 
                 RULE NotEmptyRule3 = new NotEmpty();
                 RULE minDateRule = new MinDate(startTime);
@@ -202,9 +224,11 @@ public class CreateOffer extends Activity {
         public void onValidationFail(ValidationError error) {
             Vector<Integer> keys = error.getAllKeys();
             int firstKey = keys.get(0);
-            String errorMessage = error.getConcatinatedErrorMessage(firstKey);
-            Toast.makeText(mParent,errorMessage,Toast.LENGTH_LONG).show();
+            String errorMessage = error.getFirstErrorMessage(firstKey);
+            //Toast.makeText(mParent,errorMessage,Toast.LENGTH_LONG).show();
+            mParent.setErrorMessage(errorMessage);
         }
+
 
         @Override
         public void onValidationSuccess(List<RuleValueAdapter> fields) {
@@ -231,17 +255,13 @@ public class CreateOffer extends Activity {
                 offer.setActive(true);
                 offer.setDiscount("");
                 offer.setActive(OfferHelper.isValid(offer));
-
                 Bundle mBundle = new Bundle();
                 mBundle.putParcelable(ParcelableKeys.OFFER_ITEM, offer);
                 Intent showDashBoardIntent = new Intent();
                 showDashBoardIntent.putExtras(mBundle);
-
+                mParent.resetErrorMessage();
                 mParent.setResult(RESULT_OK, showDashBoardIntent);
                 mParent.finish();
-
-
-
         }
     }
 }

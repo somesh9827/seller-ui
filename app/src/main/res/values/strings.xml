@@ -17,5 +17,4 @@
     <string name="title_activity_create_offer">Create New Offer</string>
     <string name="offer_start_time">Offer Start Time</string>
     <string name="offer_end_time">Offer End Time</string>
-
 </resources>

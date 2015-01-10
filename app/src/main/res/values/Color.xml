@@ -17,4 +17,6 @@
     <color name="form_edit_text_grey">#375155</color>
     <color name="default_button_text_white">#FFFFFF</color>
     <color name="default_heading_blue">#00acc1</color>
+    <color name="default_error_message_text_red">#FF0000</color>
+    <color name="default_error_message_background_red">#FF0000</color>
 </resources>

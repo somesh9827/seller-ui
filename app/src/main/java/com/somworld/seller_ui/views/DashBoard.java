@@ -154,6 +154,7 @@ public class DashBoard extends Activity implements View.OnClickListener {
 
     private void updateListItem(int position, OfferItems newOffer) {
         OfferItems oldOffer = offers.get(position);
+        Toast.makeText(this,""+newOffer.getId()+" "+oldOffer.getId(),Toast.LENGTH_LONG).show();
         if(isCurrentItemPositionValid() && newOffer.getId() == oldOffer.getId()) {
             inValidateCurrentItemPosition();
             oldOffer.setActive(newOffer.isActive());

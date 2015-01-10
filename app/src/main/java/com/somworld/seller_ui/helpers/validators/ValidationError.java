@@ -55,4 +55,9 @@ public class ValidationError {
 
         return error_message.toString();
     }
+
+    public String getFirstErrorMessage(int id) {
+        List<String> errorMessages = errors.get(id);
+        return errorMessages.get(0);
+    }
 }
