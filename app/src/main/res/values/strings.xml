@@ -20,5 +20,17 @@
     <string name="title_activity_seller_profile">Profile</string>
     <string name="menu_dash_board">DashBoard</string>
     <string name="menu_seller_profile">Profile</string>
+    <string name="shop_name_label">Shop Name : </string>
+    <string name="shop_name" >Royal Hotels</string>
+    <string name="owner_name_label">Owner Name : </string>
+    <string name="owner_name">Somesh Shrivastava</string>
+    <string name="working_days_label">Working Days : </string>
+    <string name="working_days">Everday</string>
+    <string name="working_hours">9 AM to 6PM</string>
+    <string name="working_hours_label">Working Hours : </string>
+    <string name="shop_phone_number_label">Shop Number : </string>
+    <string name="shop_phone_number">9008427676</string>
+    <string name="shop_address_label">Address : </string>
+    <string name="shop_address">15, 1st Main Road Royal Placid, Harlur road, Belendur, Bangalore 560102</string>
 
 </resources>
