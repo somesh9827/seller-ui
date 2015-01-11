@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <selector>
+            <item android:state_pressed="true">
+                <shape  android:shape="oval">
+                    <solid android:color="@color/add_new_button_stroke_red"/>
+                    <stroke android:color="@color/add_new_button_solid_red" android:width="1sp"/>
+                    <corners>5sp</corners>
+                </shape>
+            </item>
+            <item>
+                <shape  android:shape="oval">
+                    <solid android:color="@color/add_new_button_solid_red"/>
+                    <stroke android:color="@color/add_new_button_stroke_red" android:width="1sp"/>
+                    <corners>5sp</corners>
+                </shape>
+            </item>
+        </selector>
+
+    </item>
+    <item>
+        <bitmap android:src="@drawable/inbox_edit_button" android:gravity="center"/>
+        <scale android:scaleHeight="0.5" android:scaleWidth="0.5"/>
+    </item>
+</layer-list>

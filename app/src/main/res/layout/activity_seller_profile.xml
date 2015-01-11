@@ -1,77 +1,22 @@
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/profile_grid_activity"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:columnCount="2"
-    android:rowCount="6"
-    android:orientation="horizontal"
-    android:paddingTop="20sp"
-    android:paddingLeft="10sp"
-    android:paddingRight="10sp"
-     >
+<?xml version="1.0" encoding="utf-8"?>
 
-    <TextView
-        android:text="@string/shop_name_label"
-        style="@style/default_form_label"
-     />
-    <TextView
-        android:id="@+id/shop_name"
-        android:text="@string/shop_name"
-        style="@style/default_form_value"
-     />
-    <TextView
-        android:text="@string/owner_name_label"
-        style="@style/default_form_label"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/seller_profile"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="18"
+        >
+        <Button
+            android:layout_width="@dimen/add_new_offer_image_widht"
+            android:layout_height="@dimen/add_new_offer_image_height"
+            android:id="@+id/profile_edit_profile"
+            android:background="@drawable/edit_profile_button"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            />
+    </RelativeLayout>
 
-        />
-    <TextView
-        android:id="@+id/owner_name"
-        android:text="@string/owner_name"
-        style="@style/default_form_value"
-        />
-    <TextView
-        android:text="@string/working_days_label"
-        style="@style/default_form_label"
-        />
-
-    <TextView
-        android:id="@+id/working_days"
-        android:text="@string/working_days"
-        style="@style/default_form_value"
-        />
-    <TextView
-        android:text="@string/working_hours_label"
-        style="@style/default_form_label"
-        />
-    <TextView
-        android:id="@+id/working_hours"
-        android:text="@string/working_hours"
-        style="@style/default_form_value"
-        />
-    <TextView
-        android:text="@string/shop_phone_number_label"
-        style="@style/default_form_label"
-        />
-    <TextView
-        android:id="@+id/shop_phone_number"
-        android:text="@string/shop_phone_number"
-        style="@style/default_form_value"
-        />
-    <TextView
-        android:text="@string/shop_address_label"
-        style="@style/default_form_label"
-        />
-    <TextView
-        android:id="@+id/shop_address"
-        android:text="@string/shop_address"
-        android:width="0dp"
-        android:layout_gravity="fill_horizontal"
-        android:layout_rowSpan="5"
-        android:textSize="18sp"
-        android:layout_height="70dp"
-        style="@style/default_form_value"
-        />
-
-
-
-</GridLayout>
+</LinearLayout>
