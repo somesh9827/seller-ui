@@ -34,7 +34,7 @@
 
         <EditText
             android:layout_marginTop="@dimen/form_element_padding"
-            android:id="@+id/create_offer_Start_time"
+            android:id="@+id/create_offer_Start_Date"
             android:layout_width="match_parent"
             android:layout_height="@dimen/form_text_default_height"
             style="@style/default_form_edit_text"
@@ -45,7 +45,7 @@
 
         <EditText
             android:layout_marginTop="@dimen/form_element_padding"
-            android:id="@+id/create_offer_End_time"
+            android:id="@+id/create_offer_End_Date"
             android:layout_width="match_parent"
             android:layout_height="@dimen/form_text_default_height"
             android:editable="false"

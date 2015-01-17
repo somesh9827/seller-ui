@@ -69,10 +69,10 @@ public class DashBoardListAdapter extends BaseAdapter {
 
         tProductName.setText(currentoffer.getProduct());
         tProductDescription.setText(currentoffer.getDescription());
-        DateFormat df = DateFormat.getDateTimeInstance();
+        DateFormat df = DateFormat.getDateInstance();
         df.setTimeZone(TimeZone.getDefault());
-        tStartTime.setText("Starts : "+ df.format(currentoffer.getStartTime()));
-        tEndTime.setText("Ends : "+ df.format(currentoffer.getEndTime()));
+        tStartTime.setText("Starts : "+ df.format(currentoffer.getStartDate()));
+        tEndTime.setText("Ends : "+ df.format(currentoffer.getEndDate()));
 
         if(OfferHelper.isValid(currentoffer)) {
 

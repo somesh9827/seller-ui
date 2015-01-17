@@ -23,10 +23,10 @@ public class FactoryGirl {
             offer.setProduct("Nike Shoes");
             offer.setDescription("20% Discount on All Nike Shoes");
             offer.setDiscount("20%");
-            offer.setStartTime(new Date());
-            Date endDate = new Date();
-            endDate.setTime(System.currentTimeMillis() + Utils.ONE_DAY_INTERVAL);
-            offer.setEndTime(endDate);
+            offer.setStartDate(Utils.getCurrentDate());
+            Date endDate = Utils.getCurrentDate();
+            endDate.setTime(endDate.getTime() + Utils.ONE_DAY_INTERVAL);
+            offer.setEndDate(endDate);
             offers.add(offer);
         }
 
@@ -38,8 +38,8 @@ public class FactoryGirl {
             offer.setProduct("Nike Shoes");
             offer.setDescription("20% Discount on All Nike Shoes");
             offer.setDiscount("20%");
-            offer.setStartTime(new Date());
-            offer.setEndTime(new Date());
+            offer.setStartDate(Utils.getCurrentDate());
+            offer.setEndDate(Utils.getCurrentDate());
             offers.add(offer);
         }
 
