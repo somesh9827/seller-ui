@@ -152,6 +152,8 @@ public class DashBoard extends BaseActivity implements View.OnClickListener {
             oldOffer.setEndDate(newOffer.getEndDate());
             oldOffer.setProduct(newOffer.getProduct());
             oldOffer.setDiscount(newOffer.getDiscount());
+            oldOffer.setStartValidTime(newOffer.getStartValidTime());
+            oldOffer.setEndValidTime(newOffer.getEndValidTime());
             ((BaseAdapter) offerList.getAdapter()).notifyDataSetChanged();
         }
     }

@@ -1,13 +1,11 @@
 package com.somworld.seller_ui.helpers;
 
-import android.provider.CalendarContract;
-
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by somesh.shrivastava on 17/12/14.
@@ -18,14 +16,19 @@ public class Utils {
 
     public static long FIVE_MINUTE_INTERVAL = 1000 * 60 * 5;
 
+    public static long ONE_HOUR_INTERVAL = 1000 * 60 * 60;
+
+    public static final String validTimeDelimiter = " To ";
+
     public static final int START_DATE_CONTEXT = 0;
+
     public static final int END_DATE_CONTEXT = 1;
 
     public static final int INVALID_ID = -1;
 
     public static DateFormat getTimeFormat() {
 
-        DateFormat df =  DateFormat.getTimeInstance();
+        DateFormat df =  DateFormat.getTimeInstance(DateFormat.SHORT);
         return df;
     }
 
@@ -71,6 +74,26 @@ public class Utils {
 
     public static Date getCurrentDate() {
         return getDateFromTime(new Date());
+    }
+    public static Date getdefaultTime() {
+        Calendar c = Calendar.getInstance();
+        c.set(0,Calendar.JANUARY,0,9,0,0);
+        return c.getTime();
+    }
+
+    public static String validTimeToValidTimeString(Date fromTime, Date toTime) {
+
+        return getTimeFormat().format(fromTime) + validTimeDelimiter +  getTimeFormat().format(toTime);
+    }
+
+    public static Map<String,Date> validTimeStringToValidTime(String timeString) throws ParseException {
+        String dateString[] = timeString.split(validTimeDelimiter);
+        Date fromDate = getTimeFormat().parse(dateString[0]);
+        Date toDate = getTimeFormat().parse(dateString[1]);
+        Map<String,Date> validDates = new HashMap<String, Date>();
+        validDates.put("fromTime",fromDate);
+        validDates.put("toTime",toDate);
+        return validDates;
     }
 
 }

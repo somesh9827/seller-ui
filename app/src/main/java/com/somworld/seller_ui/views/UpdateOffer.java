@@ -41,6 +41,7 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
     private EditText productDescription;
     private EditText offerStartDate;
     private EditText offerEndDate;
+    private EditText validOfferTime;
     private Button saveButton;
     private Button cancelButton;
     private OfferItems mOffer;
@@ -53,6 +54,9 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
             {
                 Date date = new Date(((Date)(data.get("date"))).getTime());
                 setDateToTextBox(date);
+            }
+            else if(data.containsKey("fromTime") && data.containsKey("toTime")) {
+
             }
 
         } else {
@@ -68,6 +72,12 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
 
     }
 
+    private void setTimeToTextBox(Date fromTime,Date toTime) {
+        String ValidOfferTimeString = Utils.validTimeToValidTimeString(fromTime,toTime);
+        EditText validOfferTimeText = (EditText)findViewById(R.id.update_offer_valid_time);
+        validOfferTimeText.setText(ValidOfferTimeString);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,12 +92,13 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
         productDescription = (EditText)findViewById(R.id.update_offer_description);
         saveButton = (Button)findViewById(R.id.update_offer_save_button);
         cancelButton = (Button)findViewById(R.id.update_offer_cancel_button);
+        validOfferTime = (EditText)findViewById(R.id.update_offer_valid_time);
 
         product.setText(mOffer.getProduct());
         productDescription.setText(mOffer.getDescription());
         offerStartDate.setText(OfferHelper.formatDate(mOffer.getStartDate(), Utils.START_DATE_CONTEXT, Utils.getDateFormat()));
         offerEndDate.setText(OfferHelper.formatDate(mOffer.getEndDate(), Utils.END_DATE_CONTEXT, Utils.getDateFormat()));
-
+        validOfferTime.setText(Utils.validTimeToValidTimeString(mOffer.getStartValidTime(),mOffer.getEndValidTime()));
         WeakReference<UpdateOffer> updateOfferWeakReference = new WeakReference<UpdateOffer>(this);
         UpdateOfferOnClickListener updateOfferOnClickListener = new UpdateOfferOnClickListener(updateOfferWeakReference.get());
 
@@ -95,6 +106,7 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
         cancelButton.setOnClickListener(updateOfferOnClickListener);
         offerStartDate.setOnClickListener(updateOfferOnClickListener);
         offerEndDate.setOnClickListener(updateOfferOnClickListener);
+        validOfferTime.setOnClickListener(updateOfferOnClickListener);
     }
 
 
@@ -128,8 +140,10 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
                 break;
             case R.id.update_offer_save_button :
                 saveOffer();
+                break;
             case R.id.update_offer_cancel_button :
                 cancelUpdate();
+                break;
             default:
                 break;
         }
@@ -153,9 +167,9 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
             mOffer.setProduct(product.getText().toString());
             mOffer.setDescription(productDescription.getText().toString());
             //mOffer.setStartDate(Utils.getTimeFormat().parse(offerStartDate.getText().toString()));
-            mOffer.setStartTime(offerStartDate.getText().toString(),Utils.getDateFormat());
+            mOffer.setStartDate(offerStartDate.getText().toString(), Utils.getDateFormat());
             //mOffer.setEndDate(Utils.getTimeFormat().parse(offerEndDate.getText().toString()));
-            mOffer.setStartTime(offerEndDate.getText().toString(),Utils.getDateFormat());
+            mOffer.setEndDate(offerEndDate.getText().toString(), Utils.getDateFormat());
             Bundle mBundle = new Bundle();
             mBundle.putParcelable(ParcelableKeys.OFFER_ITEM,mOffer);
             Intent showDashBoardIntent = new Intent();
@@ -195,6 +209,9 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
                 case R.id.update_offer_end_date:
                     mParent.dateContext = Utils.END_DATE_CONTEXT;
                     new DateAndTimePickerDialog(mParent,this).show();
+                    break;
+                case R.id.update_offer_valid_time:
+                    new TimePickerDialog(mParent,this).show();
                     break;
                 case R.id.update_offer_save_button :
                     validateOffer();
@@ -271,6 +288,11 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
                     Date date = new Date(((Date)(data.get("date"))).getTime());
                     mParent.setDateToTextBox(date);
                 }
+                else if(data.containsKey("fromTime") && data.containsKey("toTime")){
+                    Date fromTime = new Date(((Date)(data.get("fromTime"))).getTime());
+                    Date toTime = new Date(((Date)(data.get("toTime"))).getTime());
+                    mParent.setTimeToTextBox(fromTime,toTime);
+                }
 
             } else {
 
@@ -308,11 +330,20 @@ public class UpdateOffer extends Activity implements View.OnClickListener,OnComp
                 }
 
             }
-            Toast.makeText(mParent,offer.getEndDate().toString(),Toast.LENGTH_LONG).show();
             offer.setId(mParent.mOffer.getId());
             offer.setActive(true);
             offer.setDiscount("");
             offer.setActive(OfferHelper.isValid(offer));
+
+            String validTimeString = ((EditText)mParent.findViewById(R.id.update_offer_valid_time)).getText().toString();
+            try {
+                Map<String,Date>  validTime = Utils.validTimeStringToValidTime(validTimeString);
+                offer.setStartValidTime(validTime.get("fromTime"));
+                offer.setEndValidTime(validTime.get("toTime"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
             Bundle mBundle = new Bundle();
 
             mBundle.putParcelable(ParcelableKeys.OFFER_ITEM, offer);

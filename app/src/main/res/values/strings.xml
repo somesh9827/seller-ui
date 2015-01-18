@@ -8,10 +8,11 @@
     <string name="title_activity_update_offer">Update Offers</string>
     <string name="save_button_text">Save</string>
     <string name="cancel_button_text">Cancel</string>
-    <string name="select_time">Select Time</string>
+    <string name="offer_valid_from">Valid From</string>
     <string name="select_date">Select Date</string>
-    <string name="offer_start_time_label">Offer Start Time</string>
-    <string name="offer_end_time_label">Valid till</string>
+    <string name="offer_start_date_label">Offer Start Date</string>
+    <string name="offer_end_date_label">Offer End Date</string>
+    <string name="offer_validity_time_label">Offer validity Time</string>
     <string name="product_description">Product description</string>
     <string name="product_name">Product name</string>
     <string name="title_activity_create_offer">Create New Offer</string>
@@ -32,4 +33,5 @@
     <string name="shop_phone_number">9008427676</string>
     <string name="shop_address_label">Address : </string>
     <string name="shop_address">15, 1st Main Road Royal Placid, Harlur road, Belendur, Bangalore 560102</string>
+    <string name="offer_valid_till">Valid Till</string>
 </resources>

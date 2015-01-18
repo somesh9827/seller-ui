@@ -52,6 +52,17 @@
             style="@style/default_form_edit_text"
             android:background="@drawable/default_form_text_selector"
             />
+        <EditText
+            android:layout_marginTop="@dimen/form_element_padding"
+            android:id="@+id/update_offer_valid_time"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/form_text_default_height"
+            android:editable="false"
+            android:focusable="false"
+            android:hint="@string/offer_validity_time_label"
+            style="@style/default_form_edit_text"
+            android:background="@drawable/default_form_text_selector"
+            />
         <Button
             android:id="@+id/update_offer_save_button"
             android:layout_marginTop="@dimen/form_element_padding"

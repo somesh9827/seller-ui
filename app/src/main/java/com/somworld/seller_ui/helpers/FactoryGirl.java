@@ -24,9 +24,17 @@ public class FactoryGirl {
             offer.setDescription("20% Discount on All Nike Shoes");
             offer.setDiscount("20%");
             offer.setStartDate(Utils.getCurrentDate());
+
             Date endDate = Utils.getCurrentDate();
             endDate.setTime(endDate.getTime() + Utils.ONE_DAY_INTERVAL);
             offer.setEndDate(endDate);
+
+            offer.setStartValidTime(Utils.getdefaultTime());
+
+            Date validOfferEndTime = Utils.getdefaultTime();
+            validOfferEndTime.setTime(validOfferEndTime.getTime() + 9* Utils.ONE_HOUR_INTERVAL);
+            offer.setEndValidTime(validOfferEndTime);
+
             offers.add(offer);
         }
 
@@ -40,6 +48,12 @@ public class FactoryGirl {
             offer.setDiscount("20%");
             offer.setStartDate(Utils.getCurrentDate());
             offer.setEndDate(Utils.getCurrentDate());
+            offer.setStartValidTime(Utils.getdefaultTime());
+
+            Date validOfferEndTime = Utils.getdefaultTime();
+            validOfferEndTime.setTime(validOfferEndTime.getTime() + 9* Utils.ONE_HOUR_INTERVAL);
+            offer.setEndValidTime(validOfferEndTime);
+
             offers.add(offer);
         }
 

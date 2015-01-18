@@ -30,7 +30,6 @@ public class DateAndTimePickerDialog extends Dialog implements View.OnClickListe
 
     private DatePicker datePicker;
 
-    private TimePicker timePicker;
 
     private OnCompleteListener mOnCompleteListener;
 
@@ -65,7 +64,7 @@ public class DateAndTimePickerDialog extends Dialog implements View.OnClickListe
         switch (view.getId()) {
 
             case R.id.date_time_picker_save :
-               Date date =  getFormatedDate();
+                Date date =  getFormatedDate();
                 Map<String,Object> map = new HashMap<String, Object>();
                 map.put("date",date);
                 mOnCompleteListener.complete(OnCompleteListener.SUCCESS, map);

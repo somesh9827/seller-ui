@@ -50,7 +50,7 @@ public class CreateOffer extends Activity {
         findViewById(R.id.create_offer_cancel_button).setOnClickListener(createOfferOnClickListener);
         findViewById(R.id.create_offer_Start_Date).setOnClickListener(createOfferOnClickListener);
         findViewById(R.id.create_offer_End_Date).setOnClickListener(createOfferOnClickListener);
-
+        findViewById(R.id.create_offer_valid_time).setOnClickListener(createOfferOnClickListener);
     }
 
     private void setDateToTextBox(Date date) {
@@ -60,6 +60,13 @@ public class CreateOffer extends Activity {
             offerStartTime.setText(OfferHelper.formatDate(date, Utils.START_DATE_CONTEXT, Utils.getDateFormat()));
         else if(dateContext == Utils.END_DATE_CONTEXT && offerEndTime != null)
             offerEndTime.setText(OfferHelper.formatDate(date, Utils.END_DATE_CONTEXT, Utils.getDateFormat()));
+
+    }
+
+    private void setTimeToTextBox(Date fromTime,Date toTime) {
+        String ValidOfferTimeString = Utils.validTimeToValidTimeString(fromTime,toTime);
+        EditText validOfferTimeText = (EditText)findViewById(R.id.create_offer_valid_time);
+        validOfferTimeText.setText(ValidOfferTimeString);
 
     }
 
@@ -121,6 +128,8 @@ public class CreateOffer extends Activity {
                     mParent.dateContext = Utils.END_DATE_CONTEXT;
                     new DateAndTimePickerDialog(mParent,this).show();
                     break;
+                case R.id.create_offer_valid_time:
+                    new TimePickerDialog(mParent,this).show();
                 default:break;
             }
         }
@@ -184,7 +193,7 @@ public class CreateOffer extends Activity {
                 ruleValueAdapters.add(ruleValueAdapter3);
 
                 RULE NotEmptyRule4 = new NotEmpty();
-                RULE minDateRule1 = new MinDate(Utils.getMinAllowedStartTime(new Date()));
+                RULE minDateRule1 = new MinDate(Utils.getMinAllowedStartTime(Utils.getCurrentDate()));
                 RuleValueAdapter<Date> ruleValueAdapter4 = new RuleValueAdapter<Date>(R.id.create_offer_Start_Date, startTime);
                 ruleValueAdapter4.addRule(NotEmptyRule4, String.format(mParent.getString(R.string.not_empty),"Start Date"));
                 ruleValueAdapter4.addRule(minDateRule1,String.format(mParent.getString(R.string.max_error),"Start Date","Current Date"));
@@ -213,6 +222,11 @@ public class CreateOffer extends Activity {
                 {
                     Date date = new Date(((Date)(data.get("date"))).getTime());
                     mParent.setDateToTextBox(date);
+                }
+                else if(data.containsKey("fromTime") && data.containsKey("toTime")) {
+                    Date fromTime = new Date(((Date)(data.get("fromTime"))).getTime());
+                    Date toTime = new Date(((Date)(data.get("toTime"))).getTime());
+                    mParent.setTimeToTextBox(fromTime,toTime);
                 }
 
             } else {
@@ -252,16 +266,26 @@ public class CreateOffer extends Activity {
                 }
 
             }
-                offer.setActive(true);
-                offer.setDiscount("");
-                offer.setActive(OfferHelper.isValid(offer));
-                Bundle mBundle = new Bundle();
-                mBundle.putParcelable(ParcelableKeys.OFFER_ITEM, offer);
-                Intent showDashBoardIntent = new Intent();
-                showDashBoardIntent.putExtras(mBundle);
-                mParent.resetErrorMessage();
-                mParent.setResult(RESULT_OK, showDashBoardIntent);
-                mParent.finish();
+
+
+            offer.setActive(true);
+            offer.setDiscount("");
+            String validTimeString = ((EditText)mParent.findViewById(R.id.create_offer_valid_time)).getText().toString();
+            try {
+                Map<String,Date>  validTime = Utils.validTimeStringToValidTime(validTimeString);
+                offer.setStartValidTime(validTime.get("fromTime"));
+                offer.setEndValidTime(validTime.get("toTime"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            offer.setActive(OfferHelper.isValid(offer));
+            Bundle mBundle = new Bundle();
+            mBundle.putParcelable(ParcelableKeys.OFFER_ITEM, offer);
+            Intent showDashBoardIntent = new Intent();
+            showDashBoardIntent.putExtras(mBundle);
+            mParent.resetErrorMessage();
+            mParent.setResult(RESULT_OK, showDashBoardIntent);
+            mParent.finish();
         }
     }
 }

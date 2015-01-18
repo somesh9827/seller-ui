@@ -18,8 +18,28 @@ public class OfferItems implements Parcelable{
     private String description;
     private Date startDate;
     private Date endDate;
+    private Date startValidTime;
+    private Date endValidTime;
     private String discount;
     private boolean isActive;
+
+
+    public Date getStartValidTime() {
+        return startValidTime;
+    }
+
+    public void setStartValidTime(Date startValidTime) {
+        this.startValidTime = startValidTime;
+    }
+
+    public Date getEndValidTime() {
+        return endValidTime;
+    }
+
+    public void setEndValidTime(Date endValidTime) {
+        this.endValidTime = endValidTime;
+    }
+
 
     public OfferItems(OfferItems offer) {
         this.setId(offer.id);
@@ -29,6 +49,8 @@ public class OfferItems implements Parcelable{
         this.setDescription(offer.getDescription());
         this.setStartDate(offer.getStartDate());
         this.setEndDate(offer.getEndDate());
+        this.setStartValidTime(offer.getStartValidTime());
+        this.setEndValidTime(offer.getEndValidTime());
     }
 
 
@@ -61,7 +83,7 @@ public class OfferItems implements Parcelable{
         this.startDate = new Date(startDate.getTime());
     }
 
-    public void setStartTime(String dateString,DateFormat dateFormat) throws ParseException,NullPointerException{
+    public void setStartDate(String dateString, DateFormat dateFormat) throws ParseException,NullPointerException{
         if(dateFormat == null) throw new NullPointerException("Date Format should not be null");
         this.startDate = dateFormat.parse(dateString);
     }
@@ -74,7 +96,7 @@ public class OfferItems implements Parcelable{
         this.endDate = new Date(endDate.getTime());
     }
 
-    public void setEndTime(String dateString,DateFormat dateFormat) throws ParseException,NullPointerException{
+    public void setEndDate(String dateString, DateFormat dateFormat) throws ParseException,NullPointerException{
         if(dateFormat == null) throw new NullPointerException("Date Format should not be null");
         this.endDate = dateFormat.parse(dateString);
     }
@@ -115,6 +137,8 @@ public class OfferItems implements Parcelable{
         parcel.writeString(Boolean.toString(isActive));
         parcel.writeLong(endDate.getTime());
         parcel.writeLong(startDate.getTime());
+        parcel.writeLong(startValidTime.getTime());
+        parcel.writeLong(endValidTime.getTime());
         parcel.writeString(description);
         parcel.writeString(discount);
         parcel.writeString(product);
@@ -128,6 +152,8 @@ public class OfferItems implements Parcelable{
             mOfferItem.setActive(Boolean.parseBoolean(parcel.readString()));
             mOfferItem.setEndDate(new Date(parcel.readLong()));
             mOfferItem.setStartDate(new Date(parcel.readLong()));
+            mOfferItem.setStartValidTime(new Date(parcel.readLong()));
+            mOfferItem.setEndValidTime(new Date(parcel.readLong()));
             mOfferItem.setDescription(parcel.readString());
             mOfferItem.setDiscount(parcel.readString());
             mOfferItem.setProduct(parcel.readString());
