@@ -34,26 +34,38 @@
 
         <EditText
             android:layout_marginTop="@dimen/form_element_padding"
-            android:id="@+id/create_offer_Start_time"
+            android:id="@+id/create_offer_Start_Date"
             android:layout_width="match_parent"
             android:layout_height="@dimen/form_text_default_height"
             style="@style/default_form_edit_text"
             android:focusable="false"
-            android:hint="@string/offer_start_time_label"
+            android:hint="@string/offer_start_date_label"
             android:background="@drawable/default_form_text_selector"
             />
 
         <EditText
             android:layout_marginTop="@dimen/form_element_padding"
-            android:id="@+id/create_offer_End_time"
+            android:id="@+id/create_offer_End_Date"
             android:layout_width="match_parent"
             android:layout_height="@dimen/form_text_default_height"
             android:editable="false"
             android:focusable="false"
-            android:hint="@string/offer_end_time"
+            android:hint="@string/offer_end_date_label"
             style="@style/default_form_edit_text"
             android:background="@drawable/default_form_text_selector"
             />
+        <EditText
+            android:layout_marginTop="@dimen/form_element_padding"
+            android:id="@+id/create_offer_valid_time"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/form_text_default_height"
+            android:editable="false"
+            android:focusable="false"
+            android:hint="@string/offer_validity_time_label"
+            style="@style/default_form_edit_text"
+            android:background="@drawable/default_form_text_selector"
+            />
+
         <Button
             android:id="@+id/create_offer_save_button"
             android:layout_marginTop="@dimen/form_element_padding"

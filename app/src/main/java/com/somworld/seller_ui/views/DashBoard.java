@@ -1,16 +1,13 @@
 package com.somworld.seller_ui.views;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -150,11 +147,13 @@ public class DashBoard extends BaseActivity implements View.OnClickListener {
         if(isCurrentItemPositionValid() && newOffer.getId() == oldOffer.getId()) {
             inValidateCurrentItemPosition();
             oldOffer.setActive(newOffer.isActive());
-            oldOffer.setStartTime(newOffer.getStartTime());
+            oldOffer.setStartDate(newOffer.getStartDate());
             oldOffer.setDescription(newOffer.getDescription());
-            oldOffer.setEndTime(newOffer.getEndTime());
+            oldOffer.setEndDate(newOffer.getEndDate());
             oldOffer.setProduct(newOffer.getProduct());
             oldOffer.setDiscount(newOffer.getDiscount());
+            oldOffer.setStartValidTime(newOffer.getStartValidTime());
+            oldOffer.setEndValidTime(newOffer.getEndValidTime());
             ((BaseAdapter) offerList.getAdapter()).notifyDataSetChanged();
         }
     }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.somworld.seller_ui.R;
 import com.somworld.seller_ui.helpers.OfferHelper;
+import com.somworld.seller_ui.helpers.Utils;
 import com.somworld.seller_ui.models.OfferItems;
 
 import java.text.DateFormat;
@@ -63,17 +64,18 @@ public class DashBoardListAdapter extends BaseAdapter {
         TextView tProductDescription = (TextView)convertView.findViewById(R.id.dash_board_list__item_description);
         TextView tStartTime  = (TextView)convertView.findViewById(R.id.dash_board_list_item_start_time);
         TextView tEndTime = (TextView)convertView.findViewById(R.id.dash_board_list__item_end_time);
+        TextView tOfferValidity = (TextView)convertView.findViewById(R.id.dash_board_list__item_offer_validity_time);
         ImageView isActive = (ImageView)convertView.findViewById(R.id.dash_board_list_item_is_active);
 
         OfferItems currentoffer = (OfferItems)getItem(i);
 
         tProductName.setText(currentoffer.getProduct());
         tProductDescription.setText(currentoffer.getDescription());
-        DateFormat df = DateFormat.getDateTimeInstance();
+        DateFormat df = DateFormat.getDateInstance();
         df.setTimeZone(TimeZone.getDefault());
-        tStartTime.setText("Starts : "+ df.format(currentoffer.getStartTime()));
-        tEndTime.setText("Ends : "+ df.format(currentoffer.getEndTime()));
-
+        tStartTime.setText("Starts : "+ df.format(currentoffer.getStartDate()));
+        tEndTime.setText("Ends : "+ df.format(currentoffer.getEndDate()));
+        tOfferValidity.setText("Validity : "+ Utils.validTimeToValidTimeString(currentoffer.getStartValidTime(),currentoffer.getEndValidTime()));
         if(OfferHelper.isValid(currentoffer)) {
 
             isActive.setImageResource(R.drawable.offer_active);

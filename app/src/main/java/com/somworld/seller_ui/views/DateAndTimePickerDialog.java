@@ -30,7 +30,6 @@ public class DateAndTimePickerDialog extends Dialog implements View.OnClickListe
 
     private DatePicker datePicker;
 
-    private TimePicker timePicker;
 
     private OnCompleteListener mOnCompleteListener;
 
@@ -45,7 +44,6 @@ public class DateAndTimePickerDialog extends Dialog implements View.OnClickListe
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_date_and_time_picker);
-        timePicker = (TimePicker)findViewById(R.id.time_picker);
         datePicker = (DatePicker)findViewById(R.id.date_picker);
         mSave = (Button)findViewById(R.id.date_time_picker_save);
         mCancle = (Button)findViewById(R.id.date_time_picker_cancel);
@@ -58,9 +56,7 @@ public class DateAndTimePickerDialog extends Dialog implements View.OnClickListe
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
         int year = datePicker.getYear();
-        int hour = timePicker.getCurrentHour();
-        int mins = timePicker.getCurrentMinute();
-        return Utils.getDateFromYEAR_MONTH_DAY(year, month, day, hour, mins, 0);
+        return Utils.getDateFromYEAR_MONTH_DAY(year, month, day, 0, 0, 0);
     }
 
     @Override
@@ -68,7 +64,7 @@ public class DateAndTimePickerDialog extends Dialog implements View.OnClickListe
         switch (view.getId()) {
 
             case R.id.date_time_picker_save :
-               Date date =  getFormatedDate();
+                Date date =  getFormatedDate();
                 Map<String,Object> map = new HashMap<String, Object>();
                 map.put("date",date);
                 mOnCompleteListener.complete(OnCompleteListener.SUCCESS, map);

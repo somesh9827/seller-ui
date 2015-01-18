@@ -12,8 +12,8 @@ public class OfferHelper {
 
     public static boolean isValid(OfferItems offer) {
 
-        Date currentDateTime = new Date();
-        return (offer.isActive() && offer.getEndTime().getTime() >= currentDateTime.getTime());
+        Date currentDateTime = Utils.getCurrentDate();
+        return (offer.isActive() && offer.getEndDate().getTime() >= currentDateTime.getTime());
     }
 
     public static String formatDate(Date date,int dateContext,DateFormat format)  {

@@ -16,10 +16,30 @@ public class OfferItems implements Parcelable{
     private int id;
     private String product;
     private String description;
-    private Date startTime;
-    private Date endTime;
+    private Date startDate;
+    private Date endDate;
+    private Date startValidTime;
+    private Date endValidTime;
     private String discount;
     private boolean isActive;
+
+
+    public Date getStartValidTime() {
+        return startValidTime;
+    }
+
+    public void setStartValidTime(Date startValidTime) {
+        this.startValidTime = startValidTime;
+    }
+
+    public Date getEndValidTime() {
+        return endValidTime;
+    }
+
+    public void setEndValidTime(Date endValidTime) {
+        this.endValidTime = endValidTime;
+    }
+
 
     public OfferItems(OfferItems offer) {
         this.setId(offer.id);
@@ -27,8 +47,10 @@ public class OfferItems implements Parcelable{
         this.setDiscount(offer.getDiscount());
         this.setActive(offer.isActive());
         this.setDescription(offer.getDescription());
-        this.setStartTime(offer.getStartTime());
-        this.setEndTime(offer.getEndTime());
+        this.setStartDate(offer.getStartDate());
+        this.setEndDate(offer.getEndDate());
+        this.setStartValidTime(offer.getStartValidTime());
+        this.setEndValidTime(offer.getEndValidTime());
     }
 
 
@@ -53,30 +75,30 @@ public class OfferItems implements Parcelable{
         this.description = description;
     }
 
-    public Date getStartTime() {
-        return new Date(startTime.getTime());
+    public Date getStartDate() {
+        return new Date(startDate.getTime());
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = new Date(startTime.getTime());
+    public void setStartDate(Date startDate) {
+        this.startDate = new Date(startDate.getTime());
     }
 
-    public void setStartTime(String dateString,DateFormat dateFormat) throws ParseException,NullPointerException{
+    public void setStartDate(String dateString, DateFormat dateFormat) throws ParseException,NullPointerException{
         if(dateFormat == null) throw new NullPointerException("Date Format should not be null");
-        this.startTime = dateFormat.parse(dateString);
+        this.startDate = dateFormat.parse(dateString);
     }
 
-    public Date getEndTime() {
-        return new Date(endTime.getTime());
+    public Date getEndDate() {
+        return new Date(endDate.getTime());
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = new Date(endTime.getTime());
+    public void setEndDate(Date endDate) {
+        this.endDate = new Date(endDate.getTime());
     }
 
-    public void setEndTime(String dateString,DateFormat dateFormat) throws ParseException,NullPointerException{
+    public void setEndDate(String dateString, DateFormat dateFormat) throws ParseException,NullPointerException{
         if(dateFormat == null) throw new NullPointerException("Date Format should not be null");
-        this.endTime = dateFormat.parse(dateString);
+        this.endDate = dateFormat.parse(dateString);
     }
 
 
@@ -113,8 +135,10 @@ public class OfferItems implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
         parcel.writeString(Boolean.toString(isActive));
-        parcel.writeLong(endTime.getTime());
-        parcel.writeLong(startTime.getTime());
+        parcel.writeLong(endDate.getTime());
+        parcel.writeLong(startDate.getTime());
+        parcel.writeLong(startValidTime.getTime());
+        parcel.writeLong(endValidTime.getTime());
         parcel.writeString(description);
         parcel.writeString(discount);
         parcel.writeString(product);
@@ -126,8 +150,10 @@ public class OfferItems implements Parcelable{
             OfferItems mOfferItem = new OfferItems();
             mOfferItem.setId(parcel.readInt());
             mOfferItem.setActive(Boolean.parseBoolean(parcel.readString()));
-            mOfferItem.setEndTime(new Date(parcel.readLong()));
-            mOfferItem.setStartTime(new Date(parcel.readLong()));
+            mOfferItem.setEndDate(new Date(parcel.readLong()));
+            mOfferItem.setStartDate(new Date(parcel.readLong()));
+            mOfferItem.setStartValidTime(new Date(parcel.readLong()));
+            mOfferItem.setEndValidTime(new Date(parcel.readLong()));
             mOfferItem.setDescription(parcel.readString());
             mOfferItem.setDiscount(parcel.readString());
             mOfferItem.setProduct(parcel.readString());
