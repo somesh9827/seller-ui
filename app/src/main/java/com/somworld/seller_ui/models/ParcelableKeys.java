@@ -5,4 +5,5 @@ package com.somworld.seller_ui.models;
  */
 public interface ParcelableKeys {
     String OFFER_ITEM = "OFFER_ITEM";
+    String REGISTRATION_DATA = "registration_data";
 }

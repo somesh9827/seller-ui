@@ -2,4 +2,6 @@
 <resources>
     <item name="dash_board_add_new_offer" type="id">dash_board_add_new_offer</item>
     <item name="action_dash_board" type="id">action_dash_board</item>
+    <item name="previousButton" type="id" />
+    <item name="skipButton" type="id" />
 </resources>
