@@ -13,8 +13,8 @@ public interface RegistrationActivityInterface {
 
   public void moveToPrevPage();
 
-  public void saveData(Bundle bundle, int fragmentID);
+  public void saveData(Bundle bundle, String fragmentID);
 
-  public RegistrationDTO getFragmentData(int fragmentID);
+  public RegistrationDTO getFragmentData(String fragmentID);
 
 }

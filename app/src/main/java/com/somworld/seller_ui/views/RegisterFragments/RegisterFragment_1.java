@@ -17,10 +17,6 @@ import com.somworld.seller_ui.models.dtos.RegistrationDTO;
  */
 public class RegisterFragment_1 extends RegisterFragment {
 
-  private Button nextButton;
-
-  private Button previousButton;
-
   private EditText mContactNumber;
 
   private EditText mEmail;
@@ -28,11 +24,16 @@ public class RegisterFragment_1 extends RegisterFragment {
   private EditText mPassword;
 
   @Override
+  protected String getTitle() {
+    return  getActivity().getString(R.string.SignUpTitle);
+  }
+
+  @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
     View v = inflater.inflate(R.layout.register_fragment1, container, false);
     nextButton = (Button) v.findViewById(R.id.next_button);
-    previousButton = (Button) v.findViewById(R.id.previous_button);
+    backButton = (Button) v.findViewById(R.id.previous_button);
     mContactNumber = (EditText) v.findViewById(R.id.contact_number);
     mEmail = (EditText) v.findViewById(R.id.email);
     mPassword = (EditText)v.findViewById(R.id.password);
@@ -40,27 +41,14 @@ public class RegisterFragment_1 extends RegisterFragment {
     return v;
   }
 
-  @Override
-  protected Button getNextButton() {
-    return nextButton;
-  }
 
-  @Override
-  protected Button getPrevButton() {
-    return previousButton;
-  }
-
-  @Override
-  protected Button getSkipButton() {
-    return null;
-  }
 
   @Override
   protected RegistrationDTO getCurrentFragmentData() {
     MailAndPasswordDTO data = new MailAndPasswordDTO();
-    data.setEmail("somesh@gmail.com");
-    data.setContact("9008427676");
-    data.setPassword("1234");
+    data.setEmail(mContactNumber.getText().toString());
+    data.setContact(mEmail.getText().toString());
+    data.setPassword(mPassword.getText().toString());
     return data;
   }
 

@@ -17,8 +17,12 @@ import com.somworld.seller_ui.models.dtos.ShopNameDTO;
  */
 public class RegisterFragment_2 extends RegisterFragment {
 
-  private Button nextButton,backButton;
   private EditText shopName, ownerFirstName, ownerLastName;
+
+  @Override
+  protected String getTitle() {
+    return  getActivity().getString(R.string.shopInfoTitle);
+  }
 
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -34,25 +38,10 @@ public class RegisterFragment_2 extends RegisterFragment {
   }
 
   @Override
-  protected Button getNextButton() {
-    return nextButton;
-  }
-
-  @Override
-  protected Button getPrevButton() {
-    return backButton;
-  }
-
-  @Override
-  protected Button getSkipButton() {
-    return null;
-  }
-
-  @Override
   protected RegistrationDTO getCurrentFragmentData() {
     ShopNameDTO shopNameDTO = new ShopNameDTO();
     shopNameDTO.setShopName(shopName.getText().toString());
-    shopNameDTO.setOwnerLastName(ownerFirstName.getText().toString());
+    shopNameDTO.setOwnerFirstName(ownerFirstName.getText().toString());
     shopNameDTO.setOwnerLastName(ownerLastName.getText().toString());
     return shopNameDTO;
   }

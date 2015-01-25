@@ -74,7 +74,7 @@
             android:layout_marginTop="@dimen/form_button_padding_"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/next_button_text"
+            android:text="@string/previous_button_text"
             style="@style/default_button_style"
             android:textSize="20sp"
             android:background="@drawable/default_save_button_style_selector"
