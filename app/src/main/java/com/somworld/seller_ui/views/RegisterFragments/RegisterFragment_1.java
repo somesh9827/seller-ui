@@ -46,8 +46,8 @@ public class RegisterFragment_1 extends RegisterFragment {
   @Override
   protected RegistrationDTO getCurrentFragmentData() {
     MailAndPasswordDTO data = new MailAndPasswordDTO();
-    data.setEmail(mContactNumber.getText().toString());
-    data.setContact(mEmail.getText().toString());
+    data.setEmail(mEmail.getText().toString());
+    data.setContact(mContactNumber.getText().toString());
     data.setPassword(mPassword.getText().toString());
     return data;
   }

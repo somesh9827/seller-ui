@@ -24,31 +24,39 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
 
   private ViewPager viewPager;
   private RegisterPageAdapter registerPageAdapter;
-  private  Integer currentFragmentIndex = 0;
+  //private  Integer currentFragmentIndex = 0;
+  private RegistrationDataManager registrationDataManager;
 
   @Override
   public void moveToNextPage() {
-    synchronized (currentFragmentIndex) {
-      if(viewPager.getChildCount() - 1 <= currentFragmentIndex) return;
-      currentFragmentIndex++;
-      viewPager.setCurrentItem(currentFragmentIndex , true);
+    synchronized (registrationDataManager.currentFragmentIndex) {
+      if(viewPager.getChildCount() - 1 <= registrationDataManager.currentFragmentIndex) return;
+      registrationDataManager.setCurrentFragmentIndex(registrationDataManager.currentFragmentIndex+1);
+      viewPager.setCurrentItem(registrationDataManager.currentFragmentIndex , true);
     }
   }
 
   @Override
+  protected void onResume() {
+    super.onResume();
+    viewPager.setCurrentItem(registrationDataManager.currentFragmentIndex,false);
+
+  }
+
+  @Override
   public void moveToPrevPage() {
-    synchronized (currentFragmentIndex) {
-      if(currentFragmentIndex <= 0) return;
-      currentFragmentIndex--;
-      viewPager.setCurrentItem(currentFragmentIndex, true);
+    synchronized (registrationDataManager.currentFragmentIndex) {
+      if(registrationDataManager.currentFragmentIndex <= 0) return;
+      registrationDataManager.setCurrentFragmentIndex(registrationDataManager.currentFragmentIndex-1);
+
+      viewPager.setCurrentItem(registrationDataManager.currentFragmentIndex, true);
     }
   }
 
   @Override
   public void saveData(Bundle bundle, String fragmentID) {
-    RegistrationDataManager dataManager = RegistrationDataManager.getInstance();
     RegistrationDTO data = bundle.getParcelable(ParcelableKeys.REGISTRATION_DATA);
-    dataManager.putData(fragmentID, data);
+    registrationDataManager.putData(fragmentID, data);
   }
 
   @Override
@@ -63,6 +71,7 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_register);
     List<Fragment> fragments = getFragments();
+    registrationDataManager = RegistrationDataManager.getInstance();
     registerPageAdapter = new RegisterPageAdapter(getSupportFragmentManager(), fragments);
     viewPager = (ViewPager) findViewById(R.id.register_view_pager);
     viewPager.setAdapter(registerPageAdapter);
@@ -99,6 +108,7 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
   private static class RegistrationDataManager {
 
     private static RegistrationDataManager mInstance = new RegistrationDataManager();
+    private  Integer currentFragmentIndex = 0;
     private final ConcurrentHashMap<String,RegistrationDTO> registrationDataMap;
 
 
@@ -107,6 +117,9 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
       registrationDataMap = new ConcurrentHashMap<String, RegistrationDTO>();
     }
 
+    public void setCurrentFragmentIndex(int index) {
+      currentFragmentIndex = index;
+    }
 
     public static RegistrationDataManager getInstance() {
       if (mInstance == null) {

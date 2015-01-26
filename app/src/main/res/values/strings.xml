@@ -51,4 +51,6 @@
     <string name="shopAddressTitle">Shop Address</string>
     <string name="shopInfoTitle">Shop Information</string>
     <string name="SignUpTitle">Sign Up</string>
+    <string name="title_activity_location">Your Location</string>
+    <string name="latlang">LatLang</string>
 </resources>
