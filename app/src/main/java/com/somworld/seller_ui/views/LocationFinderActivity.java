@@ -2,7 +2,6 @@ package com.somworld.seller_ui.views;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.internal.is;
 import com.google.android.gms.location.LocationRequest;
 
 import android.app.Activity;
@@ -34,7 +33,7 @@ import com.somworld.seller_ui.common.locationHelper.LocationUtils;
 import java.lang.ref.WeakReference;
 
 
-public class LocationActivity1 extends FragmentActivity {
+public class LocationFinderActivity extends FragmentActivity {
 
   private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
@@ -74,9 +73,9 @@ public class LocationActivity1 extends FragmentActivity {
     mConnectionStatus = (TextView) findViewById(R.id.text_connection_status);
 
     WeakReference<Context> contextWeakReference = new WeakReference<Context>(this);
-    WeakReference<LocationActivity1>
+    WeakReference<LocationFinderActivity>
         activityWeakReference =
-        new WeakReference<LocationActivity1>(this);
+        new WeakReference<LocationFinderActivity>(this);
     locationHelper = new LocationService(activityWeakReference.get(), contextWeakReference.get());
 
     ConnectionCallBackListener
@@ -138,16 +137,13 @@ public class LocationActivity1 extends FragmentActivity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.location, menu);
     return true;
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
-    // as you specify a parent activity in AndroidManifest.xml.
+
     int id = item.getItemId();
     if (id == R.id.action_settings) {
       return true;
@@ -346,9 +342,9 @@ public class LocationActivity1 extends FragmentActivity {
 
   private static class ConnectionCallBackListener implements LocationHelperCallBack {
 
-    private LocationActivity1 mCurrentActivity;
+    private LocationFinderActivity mCurrentActivity;
 
-    ConnectionCallBackListener(LocationActivity1 currentActivity) {
+    ConnectionCallBackListener(LocationFinderActivity currentActivity) {
 
       mCurrentActivity = currentActivity;
     }
@@ -380,10 +376,10 @@ public class LocationActivity1 extends FragmentActivity {
 
   private static class ConnectionListener implements LocationHelperLocationListener {
 
-    private LocationActivity1 mCurrentActivity;
+    private LocationFinderActivity mCurrentActivity;
 
 
-    ConnectionListener(LocationActivity1 currentActivity) {
+    ConnectionListener(LocationFinderActivity currentActivity) {
 
       mCurrentActivity = currentActivity;
     }
