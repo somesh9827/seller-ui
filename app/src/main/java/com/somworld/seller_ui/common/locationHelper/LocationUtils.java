@@ -21,7 +21,7 @@ public final class LocationUtils {
      * @return The latitude and longitude of the current location, or null if no
      * location is available.
      */
-    public static String getLatLng(Context context, Location currentLocation) {
+    public static String getLatLngString(Context context, Location currentLocation) {
         // If the location is valid
         if (currentLocation != null && context != null) {
 

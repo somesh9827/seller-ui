@@ -391,7 +391,7 @@ public class LocationFinderActivity1 extends FragmentActivity {
 
         mCurrentActivity.mConnectionStatus.setText(R.string.location_updated);
 
-        mCurrentActivity.mLatLng.setText(LocationUtils.getLatLng(mCurrentActivity, location));
+        mCurrentActivity.mLatLng.setText(LocationUtils.getLatLngString(mCurrentActivity, location));
       }
       mCurrentActivity.locationHelper.stopPeriodicUpdates();
     }
