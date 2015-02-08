@@ -64,7 +64,7 @@ public class LocationFinderActivity extends FragmentActivity {
   protected void onCreate(Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_location);
+    setContentView(R.layout.activity_location1);
 
     mLatLng = (TextView) findViewById(R.id.lat_lng);
     mAddress = (TextView) findViewById(R.id.address);
@@ -76,7 +76,7 @@ public class LocationFinderActivity extends FragmentActivity {
     WeakReference<LocationFinderActivity>
         activityWeakReference =
         new WeakReference<LocationFinderActivity>(this);
-    locationHelper = new LocationService(activityWeakReference.get(), contextWeakReference.get());
+    ////////////////////////////locationHelper = new LocationService(activityWeakReference.get(), contextWeakReference.get());
 
     ConnectionCallBackListener
         connectionCallBackListener =
@@ -84,7 +84,7 @@ public class LocationFinderActivity extends FragmentActivity {
 
     ConnectionListener connectionListener =
         new ConnectionListener(activityWeakReference.get());
-    locationHelper.createLocationRequest(connectionCallBackListener, null, connectionListener);
+    ////////////////////locationHelper.createLocationRequest(connectionCallBackListener, null, connectionListener);
 
     mPrefs = getSharedPreferences(LocationUtils.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
@@ -114,7 +114,7 @@ public class LocationFinderActivity extends FragmentActivity {
   public void onStart() {
 
     super.onStart();
-    //locationHelper.connect();
+    //////////////////locationHelper.connect();
   }
 
 
@@ -122,7 +122,7 @@ public class LocationFinderActivity extends FragmentActivity {
   public void onResume() {
 
     super.onResume();
-    locationHelper.connect();
+    ///////////locationHelper.connect();
     // If the app already has a setting for getting location updates, get it
    /* if (mPrefs.contains(LocationUtils.KEY_UPDATES_REQUESTED)) {
       locationHelper
@@ -227,7 +227,7 @@ public class LocationFinderActivity extends FragmentActivity {
       }
       //getLocation();
     } else {
-      Toast.makeText(this, "Wifi is not Enabled", Toast.LENGTH_LONG).show();
+      Toast.makeText(this, getString(R.string.wi_fi_not_enabled), Toast.LENGTH_LONG).show();
     }
   }
 
@@ -251,7 +251,7 @@ public class LocationFinderActivity extends FragmentActivity {
        }
        //getLocation();
     } else {
-      Toast.makeText(this, "GPS is not Enabled", Toast.LENGTH_LONG).show();
+      Toast.makeText(this, getString(R.string.gps_is_not_enabled), Toast.LENGTH_LONG).show();
     }
   }
 
@@ -299,8 +299,8 @@ public class LocationFinderActivity extends FragmentActivity {
   }
 
   private void showGPSStartDialog() {
-    new AlertDialog.Builder(this).setMessage("GPS is switched off")
-        .setPositiveButton("Enable GPS", new DialogInterface.OnClickListener() {
+    new AlertDialog.Builder(this).setMessage(getString(R.string.gps_is_switched_off))
+        .setPositiveButton(getString(R.string.enable_gps), new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialogInterface, int i) {
             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -310,8 +310,8 @@ public class LocationFinderActivity extends FragmentActivity {
   }
 
   private void showWifiOr3GDialog() {
-    new AlertDialog.Builder(this).setMessage("Network is not connected")
-        .setPositiveButton("Enable WiFi or 3G", new DialogInterface.OnClickListener() {
+    new AlertDialog.Builder(this).setMessage(getString(R.string.network_is_not_connected))
+        .setPositiveButton(getString(R.string.enable_wi_or_3g), new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialogInterface, int i) {
             Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
@@ -359,7 +359,7 @@ public class LocationFinderActivity extends FragmentActivity {
             mCurrentActivity.showImmidateLocationResponse = false;
           }
         }
-        mCurrentActivity.mConnectionStatus.setText(R.string.connected);
+        //mCurrentActivity.mConnectionStatus.setText(R.string.connected);
 
       }
     }

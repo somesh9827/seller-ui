@@ -71,7 +71,11 @@
     <string name="connection_error_outdated">Google Play services is out of date</string>
     <string name="connection_error_sign_in_required">The user is not signed in</string>
     <string name="connection_error_unknown">An unknown error occurred</string>
-
-
+    <string name="wi_fi_not_enabled">Wi-Fi is not enabled</string>
+    <string name="gps_is_not_enabled">GPS is not Enabled</string>
+    <string name="enable_gps">Enable GPS</string>
+    <string name="network_is_not_connected">Network is not connected</string>
+    <string name="gps_is_switched_off">GPS is switched off</string>
+    <string name="enable_wi_or_3g">Enable Wi-Fi or 3G</string>
 
 </resources>
