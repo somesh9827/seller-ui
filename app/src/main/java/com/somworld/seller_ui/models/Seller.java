@@ -76,8 +76,15 @@ public class Seller {
     }
 
     public String getName() {
+      String name = "";
+      if(mFirstname != null)
+        name += mFirstname + " ";
+      if(mMiddleName != null)
+        name += mMiddleName + " ";
+      if(mLastName != null)
+        name += mLastName;
 
-        return mFirstname + " " + mMiddleName + " " + mLastName;
+      return name;
     }
 
 

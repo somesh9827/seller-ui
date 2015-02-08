@@ -5,8 +5,6 @@ package com.somworld.seller_ui.models;
  */
 public class City {
 
-
-
   private int mCityID;
   private String mCityName;
   private State mState;
