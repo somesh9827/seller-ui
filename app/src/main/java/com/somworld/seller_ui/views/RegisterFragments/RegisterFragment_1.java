@@ -125,23 +125,22 @@ public class RegisterFragment_1 extends RegisterFragment {
 
   @Override
   protected boolean validateWhenMoveToNextPage() {
-    return true;
+    return false;
   }
 
   void showErrorMessage(ValidationError error){
     Vector<Integer> keys = error.getAllKeys();
     Collections.sort(keys);
     int firstKey = keys.get(0);
-    Toast.makeText(getActivity(),keys.toString(),Toast.LENGTH_LONG).show();
     String errorMessage = error.getFirstErrorMessage(firstKey);
-    TextView errorTextView = (TextView)getActivity().findViewById(R.id.error_message);
+    TextView errorTextView = (TextView)getActivity().findViewById(R.id.fragment1_error_message);
     errorTextView.setText(errorMessage);
     errorTextView.setVisibility(View.VISIBLE);
     super.onValidationFail(null);
   }
 
   void hideErrorMessage(){
-    TextView errorTextView = (TextView)getActivity().findViewById(R.id.error_message);
+    TextView errorTextView = (TextView)getActivity().findViewById(R.id.fragment1_error_message);
     errorTextView.setText("");
     errorTextView.setVisibility(View.GONE);
     super.onValidationSuccess(null);

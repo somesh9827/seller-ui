@@ -85,7 +85,7 @@
                 android:gravity="bottom">
             <TextView
                     android:visibility="gone"
-                    android:id="@+id/error_message"
+                    android:id="@+id/fragment1_error_message"
                     style="@style/defaultErrorMessageTextView"
                     android:text=""
                     android:gravity="center_horizontal"

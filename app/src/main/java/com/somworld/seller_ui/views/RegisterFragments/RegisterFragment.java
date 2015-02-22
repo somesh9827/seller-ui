@@ -71,7 +71,7 @@ public abstract class RegisterFragment extends Fragment {
   }
 
   protected final void onValidationFail(Object error){
-    Toast.makeText(this.getActivity(),"Fail",Toast.LENGTH_LONG).show();
+    //Toast.makeText(this.getActivity(),"Fail",Toast.LENGTH_LONG).show();
 
   }
 

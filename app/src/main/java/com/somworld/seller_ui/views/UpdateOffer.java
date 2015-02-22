@@ -266,7 +266,7 @@ public class UpdateOffer extends Activity implements View.OnClickListener, OnCom
             ruleValueAdapter2 =
             new RuleValueAdapter<String>(R.id.update_offer_product, productName);
         ruleValueAdapter2.addRule(NotEmptyRule2, String
-            .format(mParent.getString(R.string.not_empty), "Product Name"));
+            .format(mParent.getString(R.string.not_empty_error), "Product Name"));
         ruleValueAdapters.add(ruleValueAdapter2);
 
         RULE NotEmptyRule = new NotEmpty();
@@ -274,7 +274,7 @@ public class UpdateOffer extends Activity implements View.OnClickListener, OnCom
             ruleValueAdapter1 =
             new RuleValueAdapter<String>(R.id.update_offer_description, description);
         ruleValueAdapter1.addRule(NotEmptyRule, String
-            .format(mParent.getString(R.string.not_empty), "Product Description"));
+            .format(mParent.getString(R.string.not_empty_error), "Product Description"));
         ruleValueAdapters.add(ruleValueAdapter1);
 
         RULE NotEmptyRule3 = new NotEmpty();
@@ -283,7 +283,7 @@ public class UpdateOffer extends Activity implements View.OnClickListener, OnCom
             ruleValueAdapter3 =
             new RuleValueAdapter<Date>(R.id.update_offer_end_date, endTime);
         ruleValueAdapter3.addRule(NotEmptyRule3,
-                                  String.format(mParent.getString(R.string.not_empty), "End Date"));
+                                  String.format(mParent.getString(R.string.not_empty_error), "End Date"));
         ruleValueAdapter3.addRule(minDateRule, String
             .format(mParent.getString(R.string.min_error), "Start Date", "End Date"));
         ruleValueAdapters.add(ruleValueAdapter3);
@@ -294,7 +294,7 @@ public class UpdateOffer extends Activity implements View.OnClickListener, OnCom
             ruleValueAdapter4 =
             new RuleValueAdapter<Date>(R.id.update_offer_start_date, startTime);
         ruleValueAdapter4.addRule(NotEmptyRule4, String
-            .format(mParent.getString(R.string.not_empty), "Start Date"));
+            .format(mParent.getString(R.string.not_empty_error), "Start Date"));
         ruleValueAdapter4.addRule(minDateRule1, String
             .format(mParent.getString(R.string.min_error), "Start Date", "Current Date"));
         ruleValueAdapters.add(ruleValueAdapter4);
