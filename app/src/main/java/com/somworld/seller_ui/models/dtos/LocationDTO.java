@@ -1,14 +1,12 @@
-package com.somworld.seller_ui.models;
+package com.somworld.seller_ui.models.dtos;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.somworld.seller_ui.common.locationHelper.LocationUtils;
-
 /**
  * Created by somesh.shrivastava on 12/01/15.
  */
-public class Location implements Parcelable {
+public class LocationDTO implements Parcelable {
 
   public static final String PRECISION_FORMAT = "%.8f";
 
@@ -38,12 +36,12 @@ public class Location implements Parcelable {
     return String.format(LOCATION_FORMAT,mlatitude,mlongitude);
   }
 
-   public Location(Location location) {
+   public LocationDTO(LocationDTO location) {
      mlatitude = location.getLatitude();
      mlongitude = location.getLongitude();
     }
 
-    public Location() {
+    public LocationDTO() {
       mlatitude = null;
       mlongitude = null;
     }
@@ -59,18 +57,18 @@ public class Location implements Parcelable {
     parcel.writeString(String.format(PRECISION_FORMAT,mlongitude));
   }
 
-  public static Creator<Location> creator =   new Creator<Location>() {
+  public static Creator<LocationDTO> creator =   new Creator<LocationDTO>() {
     @Override
-    public Location createFromParcel(Parcel parcel) {
-      Location location = new Location();
+    public LocationDTO createFromParcel(Parcel parcel) {
+      LocationDTO location = new LocationDTO();
       location.setLatitude(Double.parseDouble(parcel.readString()));
       location.setLongitude(Double.parseDouble(parcel.readString()));
       return location;
     }
 
     @Override
-    public Location[] newArray(int i) {
-      return new Location[0];
+    public LocationDTO[] newArray(int i) {
+      return new LocationDTO[0];
     }
   };
 }

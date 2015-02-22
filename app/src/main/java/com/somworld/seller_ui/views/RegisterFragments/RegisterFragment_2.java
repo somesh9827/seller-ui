@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.somworld.seller_ui.R;
+import com.somworld.seller_ui.helpers.validators.ValidationError;
 import com.somworld.seller_ui.models.dtos.RegistrationDTO;
 import com.somworld.seller_ui.models.dtos.ShopNameDTO;
 
@@ -53,4 +54,25 @@ public class RegisterFragment_2 extends RegisterFragment {
     ownerFirstName.setText(shopNameDTO.getOwnerFirstName());
     ownerLastName.setText(shopNameDTO.getOwnerLastName());
   }
+
+  @Override
+  protected void validateData() {
+    super.validateData();
+  }
+
+  @Override
+  protected boolean validateWhenMoveToPreviousPage() {
+    return super.validateWhenMoveToPreviousPage();
+  }
+
+  @Override
+  protected boolean validateWhenMoveToNextPage() {
+    return super.validateWhenMoveToNextPage();
+  }
+
+  void showErrorMessage(ValidationError error){
+
+  }
+
+  void hideErrorMessage(){}
 }

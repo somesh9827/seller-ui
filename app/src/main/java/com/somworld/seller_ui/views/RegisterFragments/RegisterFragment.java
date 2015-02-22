@@ -2,11 +2,13 @@ package com.somworld.seller_ui.views.RegisterFragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.somworld.seller_ui.R;
 import com.somworld.seller_ui.helpers.ClassUtil;
@@ -41,9 +43,65 @@ public abstract class RegisterFragment extends Fragment {
 
   protected abstract void setCurrentFragmentData(RegistrationDTO bundle);
 
+  private enum  MOVE_TO_PAGE {
+    NEXT,PREVIOUS
+  };
+
+  private MOVE_TO_PAGE page = MOVE_TO_PAGE.NEXT;
+
   private void setFragmentID() {
     fragmentID = ClassUtil.getClassName(new WeakReference<RegisterFragment>(this).get());
   }
+
+  protected  void validateData(){
+    onValidationSuccess(null);
+  }
+
+  protected boolean validateWhenMoveToPreviousPage(){
+    return false;
+  }
+
+  protected boolean validateWhenMoveToNextPage(){
+    return false;
+  }
+
+  protected final void onValidationSuccess(Object data) {
+    if(page == MOVE_TO_PAGE.NEXT) moveToNextPage();
+    else moveToPreviousPage();
+  }
+
+  protected final void onValidationFail(Object error){
+    Toast.makeText(this.getActivity(),"Fail",Toast.LENGTH_LONG).show();
+
+  }
+
+  private void moveToNextPage() {
+    RegistrationActivityInterface registrationActivityInterface =
+        ((RegistrationActivityInterface) getActivity());
+    if (registrationActivityInterface != null) {
+      RegistrationDTO registrationData = getCurrentFragmentData();
+      Bundle bundle = new Bundle();
+      bundle.putParcelable(ParcelableKeys.REGISTRATION_DATA, registrationData);
+      registrationActivityInterface.saveData(bundle, getFragmentID());
+      registrationActivityInterface.moveToNextPage();
+    }
+  }
+
+  private void moveToPreviousPage() {
+    RegistrationActivityInterface registrationActivityInterface =
+        ((RegistrationActivityInterface)getActivity());
+    if (registrationActivityInterface != null) {
+      RegistrationDTO data = getCurrentFragmentData();
+      Bundle bundle = new Bundle();
+      bundle.putParcelable(ParcelableKeys.REGISTRATION_DATA, data);
+      registrationActivityInterface.saveData(bundle,getFragmentID());
+      registrationActivityInterface.moveToPrevPage();
+    }
+  }
+
+
+
+
 
   public String getFragmentID() {
     return fragmentID;
@@ -147,30 +205,23 @@ public abstract class RegisterFragment extends Fragment {
 
     private void onNextButtonClicked() {
       if (mParent != null) {
-        RegistrationActivityInterface registrationActivityInterface =
-            ((RegistrationActivityInterface) mParent.getActivity());
-        if (registrationActivityInterface != null) {
-          RegistrationDTO data = mParent.getCurrentFragmentData();
-          Bundle bundle = new Bundle();
-          bundle.putParcelable(ParcelableKeys.REGISTRATION_DATA, data);
-          registrationActivityInterface.saveData(bundle, mParent.getFragmentID());
-          registrationActivityInterface.moveToNextPage();
-        }
+        mParent.page = MOVE_TO_PAGE.NEXT;
+        if(mParent.validateWhenMoveToNextPage())
+          mParent.validateData();
+        else
+          mParent.moveToNextPage();
       }
     }
 
     private void onPreviousButtonClicked() {
       if (mParent != null) {
-        RegistrationActivityInterface registrationActivityInterface =
-            ((RegistrationActivityInterface) mParent.getActivity());
-        if (registrationActivityInterface != null) {
-          RegistrationDTO data = mParent.getCurrentFragmentData();
-          Bundle bundle = new Bundle();
-          bundle.putParcelable(ParcelableKeys.REGISTRATION_DATA, data);
-          registrationActivityInterface.saveData(bundle, mParent.getFragmentID());
-          registrationActivityInterface.moveToPrevPage();
-        }
+        mParent.page = MOVE_TO_PAGE.PREVIOUS;
+        if(mParent.validateWhenMoveToPreviousPage())
+          mParent.validateData();
+        else
+          mParent.moveToPreviousPage();
       }
+
 
     }
 

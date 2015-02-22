@@ -11,4 +11,8 @@ public interface ApplicationConstants {
 
     String ABSENT ="ABSENT";
 
+    public static interface REGISTRATION {
+      int minPasswordLength  = 5;
+    }
+
 }

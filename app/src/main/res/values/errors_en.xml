@@ -3,5 +3,8 @@
     <string name="min_error">%1$s should not be less than %2$s</string>
     <string name="max_error">%1$s should not be greater than %2$s</string>
     <string name="not_empty">%1$s should not be empty !!</string>
-    <string name="email_validation">Invalid email !!</string>
+    <string name="email_error">Invalid email !!</string>
+    <string name="phone_error">Please fill proper 10 digit Mobile number</string>
+    <string name="min_length_validator">%1$s should be %2$s character long</string>
+    <string name="confirm_password_error">Both password number should be same</string>
 </resources>

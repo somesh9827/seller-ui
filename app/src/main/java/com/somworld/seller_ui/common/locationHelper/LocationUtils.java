@@ -1,5 +1,7 @@
 package com.somworld.seller_ui.common.locationHelper;
 
+import com.google.android.gms.maps.model.*;
+
 import android.content.Context;
 import android.location.Location;
 
@@ -12,6 +14,8 @@ public final class LocationUtils {
 
     // Create an empty string for initializing strings
     public static final String EMPTY_STRING = new String("empty string");
+
+    public static final String LAT_LNG_FORMAT = "%1.8f, %2.8f";
 
     /**
      * Get the latitude and longitude from the Location object returned by
@@ -37,6 +41,17 @@ public final class LocationUtils {
             return EMPTY_STRING;
         }
     }
+
+  public static LatLng getLatLng(Location currentLocation) {
+    if (currentLocation != null) {
+      LatLng location = new LatLng();
+      location.setLatitude(currentLocation.getLatitude());
+      location.setLongitude(currentLocation.getLatitude());
+      return location;
+    } else {
+      return null;
+    }
+  }
 
     // Debugging tag for the application
     public static final String APPTAG = "LocationSample";

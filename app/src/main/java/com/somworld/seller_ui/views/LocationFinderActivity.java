@@ -15,25 +15,30 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.somworld.seller_ui.R;
+import com.somworld.seller_ui.common.locationHelper.LatLng;
 import com.somworld.seller_ui.common.locationHelper.LocationHelperCallBack;
 import com.somworld.seller_ui.common.locationHelper.LocationHelperLocationListener;
 import com.somworld.seller_ui.common.locationHelper.LocationService;
 import com.somworld.seller_ui.common.locationHelper.LocationUtils;
+import com.somworld.seller_ui.models.ParcelableKeys;
+import com.somworld.seller_ui.models.dtos.LocationDTO;
 
 import java.lang.ref.WeakReference;
 
 
-public class LocationFinderActivity extends FragmentActivity {
+public class LocationFinderActivity extends Activity {
 
   private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
@@ -48,12 +53,10 @@ public class LocationFinderActivity extends FragmentActivity {
   private LocationService locationHelper;
   private Boolean showImmidateLocationResponse = false;
 
-
-  private TextView mLatLng;
-  private TextView mAddress;
+  private Button mFindLocation;
+  private Button mSkipLocation;
   private ProgressBar mActivityIndicator;
-  private TextView mConnectionState;
-  private TextView mConnectionStatus;
+  private TextView mErrorMessage;
 
   SharedPreferences mPrefs;
 
@@ -66,17 +69,14 @@ public class LocationFinderActivity extends FragmentActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_location1);
 
-    mLatLng = (TextView) findViewById(R.id.lat_lng);
-    mAddress = (TextView) findViewById(R.id.address);
+    mErrorMessage = (TextView)findViewById(R.id.error_message);
     mActivityIndicator = (ProgressBar) findViewById(R.id.address_progress);
-    mConnectionState = (TextView) findViewById(R.id.text_connection_state);
-    mConnectionStatus = (TextView) findViewById(R.id.text_connection_status);
 
     WeakReference<Context> contextWeakReference = new WeakReference<Context>(this);
     WeakReference<LocationFinderActivity>
         activityWeakReference =
         new WeakReference<LocationFinderActivity>(this);
-    ////////////////////////////locationHelper = new LocationService(activityWeakReference.get(), contextWeakReference.get());
+    locationHelper = new LocationService(activityWeakReference.get(), contextWeakReference.get());
 
     ConnectionCallBackListener
         connectionCallBackListener =
@@ -84,7 +84,7 @@ public class LocationFinderActivity extends FragmentActivity {
 
     ConnectionListener connectionListener =
         new ConnectionListener(activityWeakReference.get());
-    ////////////////////locationHelper.createLocationRequest(connectionCallBackListener, null, connectionListener);
+    locationHelper.createLocationRequest(connectionCallBackListener, null, connectionListener);
 
     mPrefs = getSharedPreferences(LocationUtils.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
@@ -114,7 +114,7 @@ public class LocationFinderActivity extends FragmentActivity {
   public void onStart() {
 
     super.onStart();
-    //////////////////locationHelper.connect();
+    ////////////////locationHelper.connect();
   }
 
 
@@ -122,7 +122,7 @@ public class LocationFinderActivity extends FragmentActivity {
   public void onResume() {
 
     super.onResume();
-    ///////////locationHelper.connect();
+    locationHelper.connect();
     // If the app already has a setting for getting location updates, get it
    /* if (mPrefs.contains(LocationUtils.KEY_UPDATES_REQUESTED)) {
       locationHelper
@@ -151,9 +151,28 @@ public class LocationFinderActivity extends FragmentActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  public void setLocationInfo() {
-
+  public void setLocationInfo(LatLng location) {
+    if(location == null) {
+      Log.d("error", "LocationString is null");
+      setErrorMessage(getString(R.string.no_location_found));
+      return;
+    }
+    LocationDTO locationDTO = new LocationDTO();
+    locationDTO.setLatitude(location.getLatitude());
+    locationDTO.setLongitude(location.getLongitude());
+    Bundle bundle = new Bundle();
+    bundle.putParcelable(ParcelableKeys.LOCATION_DTO,locationDTO);
+    Intent intent = new Intent();
+    intent.putExtras(bundle);
+    setResult(RESULT_OK, intent);
+    Toast.makeText(this,locationDTO.toString(),Toast.LENGTH_LONG).show();
+    //finish();
   }
+
+  public void setErrorMessage(String message) {
+    mErrorMessage.setText(message);
+  }
+
 
 
   public static class ErrorDialogFragment extends DialogFragment {
@@ -183,15 +202,15 @@ public class LocationFinderActivity extends FragmentActivity {
       case CONNECTION_FAILURE_RESOLUTION_REQUEST:
         switch (resCode) {
           case Activity.RESULT_OK:
-
-            mConnectionState.setText(R.string.connected);
-            mConnectionStatus.setText(R.string.resolved);
+            setErrorMessage(getString(R.string.resolved));
+            //mConnectionState.setText(R.string.connected);
+            //mConnectionStatus.setText(R.string.resolved);
             break;
 
           default:
-
-            mConnectionState.setText(R.string.disconnected);
-            mConnectionStatus.setText(R.string.no_resolution);
+            setErrorMessage(getString(R.string.no_location_found));
+            ///mConnectionState.setText(R.string.disconnected);
+            //mConnectionStatus.setText(R.string.no_resolution);
             break;
         }
         break;
@@ -284,7 +303,27 @@ public class LocationFinderActivity extends FragmentActivity {
 
 
   public void getLocation(View v) {
-    getLocation();
+    if(locationHelper.isConnecting())
+      synchronized (showImmidateLocationResponse){
+        showImmidateLocationResponse = true;
+      }
+    else if(!locationHelper.isConnect()){
+      synchronized (showImmidateLocationResponse){
+        showImmidateLocationResponse = true;
+        locationHelper.connect();
+      }
+    }
+    else {
+      synchronized (showImmidateLocationResponse){
+        showImmidateLocationResponse = false;
+        getLocation();
+      }
+    }
+  }
+
+  public void SkipLocationUpdate(View v) {
+    setResult(RESULT_CANCELED);
+    finish();
   }
 
   public void getLocation() {
@@ -363,7 +402,7 @@ public class LocationFinderActivity extends FragmentActivity {
             mCurrentActivity.showImmidateLocationResponse = false;
           }
         }
-        //mCurrentActivity.mConnectionStatus.setText(R.string.connected);
+        Toast.makeText(mCurrentActivity,"Connection done", Toast.LENGTH_LONG).show();
 
       }
     }
@@ -373,7 +412,7 @@ public class LocationFinderActivity extends FragmentActivity {
 
       if (mCurrentActivity != null) {
 
-        mCurrentActivity.mConnectionStatus.setText(R.string.disconnected);
+        //mCurrentActivity.mConnectionStatus.setText(R.string.disconnected);
       }
     }
   }
@@ -393,9 +432,10 @@ public class LocationFinderActivity extends FragmentActivity {
     public void onLocationChanged(Location location) {
       if(mCurrentActivity != null) {
 
-        mCurrentActivity.mConnectionStatus.setText(R.string.location_updated);
+        //mCurrentActivity.mConnectionStatus.setText(R.string.location_updated);
 
-        mCurrentActivity.mLatLng.setText(LocationUtils.getLatLngString(mCurrentActivity, location));
+        //mCurrentActivity.mLatLng.setText(LocationUtils.getLatLngString(mCurrentActivity, location));
+        mCurrentActivity.setLocationInfo(LocationUtils.getLatLng(location));
       }
       mCurrentActivity.locationHelper.stopPeriodicUpdates();
     }

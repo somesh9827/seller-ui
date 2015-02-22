@@ -17,6 +17,15 @@
             android:label="@string/dash_board" >
         </activity>
         <activity
+                android:name=".views.RegisterActivity1"
+                android:label="@string/title_activity_seller_registration" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
                 android:name=".views.LocationFinderActivity"
                 android:label="@string/title_activity_location" >
             <intent-filter>
@@ -45,15 +54,7 @@
             android:name=".views.sellerProfile"
             android:label="@string/title_activity_seller_profile" >
         </activity>
-        <activity
-            android:name=".views.RegisterActivity1"
-            android:label="@string/title_activity_seller_registration" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
     </application>
 

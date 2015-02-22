@@ -54,4 +54,6 @@
     <string name="title_activity_location">Your Location</string>
     <string name="latlang">LatLang</string>
     <string name="skip_this_step">Skip This Step</string>
+    <string name="no_location_found">Problem in finding Location. Press Skip to try it later.
+    </string>
 </resources>
