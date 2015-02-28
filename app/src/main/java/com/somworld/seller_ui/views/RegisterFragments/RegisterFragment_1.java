@@ -125,7 +125,7 @@ public class RegisterFragment_1 extends RegisterFragment {
 
   @Override
   protected boolean validateWhenMoveToNextPage() {
-    return false;
+    return true;
   }
 
   void showErrorMessage(ValidationError error){
