@@ -1,5 +1,6 @@
 package com.somworld.seller_ui.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +10,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.somworld.seller_ui.R;
+import com.somworld.seller_ui.dataService.DataServiceErrorResponse;
+import com.somworld.seller_ui.dataService.DataServiceSuccessResponse;
+import com.somworld.seller_ui.dataService.IDataServiceCallback;
+import com.somworld.seller_ui.dataService.SellerDataManager;
 import com.somworld.seller_ui.helpers.DtoToModelMapper;
 import com.somworld.seller_ui.models.ParcelableKeys;
 import com.somworld.seller_ui.models.RegisterModel;
@@ -28,7 +33,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class RegisterActivity1 extends FragmentActivity implements RegistrationActivityInterface {
+public class RegisterActivity1 extends FragmentActivity implements RegistrationActivityInterface,
+                                                                   IDataServiceCallback {
 
   private ViewPager viewPager;
   private RegisterPageAdapter registerPageAdapter;
@@ -97,6 +103,8 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
     }
 
     RegisterModel registerModel = DtoToModelMapper.populateRegisterModel(registerDTO);
+    SellerDataManager sellerDataManager = new SellerDataManager(this);
+    sellerDataManager.register(registerModel);
   }
 
   @Override
@@ -136,6 +144,17 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
       return true;
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public void onDataServiceSuccess(DataServiceSuccessResponse dataServiceSuccessResponse) {
+    Intent intent = new Intent(this,DashBoard.class);
+    startActivity(intent);
+  }
+
+  @Override
+  public void onDataServiceFail(DataServiceErrorResponse dataServiceErrorResponse) {
+    Toast.makeText(this,dataServiceErrorResponse.getMessage(),Toast.LENGTH_LONG).show();
   }
 
   private static class RegistrationDataManager {

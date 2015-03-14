@@ -37,7 +37,7 @@ public class SellerDataManager extends DataManager {
       DataServiceSuccessResponse dataServiceSuccessResponse = new DataServiceSuccessResponse();
       dataServiceSuccessResponse.setCode(200);
       dataServiceSuccessResponse.setMessage("Seller has been login");
-      dataServiceSuccessResponse.setData(registerModel);
+      dataServiceSuccessResponse.setData(loginDetail);
       mIDataServiceCallback.onDataServiceSuccess(dataServiceSuccessResponse);
     }
     else {
