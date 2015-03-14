@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.somworld.seller_ui.R;
 import com.somworld.seller_ui.helpers.validators.IValidatorListener;
@@ -83,8 +82,8 @@ public class RegisterFragment_2 extends RegisterFragment {
   }
 
   @Override
-  protected void setCurrentFragmentData(RegistrationDTO registrationDTO) {
-    ShopNameDTO shopNameDTO = (ShopNameDTO)registrationDTO;
+  protected void setCurrentFragmentData(RegistrationDTO registrationPageDTO) {
+    ShopNameDTO shopNameDTO = (ShopNameDTO) registrationPageDTO;
     shopName.setText(shopNameDTO.getShopName());
     ownerFirstName.setText(shopNameDTO.getOwnerFirstName());
     ownerLastName.setText(shopNameDTO.getOwnerLastName());
