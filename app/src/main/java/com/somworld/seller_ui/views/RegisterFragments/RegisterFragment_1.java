@@ -21,7 +21,7 @@ import com.somworld.seller_ui.helpers.validators.rules.MinLengthRule;
 import com.somworld.seller_ui.helpers.validators.rules.PhoneNumberRule;
 import com.somworld.seller_ui.helpers.validators.rules.RULE;
 import com.somworld.seller_ui.models.dtos.MailAndPasswordDTO;
-import com.somworld.seller_ui.models.dtos.RegistrationDTO;
+import com.somworld.seller_ui.models.dtos.RegistrationPageDTO;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class RegisterFragment_1 extends RegisterFragment {
 
 
   @Override
-  protected RegistrationDTO getCurrentFragmentData() {
+  protected RegistrationPageDTO getCurrentFragmentData() {
     MailAndPasswordDTO data = new MailAndPasswordDTO();
     data.setEmail(mEmail.getText().toString());
     data.setContact(mContactNumber.getText().toString());
@@ -70,7 +70,7 @@ public class RegisterFragment_1 extends RegisterFragment {
   }
 
   @Override
-  protected void setCurrentFragmentData(RegistrationDTO data) {
+  protected void setCurrentFragmentData(RegistrationPageDTO data) {
     MailAndPasswordDTO fragmentData = (MailAndPasswordDTO) data;
     mContactNumber.setText(fragmentData.getContact());
     mEmail.setText(fragmentData.getEmail());

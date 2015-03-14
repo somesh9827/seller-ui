@@ -1,14 +1,13 @@
 package com.somworld.seller_ui.models.dtos;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.somworld.seller_ui.helpers.ApplicationConstants;
 
 /**
  * Created by somesh.shrivastava on 19/01/15.
  */
-public class MailAndPasswordDTO implements RegistrationDTO {
+public class MailAndPasswordDTO implements RegistrationPageDTO {
 
     public String getEmail() {
         return email;

@@ -7,7 +7,7 @@ import com.somworld.seller_ui.models.Seller;
 import com.somworld.seller_ui.models.Shop;
 import com.somworld.seller_ui.models.dtos.AddressDTO;
 import com.somworld.seller_ui.models.dtos.MailAndPasswordDTO;
-import com.somworld.seller_ui.models.dtos.Register1DTO;
+import com.somworld.seller_ui.models.dtos.RegistrationDTO;
 import com.somworld.seller_ui.models.dtos.ShopNameDTO;
 
 /**
@@ -15,7 +15,7 @@ import com.somworld.seller_ui.models.dtos.ShopNameDTO;
  */
 public class DtoToModelMapper {
 
-  public static final  RegisterModel populateRegisterModel(Register1DTO registerDTO) {
+  public static final  RegisterModel populateRegisterModel(RegistrationDTO registerDTO) {
     RegisterModel registerModel = new RegisterModel();
     registerModel.setLoginDetail(populateLoginModel(registerDTO.getLoginDetail()));
     AddressDTO shopAddressDTO = registerDTO.getShopAddress();

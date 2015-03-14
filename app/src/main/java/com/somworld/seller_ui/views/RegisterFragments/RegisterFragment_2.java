@@ -16,7 +16,7 @@ import com.somworld.seller_ui.helpers.validators.ValidationError;
 import com.somworld.seller_ui.helpers.validators.Validator;
 import com.somworld.seller_ui.helpers.validators.rules.NotEmpty;
 import com.somworld.seller_ui.helpers.validators.rules.RULE;
-import com.somworld.seller_ui.models.dtos.RegistrationDTO;
+import com.somworld.seller_ui.models.dtos.RegistrationPageDTO;
 import com.somworld.seller_ui.models.dtos.ShopNameDTO;
 
 import java.lang.ref.WeakReference;
@@ -73,7 +73,7 @@ public class RegisterFragment_2 extends RegisterFragment {
   }
 
   @Override
-  protected RegistrationDTO getCurrentFragmentData() {
+  protected RegistrationPageDTO getCurrentFragmentData() {
     ShopNameDTO shopNameDTO = new ShopNameDTO();
     shopNameDTO.setShopName(shopName.getText().toString());
     shopNameDTO.setOwnerFirstName(ownerFirstName.getText().toString());
@@ -82,7 +82,7 @@ public class RegisterFragment_2 extends RegisterFragment {
   }
 
   @Override
-  protected void setCurrentFragmentData(RegistrationDTO registrationPageDTO) {
+  protected void setCurrentFragmentData(RegistrationPageDTO registrationPageDTO) {
     ShopNameDTO shopNameDTO = (ShopNameDTO) registrationPageDTO;
     shopName.setText(shopNameDTO.getShopName());
     ownerFirstName.setText(shopNameDTO.getOwnerFirstName());

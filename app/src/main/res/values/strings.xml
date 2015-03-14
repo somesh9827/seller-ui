@@ -56,4 +56,5 @@
     <string name="skip_this_step">Skip This Step</string>
     <string name="no_location_found">Problem in finding Location. Press Skip to try it later.
     </string>
+    <string name="register_button_text">Register</string>
 </resources>

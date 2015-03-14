@@ -39,9 +39,16 @@ public class Location implements Parcelable {
   }
 
    public Location(Location location) {
-     mlatitude = location.getLatitude();
-     mlongitude = location.getLongitude();
-    }
+     if (location == null){
+       mlatitude = null;
+       mlongitude = null;
+     }
+
+     else {
+       mlatitude = location.getLatitude();
+       mlongitude = location.getLongitude();
+     }
+   }
 
     public Location() {
       mlatitude = null;

@@ -2,7 +2,6 @@ package com.somworld.seller_ui.views.RegisterFragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +12,7 @@ import android.widget.Toast;
 import com.somworld.seller_ui.R;
 import com.somworld.seller_ui.helpers.ClassUtil;
 import com.somworld.seller_ui.models.ParcelableKeys;
-import com.somworld.seller_ui.models.dtos.RegistrationDTO;
+import com.somworld.seller_ui.models.dtos.RegistrationPageDTO;
 
 import java.lang.ref.WeakReference;
 
@@ -42,11 +41,11 @@ public abstract class RegisterFragment extends Fragment {
     return saveButton;
   }
 
-  protected abstract RegistrationDTO getCurrentFragmentData();
+  protected abstract RegistrationPageDTO getCurrentFragmentData();
 
   protected abstract String getTitle();
 
-  protected abstract void setCurrentFragmentData(RegistrationDTO bundle);
+  protected abstract void setCurrentFragmentData(RegistrationPageDTO bundle);
 
   private enum  MOVE_TO_PAGE {
     NEXT,PREVIOUS,SAVE
@@ -87,7 +86,7 @@ public abstract class RegisterFragment extends Fragment {
     RegistrationActivityInterface registrationActivityInterface =
         ((RegistrationActivityInterface) getActivity());
     if (registrationActivityInterface != null) {
-      RegistrationDTO registrationData = getCurrentFragmentData();
+      RegistrationPageDTO registrationData = getCurrentFragmentData();
       Bundle bundle = new Bundle();
       bundle.putParcelable(ParcelableKeys.REGISTRATION_DATA, registrationData);
       registrationActivityInterface.saveData(bundle, getFragmentID());
@@ -99,7 +98,7 @@ public abstract class RegisterFragment extends Fragment {
     RegistrationActivityInterface registrationActivityInterface =
         ((RegistrationActivityInterface)getActivity());
     if (registrationActivityInterface != null) {
-      RegistrationDTO data = getCurrentFragmentData();
+      RegistrationPageDTO data = getCurrentFragmentData();
       Bundle bundle = new Bundle();
       bundle.putParcelable(ParcelableKeys.REGISTRATION_DATA, data);
       registrationActivityInterface.saveData(bundle,getFragmentID());
@@ -110,6 +109,15 @@ public abstract class RegisterFragment extends Fragment {
 
   public void saveAndRegister(){
    Toast.makeText(getActivity(),"saveAndRegister called",Toast.LENGTH_LONG).show();
+    RegistrationActivityInterface registrationActivityInterface =
+        ((RegistrationActivityInterface)getActivity());
+    if (registrationActivityInterface != null) {
+      RegistrationPageDTO registrationData = getCurrentFragmentData();
+      Bundle bundle = new Bundle();
+      bundle.putParcelable(ParcelableKeys.REGISTRATION_DATA, registrationData);
+      registrationActivityInterface.saveData(bundle, getFragmentID());
+      registrationActivityInterface.register();
+    }
 
   }
 
@@ -151,11 +159,11 @@ public abstract class RegisterFragment extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-    RegistrationDTO
-        registrationDTO =
+    RegistrationPageDTO
+        registrationPageDTO =
         ((RegistrationActivityInterface) getActivity()).getFragmentData(getFragmentID());
-    if (registrationDTO != null) {
-      setCurrentFragmentData(registrationDTO);
+    if (registrationPageDTO != null) {
+      setCurrentFragmentData(registrationPageDTO);
     }
   }
 
@@ -177,7 +185,7 @@ public abstract class RegisterFragment extends Fragment {
     RegistrationActivityInterface registrationActivityInterface =
         ((RegistrationActivityInterface) getActivity());
     if (registrationActivityInterface != null) {
-      RegistrationDTO data = getCurrentFragmentData();
+      RegistrationPageDTO data = getCurrentFragmentData();
       Bundle bundle = new Bundle();
       bundle.putParcelable(ParcelableKeys.REGISTRATION_DATA, data);
       registrationActivityInterface.saveData(bundle, getFragmentID());

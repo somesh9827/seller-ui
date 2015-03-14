@@ -6,10 +6,17 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.somworld.seller_ui.R;
+import com.somworld.seller_ui.helpers.DtoToModelMapper;
 import com.somworld.seller_ui.models.ParcelableKeys;
+import com.somworld.seller_ui.models.RegisterModel;
+import com.somworld.seller_ui.models.dtos.AddressDTO;
+import com.somworld.seller_ui.models.dtos.MailAndPasswordDTO;
 import com.somworld.seller_ui.models.dtos.RegistrationDTO;
+import com.somworld.seller_ui.models.dtos.RegistrationPageDTO;
+import com.somworld.seller_ui.models.dtos.ShopNameDTO;
 import com.somworld.seller_ui.views.RegisterFragments.RegisterFragment_1;
 import com.somworld.seller_ui.views.RegisterFragments.RegisterFragment_2;
 import com.somworld.seller_ui.views.RegisterFragments.RegisterFragment_3;
@@ -17,6 +24,7 @@ import com.somworld.seller_ui.views.RegisterFragments.RegistrationActivityInterf
 import com.somworld.seller_ui.views.adapters.RegisterPageAdapter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -55,15 +63,40 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
 
   @Override
   public void saveData(Bundle bundle, String fragmentID) {
-    RegistrationDTO data = bundle.getParcelable(ParcelableKeys.REGISTRATION_DATA);
+    RegistrationPageDTO data = bundle.getParcelable(ParcelableKeys.REGISTRATION_DATA);
     registrationDataManager.putData(fragmentID, data);
   }
 
   @Override
-  public RegistrationDTO getFragmentData(String fragmentID) {
+  public RegistrationPageDTO getFragmentData(String fragmentID) {
     RegistrationDataManager dataManager = RegistrationDataManager.getInstance();
-    RegistrationDTO registrationDTO = dataManager.getData(fragmentID);
-    return registrationDTO;
+    RegistrationPageDTO registrationPageDTO = dataManager.getData(fragmentID);
+    return registrationPageDTO;
+  }
+
+  @Override
+  public void register() {
+    RegistrationDataManager registrationDataManager = RegistrationDataManager.getInstance();
+    ConcurrentHashMap<String,RegistrationPageDTO> registrationData
+          = registrationDataManager.getRegistrationData();
+    Collection<RegistrationPageDTO> registrationPageDTOCollection =  registrationData.values();
+    RegistrationDTO registerDTO = new RegistrationDTO();
+    for(RegistrationPageDTO data : registrationPageDTOCollection){
+      if(data.getClass().equals(MailAndPasswordDTO.class)){
+        Toast.makeText(this, "MailAndPasswordDTO", Toast.LENGTH_LONG).show();
+        registerDTO.setLoginDetail((MailAndPasswordDTO)data);
+      }
+      else if(data.getClass().equals(ShopNameDTO.class)){
+        Toast.makeText(this,"ShopNameDTO",Toast.LENGTH_LONG).show();
+        registerDTO.setShopDetail((ShopNameDTO)data);
+      }
+      else if(data.getClass().equals(AddressDTO.class)){
+        Toast.makeText(this,"AddressDTO",Toast.LENGTH_LONG).show();
+        registerDTO.setShopAddress((AddressDTO) data);
+      }
+    }
+
+    RegisterModel registerModel = DtoToModelMapper.populateRegisterModel(registerDTO);
   }
 
   @Override
@@ -109,12 +142,17 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
 
     private static RegistrationDataManager mInstance = new RegistrationDataManager();
     private  Integer currentFragmentIndex = 0;
-    private final ConcurrentHashMap<String,RegistrationDTO> registrationDataMap;
+    private final ConcurrentHashMap<String,RegistrationPageDTO> registrationDataMap;
 
 
 
     private RegistrationDataManager() {
-      registrationDataMap = new ConcurrentHashMap<String, RegistrationDTO>();
+      registrationDataMap = new ConcurrentHashMap<String, RegistrationPageDTO>();
+    }
+
+    ConcurrentHashMap<String,RegistrationPageDTO> getRegistrationData(){
+
+      return new ConcurrentHashMap<String, RegistrationPageDTO>(registrationDataMap);
     }
 
     public void setCurrentFragmentIndex(int index) {
@@ -133,12 +171,12 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
     }
 
 
-    public void putData(String position, RegistrationDTO registrationData) {
+    public void putData(String position, RegistrationPageDTO registrationData) {
         registrationDataMap.put(position, registrationData);
 
     }
 
-    public RegistrationDTO getData(String key) {
+    public RegistrationPageDTO getData(String key) {
       if (registrationDataMap.containsKey(key)) {
         return registrationDataMap.get(key);
       }

@@ -3,6 +3,7 @@ package com.somworld.seller_ui.models;
 /**
  * Created by somesh.shrivastava on 12/01/15.
  */
+
 public class Shop {
 
     private int mId;
