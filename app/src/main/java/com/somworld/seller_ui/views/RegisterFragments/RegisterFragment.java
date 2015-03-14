@@ -24,6 +24,7 @@ public abstract class RegisterFragment extends Fragment {
 
   private String fragmentID;
   protected Button nextButton, backButton, skipButton = null;
+  protected static Button saveButton = null;
 
   protected final Button getNextButton() {
     return nextButton;
@@ -37,6 +38,10 @@ public abstract class RegisterFragment extends Fragment {
     return skipButton;
   }
 
+  protected static final Button getSaveButton(){
+    return saveButton;
+  }
+
   protected abstract RegistrationDTO getCurrentFragmentData();
 
   protected abstract String getTitle();
@@ -44,7 +49,7 @@ public abstract class RegisterFragment extends Fragment {
   protected abstract void setCurrentFragmentData(RegistrationDTO bundle);
 
   private enum  MOVE_TO_PAGE {
-    NEXT,PREVIOUS
+    NEXT,PREVIOUS,SAVE
   };
 
   private MOVE_TO_PAGE page = MOVE_TO_PAGE.NEXT;
@@ -67,7 +72,10 @@ public abstract class RegisterFragment extends Fragment {
 
   protected final void onValidationSuccess(Object data) {
     if(page == MOVE_TO_PAGE.NEXT) moveToNextPage();
-    else moveToPreviousPage();
+    else if(page == MOVE_TO_PAGE.PREVIOUS)
+      moveToPreviousPage();
+    else if(page == MOVE_TO_PAGE.SAVE)
+         saveAndRegister();
   }
 
   protected final void onValidationFail(Object error){
@@ -100,10 +108,15 @@ public abstract class RegisterFragment extends Fragment {
   }
 
 
+  public void saveAndRegister(){
+   Toast.makeText(getActivity(),"saveAndRegister called",Toast.LENGTH_LONG).show();
+
+  }
 
 
-
-  public String getFragmentID() {
+  public  String getFragmentID() {
+    if(fragmentID == null || fragmentID.equals(""))
+      fragmentID =  ClassUtil.getClassName(new WeakReference<RegisterFragment>(this).get());
     return fragmentID;
   }
 
@@ -129,6 +142,10 @@ public abstract class RegisterFragment extends Fragment {
       skipButton.setOnClickListener(navigationButtonClickListener);
     }
 
+    if(saveButton != null) {
+      saveButton.setOnClickListener(navigationButtonClickListener);
+    }
+
   }
 
   @Override
@@ -140,7 +157,6 @@ public abstract class RegisterFragment extends Fragment {
     if (registrationDTO != null) {
       setCurrentFragmentData(registrationDTO);
     }
-
   }
 
   @Override
@@ -197,6 +213,8 @@ public abstract class RegisterFragment extends Fragment {
         case R.id.skipButton:
           onSkipButtonClicked();
           break;
+        case R.id.save_Button:
+          onSaveButtonClicked();
         default:
           break;
       }
@@ -232,6 +250,16 @@ public abstract class RegisterFragment extends Fragment {
         if (registrationActivityInterface != null) {
           registrationActivityInterface.moveToNextPage();
         }
+      }
+    }
+
+    private void onSaveButtonClicked(){
+      if (mParent != null) {
+        mParent.page = MOVE_TO_PAGE.SAVE;
+        if(mParent.validateWhenMoveToNextPage())
+          mParent.validateData();
+        else
+          mParent.saveAndRegister();
       }
     }
 
