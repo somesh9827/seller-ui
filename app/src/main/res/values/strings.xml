@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Seller-ui</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -54,7 +55,10 @@
     <string name="title_activity_location">Your Location</string>
     <string name="latlang">LatLang</string>
     <string name="skip_this_step">Skip This Step</string>
-    <string name="no_location_found">Problem in finding Location. Press Skip to try it later.
-    </string>
+    <string name="no_location_found">Problem in finding Location. Press Skip to try it later.</string>
     <string name="register_button_text">Register</string>
+    <string name="title_activity_login">Login</string>
+    <string name="login_button_text">Login</string>
+    <string name="title_activity_login_or_register_selection">Login or Register</string>
+
 </resources>

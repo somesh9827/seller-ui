@@ -7,18 +7,19 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <meta-data
-                android:name="com.google.android.gms.version"
-                android:value="@integer/google_play_services_version" />
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <meta-data
-                android:name="com.google.android.maps.v2.API_KEY"
-                android:value="@string/google_maps_key" />
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity
             android:name=".views.DashBoard"
             android:label="@string/dash_board" >
         </activity>
         <activity
-                android:name=".views.RegisterActivity1"
-                android:label="@string/title_activity_seller_registration" >
+                android:name=".views.LoginOrRegisterSelectionActivity"
+                android:label="@string/title_activity_login_or_register_selection" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,8 +27,22 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".views.LocationFinderActivity"
-                android:label="@string/title_activity_location" >
+            android:name=".views.LoginActivity"
+            android:label="@string/title_activity_login" >
+
+        </activity>
+        <activity
+            android:name=".views.RegisterActivity1"
+            android:label="@string/title_activity_seller_registration" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".views.LocationFinderActivity"
+            android:label="@string/title_activity_location" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,7 +70,6 @@
             android:label="@string/title_activity_seller_profile" >
         </activity>
 
-
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -68,4 +82,5 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 </manifest>
