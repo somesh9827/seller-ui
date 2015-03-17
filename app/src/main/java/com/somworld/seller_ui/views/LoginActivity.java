@@ -87,6 +87,13 @@ public class LoginActivity extends Activity implements IDataServiceCallback {
         return super.onOptionsItemSelected(item);
     }
 
+  @Override
+  public void onBackPressed() {
+    super.onBackPressed();
+    moveToParentActivity();
+
+  }
+
   private void onLoginButtonClicked(){
     LoginDetailDTO loginDetailDTO = new LoginDetailDTO();
     loginDetailDTO.setUserName(usernameEditText.getText().toString());
@@ -99,7 +106,15 @@ public class LoginActivity extends Activity implements IDataServiceCallback {
   private void onCancelButtonClicked(){
     Intent showDashBoard = new Intent(this,LoginOrRegisterSelectionActivity.class);
     startActivity(showDashBoard);
+    overridePendingTransition(R.anim.trans_right_in,R.anim.trans_right_out);
     Toast.makeText(this,"cancelButtonClicked",Toast.LENGTH_LONG);
+    finish();
+  }
+
+  private void moveToParentActivity(){
+    Intent showDashBoard = new Intent(this,LoginOrRegisterSelectionActivity.class);
+    startActivity(showDashBoard);
+    overridePendingTransition(R.anim.trans_right_in,R.anim.trans_right_out);
     finish();
   }
 

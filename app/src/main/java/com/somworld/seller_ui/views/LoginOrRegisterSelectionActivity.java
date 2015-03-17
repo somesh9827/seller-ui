@@ -73,10 +73,12 @@ public class LoginOrRegisterSelectionActivity extends Activity {
    private void onLoginButtonClicked(){
      Intent showLoginPage = new Intent(this,LoginActivity.class);
      startActivity(showLoginPage);
+     finish();
    }
 
    private void onRegisterButtonClicked(){
      Intent showRegisterPagePage = new Intent(this,RegisterActivity1.class);
      startActivity(showRegisterPagePage);
+     finish();
    }
 }
