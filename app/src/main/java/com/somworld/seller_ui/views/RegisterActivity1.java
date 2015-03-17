@@ -27,6 +27,7 @@ import com.somworld.seller_ui.views.RegisterFragments.RegisterFragment_2;
 import com.somworld.seller_ui.views.RegisterFragments.RegisterFragment_3;
 import com.somworld.seller_ui.views.RegisterFragments.RegistrationActivityInterface;
 import com.somworld.seller_ui.views.adapters.RegisterPageAdapter;
+import com.somworld.seller_ui.views.common.ApplicationAlertDialog;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,7 +35,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RegisterActivity1 extends FragmentActivity implements RegistrationActivityInterface,
-                                                                   IDataServiceCallback {
+                                                                   IDataServiceCallback,ApplicationAlertDialog.DialogCallbackInterface {
 
   private ViewPager viewPager;
   private RegisterPageAdapter registerPageAdapter;
@@ -157,6 +158,32 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
     Toast.makeText(this,dataServiceErrorResponse.getMessage(),Toast.LENGTH_LONG).show();
   }
 
+  @Override
+  public void onBackPressed() {
+   // super.onBackPressed();
+    ApplicationAlertDialog dialog = new ApplicationAlertDialog();
+    dialog.setHeadingText(getString(R.string.default_dialog_alert_heading_text)).setContentText(getString(R.string.registration_leave_confirm_message)).setPositiveButtonText(getString(R.string.yes_button_text)).setNegativeButtonText(getString(R.string.no_button_text));
+    dialog.show(getFragmentManager(), "");
+  }
+
+  @Override
+  public void onPositiveButtonClicked() {
+   moveToParentActivity();
+  }
+
+  @Override
+  public void onNegativeButtonClicked() {
+
+  }
+
+  private void moveToParentActivity(){
+    Intent showDashBoard = new Intent(this,LoginOrRegisterSelectionActivity.class);
+    startActivity(showDashBoard);
+    overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+    RegistrationDataManager.getInstance().clear();
+    finish();
+  }
+
   private static class RegistrationDataManager {
 
     private static RegistrationDataManager mInstance = new RegistrationDataManager();
@@ -200,6 +227,12 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
         return registrationDataMap.get(key);
       }
       return null;
+    }
+
+    public void clear(){
+      mInstance = null;
+      if(registrationDataMap != null)
+        registrationDataMap.clear();
     }
 
   }

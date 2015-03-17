@@ -17,10 +17,11 @@ import com.somworld.seller_ui.dataService.IDataServiceCallback;
 import com.somworld.seller_ui.dataService.SellerDataManager;
 import com.somworld.seller_ui.models.LoginDetail;
 import com.somworld.seller_ui.models.dtos.LoginDetailDTO;
+import com.somworld.seller_ui.views.common.ApplicationAlertDialog;
 
 import java.lang.ref.WeakReference;
 
-public class LoginActivity extends Activity implements IDataServiceCallback {
+public class LoginActivity extends Activity implements IDataServiceCallback,ApplicationAlertDialog.DialogCallbackInterface {
 
 
   private Button loginButton,cancelButton;
@@ -89,8 +90,23 @@ public class LoginActivity extends Activity implements IDataServiceCallback {
 
   @Override
   public void onBackPressed() {
-    super.onBackPressed();
+    //super.onBackPressed();
+   confirmLeaveActivity();
+  }
+
+  private void confirmLeaveActivity(){
+    ApplicationAlertDialog dialog = new ApplicationAlertDialog();
+    dialog.setHeadingText(getString(R.string.default_dialog_alert_heading_text)).setContentText(getString(R.string.login_leave_confirm_message)).setPositiveButtonText(getString(R.string.yes_button_text)).setNegativeButtonText(getString(R.string.no_button_text));
+    dialog.show(getFragmentManager(), "");
+  }
+
+  @Override
+  public void onPositiveButtonClicked() {
     moveToParentActivity();
+  }
+
+  @Override
+  public void onNegativeButtonClicked() {
 
   }
 
@@ -104,17 +120,13 @@ public class LoginActivity extends Activity implements IDataServiceCallback {
   }
 
   private void onCancelButtonClicked(){
-    Intent showDashBoard = new Intent(this,LoginOrRegisterSelectionActivity.class);
-    startActivity(showDashBoard);
-    overridePendingTransition(R.anim.trans_right_in,R.anim.trans_right_out);
-    Toast.makeText(this,"cancelButtonClicked",Toast.LENGTH_LONG);
-    finish();
+    confirmLeaveActivity();
   }
 
   private void moveToParentActivity(){
     Intent showDashBoard = new Intent(this,LoginOrRegisterSelectionActivity.class);
     startActivity(showDashBoard);
-    overridePendingTransition(R.anim.trans_right_in,R.anim.trans_right_out);
+    overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
     finish();
   }
 

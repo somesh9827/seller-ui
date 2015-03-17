@@ -19,4 +19,6 @@
     <color name="default_heading_blue">#00acc1</color>
     <color name="default_error_message_text_red">#FF0000</color>
     <color name="default_error_message_background_red">#FF0000</color>
+    <color name="default_dialog_alert_heading_blue">#3b8dbd</color>
+    <color name="default_text_color_black">#000000</color>
 </resources>
