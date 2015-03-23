@@ -1,8 +1,15 @@
 package com.somworld.seller_ui.models;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
 /**
  * Created by somesh.shrivastava on 12/01/15.
  */
+@Accessors(prefix = "m")
+@Getter
+@Setter
 public class Address {
 
     private int mId;
@@ -19,45 +26,11 @@ public class Address {
 
     private String mState;
 
-    private String mPincode;
+    private String mPinCode;
 
-    public int getId() {
-        return mId;
-    }
-
-    public String getDoorNumber() {
-        return mDoorNumber;
-    }
-
-    public String getAddress1() {
-        return mAddress1;
-    }
-
-    public String getAddress2() {
-        return mAddress2;
-    }
-
-    public String getArea() {
-        return mArea;
-    }
-
-    public String getmCity() {
-        return mCity;
-    }
-
-    public String getState() {
-        return mState;
-    }
-
-    public String getPincode() {
-        return mPincode;
-    }
-
-
-
-    Address(){
+    public Address(){
         mId = -1;
-        mDoorNumber = mAddress1 = mAddress2 = mArea = mCity = mState = mPincode = "";
+        mDoorNumber = mAddress1 = mAddress2 = mArea = mCity = mState = mPinCode = "";
     }
 
     Address(int _id,String doorNumber,String address1,String address2,String area,String city, String state,String pincode) {
@@ -68,7 +41,7 @@ public class Address {
         mArea = area;
         mCity = city;
         mState = state;
-        mPincode = pincode;
+        mPinCode = pincode;
     }
 
     Address(Address oldAddress){
@@ -77,8 +50,8 @@ public class Address {
         mAddress1 = oldAddress.getAddress1();
         mAddress2 = oldAddress.getAddress2();
         mArea = oldAddress.getArea();
-        mCity = oldAddress.getmCity();
-        mPincode = oldAddress.getPincode();
+        mCity = oldAddress.getCity();
+        mPinCode = oldAddress.getPinCode();
         mState = oldAddress.getState();
     }
 
@@ -98,8 +71,8 @@ public class Address {
             concatAddress.append(mCity).append(delimiter);
         if(mState != null)
             concatAddress.append(mState).append(delimiter);
-        if(mPincode != null)
-            concatAddress.append(mPincode);
+        if(mPinCode != null)
+            concatAddress.append(mPinCode);
 
         return concatAddress.toString();
     }

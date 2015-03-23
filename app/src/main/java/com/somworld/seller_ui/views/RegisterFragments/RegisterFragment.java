@@ -2,7 +2,6 @@ package com.somworld.seller_ui.views.RegisterFragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +12,7 @@ import android.widget.Toast;
 import com.somworld.seller_ui.R;
 import com.somworld.seller_ui.helpers.ClassUtil;
 import com.somworld.seller_ui.models.ParcelableKeys;
-import com.somworld.seller_ui.models.dtos.RegistrationDTO;
+import com.somworld.seller_ui.models.dtos.RegistrationPageDTO;
 
 import java.lang.ref.WeakReference;
 
@@ -24,6 +23,7 @@ public abstract class RegisterFragment extends Fragment {
 
   private String fragmentID;
   protected Button nextButton, backButton, skipButton = null;
+  protected static Button saveButton = null;
 
   protected final Button getNextButton() {
     return nextButton;
@@ -37,14 +37,18 @@ public abstract class RegisterFragment extends Fragment {
     return skipButton;
   }
 
-  protected abstract RegistrationDTO getCurrentFragmentData();
+  protected static final Button getSaveButton(){
+    return saveButton;
+  }
+
+  protected abstract RegistrationPageDTO getCurrentFragmentData();
 
   protected abstract String getTitle();
 
-  protected abstract void setCurrentFragmentData(RegistrationDTO bundle);
+  protected abstract void setCurrentFragmentData(RegistrationPageDTO bundle);
 
   private enum  MOVE_TO_PAGE {
-    NEXT,PREVIOUS
+    NEXT,PREVIOUS,SAVE
   };
 
   private MOVE_TO_PAGE page = MOVE_TO_PAGE.NEXT;
@@ -67,7 +71,10 @@ public abstract class RegisterFragment extends Fragment {
 
   protected final void onValidationSuccess(Object data) {
     if(page == MOVE_TO_PAGE.NEXT) moveToNextPage();
-    else moveToPreviousPage();
+    else if(page == MOVE_TO_PAGE.PREVIOUS)
+      moveToPreviousPage();
+    else if(page == MOVE_TO_PAGE.SAVE)
+         saveAndRegister();
   }
 
   protected final void onValidationFail(Object error){
@@ -79,7 +86,7 @@ public abstract class RegisterFragment extends Fragment {
     RegistrationActivityInterface registrationActivityInterface =
         ((RegistrationActivityInterface) getActivity());
     if (registrationActivityInterface != null) {
-      RegistrationDTO registrationData = getCurrentFragmentData();
+      RegistrationPageDTO registrationData = getCurrentFragmentData();
       Bundle bundle = new Bundle();
       bundle.putParcelable(ParcelableKeys.REGISTRATION_DATA, registrationData);
       registrationActivityInterface.saveData(bundle, getFragmentID());
@@ -91,7 +98,7 @@ public abstract class RegisterFragment extends Fragment {
     RegistrationActivityInterface registrationActivityInterface =
         ((RegistrationActivityInterface)getActivity());
     if (registrationActivityInterface != null) {
-      RegistrationDTO data = getCurrentFragmentData();
+      RegistrationPageDTO data = getCurrentFragmentData();
       Bundle bundle = new Bundle();
       bundle.putParcelable(ParcelableKeys.REGISTRATION_DATA, data);
       registrationActivityInterface.saveData(bundle,getFragmentID());
@@ -100,10 +107,24 @@ public abstract class RegisterFragment extends Fragment {
   }
 
 
+  public void saveAndRegister(){
+   Toast.makeText(getActivity(),"saveAndRegister called",Toast.LENGTH_LONG).show();
+    RegistrationActivityInterface registrationActivityInterface =
+        ((RegistrationActivityInterface)getActivity());
+    if (registrationActivityInterface != null) {
+      RegistrationPageDTO registrationData = getCurrentFragmentData();
+      Bundle bundle = new Bundle();
+      bundle.putParcelable(ParcelableKeys.REGISTRATION_DATA, registrationData);
+      registrationActivityInterface.saveData(bundle, getFragmentID());
+      registrationActivityInterface.register();
+    }
+
+  }
 
 
-
-  public String getFragmentID() {
+  public  String getFragmentID() {
+    if(fragmentID == null || fragmentID.equals(""))
+      fragmentID =  ClassUtil.getClassName(new WeakReference<RegisterFragment>(this).get());
     return fragmentID;
   }
 
@@ -129,18 +150,21 @@ public abstract class RegisterFragment extends Fragment {
       skipButton.setOnClickListener(navigationButtonClickListener);
     }
 
+    if(saveButton != null) {
+      saveButton.setOnClickListener(navigationButtonClickListener);
+    }
+
   }
 
   @Override
   public void onResume() {
     super.onResume();
-    RegistrationDTO
-        registrationDTO =
+    RegistrationPageDTO
+        registrationPageDTO =
         ((RegistrationActivityInterface) getActivity()).getFragmentData(getFragmentID());
-    if (registrationDTO != null) {
-      setCurrentFragmentData(registrationDTO);
+    if (registrationPageDTO != null) {
+      setCurrentFragmentData(registrationPageDTO);
     }
-
   }
 
   @Override
@@ -161,7 +185,7 @@ public abstract class RegisterFragment extends Fragment {
     RegistrationActivityInterface registrationActivityInterface =
         ((RegistrationActivityInterface) getActivity());
     if (registrationActivityInterface != null) {
-      RegistrationDTO data = getCurrentFragmentData();
+      RegistrationPageDTO data = getCurrentFragmentData();
       Bundle bundle = new Bundle();
       bundle.putParcelable(ParcelableKeys.REGISTRATION_DATA, data);
       registrationActivityInterface.saveData(bundle, getFragmentID());
@@ -197,6 +221,8 @@ public abstract class RegisterFragment extends Fragment {
         case R.id.skipButton:
           onSkipButtonClicked();
           break;
+        case R.id.save_Button:
+          onSaveButtonClicked();
         default:
           break;
       }
@@ -232,6 +258,16 @@ public abstract class RegisterFragment extends Fragment {
         if (registrationActivityInterface != null) {
           registrationActivityInterface.moveToNextPage();
         }
+      }
+    }
+
+    private void onSaveButtonClicked(){
+      if (mParent != null) {
+        mParent.page = MOVE_TO_PAGE.SAVE;
+        if(mParent.validateWhenMoveToNextPage())
+          mParent.validateData();
+        else
+          mParent.saveAndRegister();
       }
     }
 

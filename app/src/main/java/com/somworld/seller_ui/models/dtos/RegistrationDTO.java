@@ -1,9 +1,21 @@
 package com.somworld.seller_ui.models.dtos;
 
-import android.os.Parcelable;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * Created by somesh.shrivastava on 19/01/15.
+ * Created by somesh.shrivastava on 01/03/15.
  */
-public interface RegistrationDTO extends Parcelable {
+@Getter
+@Setter
+public class RegistrationDTO {
+
+  private MailAndPasswordDTO loginDetail =null;
+
+  private AddressDTO shopAddress = null;
+
+  private ShopNameDTO shopDetail = null;
+
+
+
 }

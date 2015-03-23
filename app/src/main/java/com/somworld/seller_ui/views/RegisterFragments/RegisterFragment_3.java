@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.somworld.seller_ui.R;
 import com.somworld.seller_ui.helpers.validators.IValidatorListener;
@@ -19,7 +18,7 @@ import com.somworld.seller_ui.helpers.validators.rules.NotEmpty;
 import com.somworld.seller_ui.helpers.validators.rules.PincodeRule;
 import com.somworld.seller_ui.helpers.validators.rules.RULE;
 import com.somworld.seller_ui.models.dtos.AddressDTO;
-import com.somworld.seller_ui.models.dtos.RegistrationDTO;
+import com.somworld.seller_ui.models.dtos.RegistrationPageDTO;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class RegisterFragment_3 extends RegisterFragment {
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
     View v = inflater.inflate(R.layout.register_fragment_3, container, false);
-    nextButton = (Button) v.findViewById(R.id.next_button);
+    saveButton = (Button) v.findViewById(R.id.save_Button);
     backButton = (Button) v.findViewById(R.id.previous_button);
     addressLine1 = (EditText)v.findViewById(R.id.address_line_1);
     addressLine2 = (EditText)v.findViewById(R.id.address_line_2);
@@ -72,7 +71,7 @@ public class RegisterFragment_3 extends RegisterFragment {
   }
 
   @Override
-  protected RegistrationDTO getCurrentFragmentData() {
+  protected RegistrationPageDTO getCurrentFragmentData() {
     AddressDTO addressDTO = new AddressDTO();
     addressDTO.setAddressLine1(addressLine1.getText().toString());
     addressDTO.setAddressLine2(addressLine2.getText().toString());
@@ -89,8 +88,8 @@ public class RegisterFragment_3 extends RegisterFragment {
   }
 
   @Override
-  protected void setCurrentFragmentData(RegistrationDTO registrationDTO) {
-    AddressDTO addressDTO = (AddressDTO)registrationDTO;
+  protected void setCurrentFragmentData(RegistrationPageDTO registrationPageDTO) {
+    AddressDTO addressDTO = (AddressDTO) registrationPageDTO;
     addressLine1.setText(addressDTO.getAddressLine1());
     addressLine2.setText(addressDTO.getAddressLine2());
     area.setText(addressDTO.getArea());
@@ -151,7 +150,7 @@ public class RegisterFragment_3 extends RegisterFragment {
 
   @Override
   protected boolean validateWhenMoveToNextPage() {
-    return true;
+    return false;
   }
 
   void showErrorMessage(ValidationError error){

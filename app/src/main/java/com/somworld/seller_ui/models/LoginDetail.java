@@ -1,11 +1,10 @@
 package com.somworld.seller_ui.models;
 
-import com.somworld.seller_ui.models.dtos.MailAndPasswordDTO;
 
 /**
  * Created by somesh.shrivastava on 08/02/15.
  */
-public class MailAndPassword {
+public class LoginDetail {
 
   private String email;
 
@@ -13,7 +12,7 @@ public class MailAndPassword {
 
   private String contact;
 
-  public MailAndPassword() {
+  public LoginDetail() {
     email = null;
     password = null;
     contact = null;

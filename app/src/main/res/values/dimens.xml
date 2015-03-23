@@ -10,8 +10,9 @@
     <dimen name="form_text_default_height">40sp</dimen>
     <dimen name="form_text_area_default_height">150sp</dimen>
     <dimen name="form_element_padding">15dp</dimen>
-    <dimen name="form_button_padding_">25dp</dimen>
+    <dimen name="form_button_padding">25dp</dimen>
     <dimen name="date_picker_height">150sp</dimen>
     <dimen name="time_picker_height">150sp</dimen>
     <dimen name="date_picker_default_height">40sp</dimen>
+    <dimen name="default_dialog_padding">15dp</dimen>
 </resources>

@@ -5,7 +5,7 @@ import android.os.Parcel;
 /**
  * Created by somesh.shrivastava on 24/01/15.
  */
-public class ShopNameDTO implements RegistrationDTO {
+public class ShopNameDTO implements RegistrationPageDTO {
 
     private String shopName;
     private String ownerFirstName;

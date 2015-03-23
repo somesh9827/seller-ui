@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@drawable/default_application_alert_dialog"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+<TextView android:id="@+id/dialog_heading"
+        android:layout_width="match_parent" android:layout_height="40dp"
+        android:text="@string/default_dialog_alert_heading_text"
+        android:background="@drawable/default_application_alert_dialoge_heading"
+        style="@style/Theme.defaultAppTheme.AlertDialog.heading.TitleTextStyle"
+        />
+    <TextView android:id="@+id/dialog_content_text"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:padding="@dimen/default_dialog_padding"
+            style="@style/Theme.defaultAppTheme.AlertDialog.contentTextStyle"
+            />
+</LinearLayout>

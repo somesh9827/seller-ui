@@ -8,7 +8,15 @@ import android.os.Parcelable;
  */
 public class CityDTO implements Parcelable {
 
+  private int mCityID;
+  private String mCityName;
+  private int mStateID;
+
+
   public static final Creator<CityDTO> creator = new Creator<CityDTO>() {
+
+
+
     @Override
     public CityDTO createFromParcel(Parcel parcel) {
       CityDTO cityDTO = new CityDTO();
@@ -23,9 +31,6 @@ public class CityDTO implements Parcelable {
       return new CityDTO[i];
     }
   };
-  private int mCityID;
-  private String mCityName;
-  private int mStateID;
 
   public CityDTO() {
   }

@@ -15,16 +15,16 @@ public class Seller {
 
     private String mMiddleName;
 
-    private String mPhoneNumber;
+    private String mContactNumber;
 
     private Shop mShop;
 
-    public String getPhoneNumber() {
-        return mPhoneNumber;
+    public String getContactNumber() {
+        return mContactNumber;
     }
 
-    public void setPhoneNumber(String mPhoneNumber) {
-        this.mPhoneNumber = mPhoneNumber;
+    public void setContactNumber(String mPhoneNumber) {
+        this.mContactNumber = mPhoneNumber;
     }
 
     public int getId() {

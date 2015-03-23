@@ -47,7 +47,7 @@
             />
         <Button
             android:id="@+id/next_button"
-            android:layout_marginTop="@dimen/form_button_padding_"
+            android:layout_marginTop="@dimen/form_button_padding"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/next_button_text"
@@ -57,7 +57,7 @@
             />
         <Button
             android:id="@+id/previous_button"
-            android:layout_marginTop="@dimen/form_button_padding_"
+            android:layout_marginTop="@dimen/form_button_padding"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/previous_button_text"

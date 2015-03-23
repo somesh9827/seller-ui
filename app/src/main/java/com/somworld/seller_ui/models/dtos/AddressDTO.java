@@ -3,12 +3,11 @@ package com.somworld.seller_ui.models.dtos;
 import android.os.Parcel;
 
 import com.somworld.seller_ui.helpers.ApplicationConstants;
-import com.somworld.seller_ui.helpers.Utils;
 
 /**
  * Created by somesh.shrivastava on 25/01/15.
  */
-public class AddressDTO implements RegistrationDTO {
+public class AddressDTO implements RegistrationPageDTO {
 
   String mAddressLine1, mAddressLine2, mArea, mCity, mState, mPincode;
 
