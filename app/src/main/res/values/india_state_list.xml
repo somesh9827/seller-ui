@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="madhya_pradesh">1</string>
+    <string-array name="state_list">
+        <item>@string/madhya_pradesh</item>
+    </string-array>
+</resources>
