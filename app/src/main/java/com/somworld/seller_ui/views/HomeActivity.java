@@ -22,7 +22,7 @@ public class HomeActivity extends Activity {
     private ApplicationProgressDialog progressDialog;
 
     private static class LocalListener implements View.OnClickListener {
-      private HomeActivity mParent
+      private HomeActivity mParent;
       private LocalListener(HomeActivity parent) {
         mParent = parent;
       }
