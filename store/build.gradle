@@ -5,7 +5,7 @@ android {
     buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "com.somworld.seller_ui"
+        applicationId "com.somworld.seller.persistence"
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 1
@@ -22,4 +22,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.mcxiaoke.volley:library-aar:1.0.+'
+    provided 'org.projectlombok:lombok:1.12.2'
+    compile project(':RESTBuilder')
 }
