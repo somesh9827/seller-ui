@@ -17,7 +17,7 @@ public class UtilTest extends TestCase {
         c.set(2015,Calendar.JANUARY,17,10,12,13);
         Date d =  c.getTime();
         Date actual = Utils.getDateFromTime(d);
-        String expected = "Sat Jan 17 00:12:00 GMT+05:30 2015";
+        String expected = "Sat Jan 17 00:00:00 GMT+05:30 2015";
         assertEquals(expected, actual.toString());
     }
 

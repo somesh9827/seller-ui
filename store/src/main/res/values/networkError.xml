@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="NetworkErrorCode">
+        <item>@string/networkConnectionCode</item>
+        <item>@string/networkTimeoutCode</item>
+        <item>@string/AuthFailErrorCode</item>
+        <item>@string/serverError</item>
+        <item>@string/networkError</item>
+    </string-array>
+    <string name="networkTimeoutCode">599</string>
+    <string name="networkConnectionCode">510</string>
+    <string name="AuthFailErrorCode">401</string>
+    <string name="serverError">504</string>
+    <string name="networkError">505</string>
+
+    <string name="networkTimeOutMessage">Time out when fetching the data.</string>
+    <string name="networkConnectionMessage">Problem in network connection. Open connection setting?</string>
+    <string name="AuthFailErrorMessage">Authentication Fail</string>
+    <string name="serverErrorMessage">Problem is Server.Please try after some time</string>
+    <string name="networkErrorMessage">Problem while connection.please try again letter</string>
+
+
+    <string name="No3GOrWiFiConnection">No Network connection found.Please check your network setting.</string>
+</resources>

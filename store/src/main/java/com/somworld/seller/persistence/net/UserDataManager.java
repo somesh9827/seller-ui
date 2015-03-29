@@ -1,5 +1,6 @@
 package com.somworld.seller.persistence.net;
 
+import com.somworld.seller.persistence.net.entity.RoleType;
 import com.somworld.seller.persistene.ICallback;
 
 /**
@@ -16,7 +17,7 @@ public class UserDataManager extends NetworkDataManagerImpl {
     return null;
   }
 
-  public void register(){}
-  public void login(){}
-  public void logout(){}
+  public void register(RoleType role){}
+  public void login(RoleType role){}
+  public void logout(RoleType role){}
 }

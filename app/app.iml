@@ -89,6 +89,7 @@
     <orderEntry type="library" exported="" name="play-services-6.1.71" level="project" />
     <orderEntry type="library" exported="" name="dexmaker-mockito-1.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="junit-4.12" level="project" />
+    <orderEntry type="library" exported="" name="lombok-1.12.2" level="project" />
     <orderEntry type="module" module-name="store" exported="" />
   </component>
 </module>
