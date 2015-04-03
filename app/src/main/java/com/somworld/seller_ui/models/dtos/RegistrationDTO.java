@@ -14,6 +14,8 @@ public class RegistrationDTO {
 
   private AddressDTO shopAddress = null;
 
+  private UserInfoDTO userInfo = null;
+
   private ShopNameDTO shopDetail = null;
 
 

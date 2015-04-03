@@ -18,6 +18,7 @@ import com.somworld.seller_ui.helpers.validators.rules.NotEmpty;
 import com.somworld.seller_ui.helpers.validators.rules.RULE;
 import com.somworld.seller_ui.models.dtos.RegistrationPageDTO;
 import com.somworld.seller_ui.models.dtos.ShopNameDTO;
+import com.somworld.seller_ui.models.dtos.UserInfoDTO;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import java.util.Vector;
  */
 public class RegisterFragment_2 extends RegisterFragment {
 
-  private EditText shopName, ownerFirstName, ownerLastName;
+  private EditText ownerFirstName, ownerLastName;
 
   private static class DataValidator implements IValidatorListener {
 
@@ -65,7 +66,6 @@ public class RegisterFragment_2 extends RegisterFragment {
     View v = inflater.inflate(R.layout.register_fragment_2, container, false);
     nextButton = (Button) v.findViewById(R.id.next_button);
     backButton = (Button) v.findViewById(R.id.previous_button);
-    shopName = (EditText) v.findViewById(R.id.shop_name);
     ownerFirstName = (EditText) v.findViewById(R.id.owner_first_name);
     ownerLastName = (EditText) v.findViewById(R.id.owner_last_name);
     setUp();
@@ -74,24 +74,21 @@ public class RegisterFragment_2 extends RegisterFragment {
 
   @Override
   protected RegistrationPageDTO getCurrentFragmentData() {
-    ShopNameDTO shopNameDTO = new ShopNameDTO();
-    shopNameDTO.setShopName(shopName.getText().toString());
-    shopNameDTO.setOwnerFirstName(ownerFirstName.getText().toString());
-    shopNameDTO.setOwnerLastName(ownerLastName.getText().toString());
-    return shopNameDTO;
+    UserInfoDTO userInfoDTO = new UserInfoDTO();
+    userInfoDTO.setFirstName(ownerFirstName.getText().toString());
+    userInfoDTO.setLastName(ownerLastName.getText().toString());
+    return userInfoDTO;
   }
 
   @Override
   protected void setCurrentFragmentData(RegistrationPageDTO registrationPageDTO) {
-    ShopNameDTO shopNameDTO = (ShopNameDTO) registrationPageDTO;
-    shopName.setText(shopNameDTO.getShopName());
-    ownerFirstName.setText(shopNameDTO.getOwnerFirstName());
-    ownerLastName.setText(shopNameDTO.getOwnerLastName());
+    UserInfoDTO userInfoDTO = (UserInfoDTO) registrationPageDTO;
+    ownerFirstName.setText(userInfoDTO.getFirstName());
+    ownerLastName.setText(userInfoDTO.getLastName());
   }
 
   @Override
   protected void validateData() {
-    String shopName = ((EditText)getActivity().findViewById(R.id.shop_name)).getText().toString();
     String firstName = ((EditText)getActivity().findViewById(R.id.owner_first_name)).getText().toString();
     String ownerLastName = ((EditText)getActivity().findViewById(R.id.owner_last_name)).getText().toString();
 
@@ -100,9 +97,6 @@ public class RegisterFragment_2 extends RegisterFragment {
 
     RuleValueAdapter shopRuleValueAdapter,firstNameRuleValueAdapter,lastNameRuleValueAdapter;
 
-    shopRuleValueAdapter = new RuleValueAdapter(R.id.shop_name,shopName);
-    shopRuleValueAdapter.addRule(notEmpty,String.format(getString(R.string.not_empty_error),"Shop Name"));
-
     firstNameRuleValueAdapter = new RuleValueAdapter(R.id.owner_first_name,firstName);
     firstNameRuleValueAdapter.addRule(notEmpty,String.format(getString(R.string.not_empty_error),"First Name"));
 
@@ -110,7 +104,6 @@ public class RegisterFragment_2 extends RegisterFragment {
     lastNameRuleValueAdapter.addRule(notEmpty,String.format(getString(R.string.not_empty_error),"Last Name"));
 
     List<RuleValueAdapter> ruleValueAdapters = new ArrayList<RuleValueAdapter>();
-    ruleValueAdapters.add(shopRuleValueAdapter);
     ruleValueAdapters.add(firstNameRuleValueAdapter);
     ruleValueAdapters.add(lastNameRuleValueAdapter);
 

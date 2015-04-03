@@ -5,8 +5,8 @@ android {
     buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "com.somworld.seller.persistence"
-        minSdkVersion 14
+        applicationId "com.somworld"
+        minSdkVersion 8
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -21,6 +21,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:21.0.2'
+    compile 'com.mcxiaoke.volley:library-aar:1.0.+'
     provided 'org.projectlombok:lombok:1.12.2'
-    compile project(':VollyWraper')
+    provided 'org.codehaus.jackson:jackson-mapper-asl:1.9.0'
+    compile project(':RESTBuilder')
 }

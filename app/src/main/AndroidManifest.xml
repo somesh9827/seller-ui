@@ -19,6 +19,15 @@
             android:label="@string/dash_board" >
         </activity>
         <activity
+                android:name=".views.LoginOrRegisterSelectionActivity"
+                android:label="@string/title_activity_login_or_register_selection" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".views.HomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
@@ -27,15 +36,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".views.LoginOrRegisterSelectionActivity"
-            android:label="@string/title_activity_login_or_register_selection" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".views.LoginActivity"
             android:label="@string/title_activity_login" >

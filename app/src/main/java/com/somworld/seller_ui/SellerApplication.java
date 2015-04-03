@@ -2,7 +2,7 @@ package com.somworld.seller_ui;
 
 import android.app.Application;
 
-import com.somworld.seller.common.ContextManager;
+import com.somworld.vollywraper.common.ContextManager;
 import com.somworld.seller_ui.helpers.Util;
 
 /**

@@ -15,6 +15,7 @@ import com.somworld.seller_ui.dataService.DataServiceSuccessResponse;
 import com.somworld.seller_ui.dataService.IDataServiceCallback;
 import com.somworld.seller_ui.dataService.SellerDataManager;
 import com.somworld.seller_ui.helpers.DtoToModelMapper;
+import com.somworld.seller_ui.helpers.Util;
 import com.somworld.seller_ui.models.ParcelableKeys;
 import com.somworld.seller_ui.models.RegisterModel;
 import com.somworld.seller_ui.models.dtos.AddressDTO;
@@ -22,9 +23,10 @@ import com.somworld.seller_ui.models.dtos.MailAndPasswordDTO;
 import com.somworld.seller_ui.models.dtos.RegistrationDTO;
 import com.somworld.seller_ui.models.dtos.RegistrationPageDTO;
 import com.somworld.seller_ui.models.dtos.ShopNameDTO;
+import com.somworld.seller_ui.models.dtos.UserInfoDTO;
 import com.somworld.seller_ui.views.RegisterFragments.RegisterFragment_1;
 import com.somworld.seller_ui.views.RegisterFragments.RegisterFragment_2;
-import com.somworld.seller_ui.views.RegisterFragments.RegisterFragment_3;
+import com.somworld.seller_ui.views.RegisterFragments.RegisterFragment_4;
 import com.somworld.seller_ui.views.RegisterFragments.RegistrationActivityInterface;
 import com.somworld.seller_ui.views.adapters.RegisterPageAdapter;
 import com.somworld.seller_ui.views.common.ApplicationAlertDialog;
@@ -93,9 +95,13 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
         Toast.makeText(this, "MailAndPasswordDTO", Toast.LENGTH_LONG).show();
         registerDTO.setLoginDetail((MailAndPasswordDTO)data);
       }
+      else if(data.getClass().equals(UserInfoDTO.class)){
+        Toast.makeText(this,"UserInfoDTO",Toast.LENGTH_LONG).show();
+        registerDTO.setUserInfo((UserInfoDTO)data);
+      }
       else if(data.getClass().equals(ShopNameDTO.class)){
         Toast.makeText(this,"ShopNameDTO",Toast.LENGTH_LONG).show();
-        registerDTO.setShopDetail((ShopNameDTO)data);
+        registerDTO.setShopDetail((ShopNameDTO) data);
       }
       else if(data.getClass().equals(AddressDTO.class)){
         Toast.makeText(this,"AddressDTO",Toast.LENGTH_LONG).show();
@@ -104,7 +110,7 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
     }
 
     RegisterModel registerModel = DtoToModelMapper.populateRegisterModel(registerDTO);
-    SellerDataManager sellerDataManager = new SellerDataManager(this);
+    SellerDataManager sellerDataManager = new SellerDataManager(Util.getWeakReference(this));
     sellerDataManager.register(registerModel);
   }
 
@@ -123,7 +129,7 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
     List<Fragment> fragments = new ArrayList<Fragment>();
     fragments.add(new RegisterFragment_1());
     fragments.add(new RegisterFragment_2());
-    fragments.add(new RegisterFragment_3());
+    fragments.add(new RegisterFragment_4());
 
     return fragments;
   }
