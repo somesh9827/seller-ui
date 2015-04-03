@@ -21,7 +21,7 @@ public class DtoToModelMapper {
     registerModel.setLoginDetail(populateLoginModel(registerDTO.getLoginDetail()));
     AddressDTO shopAddressDTO = registerDTO.getShopAddress();
     UserInfoDTO userInfo = registerDTO.getUserInfo();
-    //ShopNameDTO shopDetailDTO = registerDTO.getShopDetail();
+    ShopNameDTO shopDetailDTO = registerDTO.getShopDetail();
 
     Seller seller = new Seller();
     seller.setFirstname(userInfo.getFirstName());
@@ -30,7 +30,8 @@ public class DtoToModelMapper {
     seller.setContactNumber(registerDTO.getLoginDetail().getContact());
 
     Shop shop = new Shop();
-    //shop.setShopName(shopDetailDTO.getShopName());
+    shop.setShopName(shopDetailDTO.getShopName());
+
 
     shop.setLocation(null);
 

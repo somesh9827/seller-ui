@@ -26,6 +26,7 @@ import com.somworld.seller_ui.models.dtos.ShopNameDTO;
 import com.somworld.seller_ui.models.dtos.UserInfoDTO;
 import com.somworld.seller_ui.views.RegisterFragments.RegisterFragment_1;
 import com.somworld.seller_ui.views.RegisterFragments.RegisterFragment_2;
+import com.somworld.seller_ui.views.RegisterFragments.RegisterFragment_3;
 import com.somworld.seller_ui.views.RegisterFragments.RegisterFragment_4;
 import com.somworld.seller_ui.views.RegisterFragments.RegistrationActivityInterface;
 import com.somworld.seller_ui.views.adapters.RegisterPageAdapter;
@@ -43,11 +44,12 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
   private RegisterPageAdapter registerPageAdapter;
   //private  Integer currentFragmentIndex = 0;
   private RegistrationDataManager registrationDataManager;
+  private int fragmentsCount = 0;
 
   @Override
   public void moveToNextPage() {
     synchronized (registrationDataManager.currentFragmentIndex) {
-      if(viewPager.getChildCount() - 1 <= registrationDataManager.currentFragmentIndex) return;
+      if(fragmentsCount - 1 <= registrationDataManager.currentFragmentIndex) return;
       registrationDataManager.setCurrentFragmentIndex(registrationDataManager.currentFragmentIndex+1);
       viewPager.setCurrentItem(registrationDataManager.currentFragmentIndex , true);
     }
@@ -97,7 +99,7 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
       }
       else if(data.getClass().equals(UserInfoDTO.class)){
         Toast.makeText(this,"UserInfoDTO",Toast.LENGTH_LONG).show();
-        registerDTO.setUserInfo((UserInfoDTO)data);
+        registerDTO.setUserInfo((UserInfoDTO) data);
       }
       else if(data.getClass().equals(ShopNameDTO.class)){
         Toast.makeText(this,"ShopNameDTO",Toast.LENGTH_LONG).show();
@@ -129,8 +131,9 @@ public class RegisterActivity1 extends FragmentActivity implements RegistrationA
     List<Fragment> fragments = new ArrayList<Fragment>();
     fragments.add(new RegisterFragment_1());
     fragments.add(new RegisterFragment_2());
+    fragments.add(new RegisterFragment_3());
     fragments.add(new RegisterFragment_4());
-
+    fragmentsCount = 4;
     return fragments;
   }
 

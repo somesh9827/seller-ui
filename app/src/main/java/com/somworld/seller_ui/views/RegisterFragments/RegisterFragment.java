@@ -231,11 +231,14 @@ public abstract class RegisterFragment extends Fragment {
 
     private void onNextButtonClicked() {
       if (mParent != null) {
+        Toast.makeText(mParent.getActivity(),"Next Button Clicked" + mParent.getTitle(),Toast.LENGTH_LONG).show();
         mParent.page = MOVE_TO_PAGE.NEXT;
         if(mParent.validateWhenMoveToNextPage())
           mParent.validateData();
-        else
+        else {
+          Toast.makeText(mParent.getActivity(),"No Activity",Toast.LENGTH_LONG).show();
           mParent.moveToNextPage();
+        }
       }
     }
 

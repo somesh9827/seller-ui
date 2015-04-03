@@ -72,5 +72,9 @@
     <string name="title_activity_no_internet_connection">NoInternetConnectionActivity</string>
     <string name="ApplicationProgressBarTitle">Please Wait...</string>
     <string name="checkingInterneteConnection">Checking Internet connection</string>
+    <string name="shop_opening_time">Shop Opens At</string>
+    <string name="shop_closing_time">Shop Closes At</string>
+    <string name="shop_closing_days">cloasing days</string>
+    <string name="userInfoTitle">Seller Detail</string>
 
 </resources>

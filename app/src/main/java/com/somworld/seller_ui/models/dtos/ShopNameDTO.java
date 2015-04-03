@@ -8,10 +8,36 @@ import android.os.Parcel;
 public class ShopNameDTO implements RegistrationPageDTO {
 
     private String shopName;
-    private String ownerFirstName;
-    private String ownerLastName;
 
-    public String getShopName() {
+    private String mShopOpeningTime;
+    private String mShopClosingTime;
+    private String mShopClosingDays;
+
+  public String getShopOpeningTime() {
+    return mShopOpeningTime;
+  }
+
+  public void setShopOpeningTime(String shopOpeningTime) {
+    mShopOpeningTime = shopOpeningTime;
+  }
+
+  public String getShopClosingTime() {
+    return mShopClosingTime;
+  }
+
+  public void setShopClosingTime(String mShopClosingTime) {
+    mShopClosingTime = mShopClosingTime;
+  }
+
+  public String getShopClosingDays() {
+    return mShopClosingDays;
+  }
+
+  public void setShopClosingDays(String shopClosingDays) {
+    mShopClosingDays = shopClosingDays;
+  }
+
+  public String getShopName() {
         return shopName;
     }
 
@@ -19,21 +45,6 @@ public class ShopNameDTO implements RegistrationPageDTO {
         this.shopName = shopName;
     }
 
-    public String getOwnerFirstName() {
-        return ownerFirstName;
-    }
-
-    public void setOwnerFirstName(String ownerFirstName) {
-        this.ownerFirstName = ownerFirstName;
-    }
-
-    public String getOwnerLastName() {
-        return ownerLastName;
-    }
-
-    public void setOwnerLastName(String ownerLastName) {
-        this.ownerLastName = ownerLastName;
-    }
 
     @Override
     public int describeContents() {
@@ -43,8 +54,9 @@ public class ShopNameDTO implements RegistrationPageDTO {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(shopName);
-        parcel.writeString(ownerFirstName);
-        parcel.writeString(ownerLastName);
+        parcel.writeString(mShopOpeningTime);
+        parcel.writeString(mShopClosingTime);
+        parcel.writeString(mShopClosingDays);
     }
 
     public static final Creator<ShopNameDTO> creator = new Creator<ShopNameDTO>() {
@@ -52,8 +64,9 @@ public class ShopNameDTO implements RegistrationPageDTO {
         public ShopNameDTO createFromParcel(Parcel parcel) {
             ShopNameDTO shopNameDTO = new ShopNameDTO();
             shopNameDTO.setShopName(parcel.readString());
-            shopNameDTO.setOwnerFirstName(parcel.readString());
-            shopNameDTO.setOwnerLastName(parcel.readString());
+            shopNameDTO.setShopOpeningTime(parcel.readString());
+            shopNameDTO.setShopClosingTime(parcel.readString());
+            shopNameDTO.setShopClosingDays(parcel.readString());
             return shopNameDTO;
         }
 

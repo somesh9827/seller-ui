@@ -158,14 +158,14 @@ public class RegisterFragment_4 extends RegisterFragment {
     Collections.sort(keys);
     int firstKey = keys.get(0);
     String errorMessage = error.getFirstErrorMessage(firstKey);
-    TextView errorTextView = (TextView)getActivity().findViewById(R.id.fragment3_error_message);
+    TextView errorTextView = (TextView)getActivity().findViewById(R.id.fragment4_error_message);
     errorTextView.setText(errorMessage);
     errorTextView.setVisibility(View.VISIBLE);
     super.onValidationFail(null);
   }
 
   void hideErrorMessage(){
-    TextView errorTextView = (TextView)getActivity().findViewById(R.id.fragment3_error_message);
+    TextView errorTextView = (TextView)getActivity().findViewById(R.id.fragment4_error_message);
     errorTextView.setText("");
     errorTextView.setVisibility(View.GONE);
     super.onValidationSuccess(null);

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+                android:orientation="vertical" android:layout_width="match_parent"
+                android:layout_height="match_parent">
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -11,83 +10,60 @@
             android:layout_margin="10dp">
         <EditText
                 android:layout_marginTop="@dimen/form_element_padding"
-                android:id="@+id/address_line_1"
+                android:id="@+id/shop_name"
                 android:layout_width="match_parent"
                 android:inputType="textCapWords|textNoSuggestions"
                 android:layout_height="@dimen/form_text_default_height"
                 android:editable="true"
                 android:focusable="true"
-                android:hint="@string/address_line_1"
+                android:hint="@string/shop_name_label"
                 style="@style/default_form_edit_text"
                 android:background="@drawable/default_form_text_selector"
                 />
+
         <EditText
                 android:layout_marginTop="@dimen/form_element_padding"
-                android:id="@+id/address_line_2"
+                android:id="@+id/shop_opening_time"
                 android:layout_width="match_parent"
                 android:inputType="textCapWords|textNoSuggestions"
                 android:layout_height="@dimen/form_text_default_height"
                 android:editable="true"
                 android:focusable="true"
-                android:hint="@string/address_line_2"
+                android:hint="@string/shop_opening_time"
                 style="@style/default_form_edit_text"
                 android:background="@drawable/default_form_text_selector"
                 />
+
         <EditText
                 android:layout_marginTop="@dimen/form_element_padding"
-                android:id="@+id/area"
+                android:id="@+id/shop_closing_time"
                 android:layout_width="match_parent"
                 android:inputType="textCapWords|textNoSuggestions"
                 android:layout_height="@dimen/form_text_default_height"
                 android:editable="true"
                 android:focusable="true"
-                android:hint="@string/area"
+                android:hint="@string/shop_closing_time"
                 style="@style/default_form_edit_text"
                 android:background="@drawable/default_form_text_selector"
                 />
         <EditText
                 android:layout_marginTop="@dimen/form_element_padding"
-                android:id="@+id/city"
+                android:id="@+id/shop_closing_day"
                 android:layout_width="match_parent"
                 android:inputType="textCapWords|textNoSuggestions"
                 android:layout_height="@dimen/form_text_default_height"
                 android:editable="true"
                 android:focusable="true"
-                android:hint="@string/City"
-                style="@style/default_form_edit_text"
-                android:background="@drawable/default_form_text_selector"
-                />
-        <EditText
-                android:layout_marginTop="@dimen/form_element_padding"
-                android:id="@+id/pincode"
-                android:layout_width="match_parent"
-                android:inputType="number|textNoSuggestions"
-                android:maxLength="6"
-                android:layout_height="@dimen/form_text_default_height"
-                android:editable="true"
-                android:focusable="true"
-                android:hint="@string/pinCode"
-                style="@style/default_form_edit_text"
-                android:background="@drawable/default_form_text_selector"
-                />
-        <EditText
-                android:layout_marginTop="@dimen/form_element_padding"
-                android:id="@+id/state"
-                android:layout_width="match_parent"
-                android:inputType="textCapWords|textNoSuggestions"
-                android:layout_height="@dimen/form_text_default_height"
-                android:editable="true"
-                android:focusable="true"
-                android:hint="@string/state"
+                android:hint="@string/shop_closing_days"
                 style="@style/default_form_edit_text"
                 android:background="@drawable/default_form_text_selector"
                 />
         <Button
-                android:id="@+id/save_Button"
+                android:id="@+id/next_button"
                 android:layout_marginTop="@dimen/form_button_padding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/register_button_text"
+                android:text="@string/next_button_text"
                 style="@style/default_button_style"
                 android:textSize="20sp"
                 android:background="@drawable/default_save_button_style_selector"
@@ -108,12 +84,12 @@
                 android:gravity="bottom">
             <TextView
                     android:visibility="gone"
-                    android:id="@+id/fragment4_error_message"
+                    android:id="@+id/fragment3_error_message"
                     style="@style/defaultErrorMessageTextView"
                     android:text=""
                     android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
         </LinearLayout>
-     </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
