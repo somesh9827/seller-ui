@@ -76,5 +76,6 @@
     <string name="shop_closing_time">Shop Closes At</string>
     <string name="shop_closing_days">cloasing days</string>
     <string name="userInfoTitle">Seller Detail</string>
+    <string name="WeekDaysDialogTitle">Select shop closing days</string>
 
 </resources>

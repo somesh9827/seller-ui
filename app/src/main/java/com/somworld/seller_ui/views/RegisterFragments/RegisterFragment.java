@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.Toast;
-
 import com.somworld.seller_ui.R;
 import com.somworld.seller_ui.helpers.ClassUtil;
 import com.somworld.seller_ui.models.ParcelableKeys;
@@ -108,7 +106,6 @@ public abstract class RegisterFragment extends Fragment {
 
 
   public void saveAndRegister(){
-   Toast.makeText(getActivity(),"saveAndRegister called",Toast.LENGTH_LONG).show();
     RegistrationActivityInterface registrationActivityInterface =
         ((RegistrationActivityInterface)getActivity());
     if (registrationActivityInterface != null) {
@@ -231,12 +228,10 @@ public abstract class RegisterFragment extends Fragment {
 
     private void onNextButtonClicked() {
       if (mParent != null) {
-        Toast.makeText(mParent.getActivity(),"Next Button Clicked" + mParent.getTitle(),Toast.LENGTH_LONG).show();
         mParent.page = MOVE_TO_PAGE.NEXT;
         if(mParent.validateWhenMoveToNextPage())
           mParent.validateData();
         else {
-          Toast.makeText(mParent.getActivity(),"No Activity",Toast.LENGTH_LONG).show();
           mParent.moveToNextPage();
         }
       }

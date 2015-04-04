@@ -1,20 +1,27 @@
 package com.somworld.seller_ui.views.RegisterFragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.somworld.seller_ui.R;
+import com.somworld.seller_ui.helpers.Util;
 import com.somworld.seller_ui.helpers.validators.IValidatorListener;
 import com.somworld.seller_ui.helpers.validators.RuleValueAdapter;
 import com.somworld.seller_ui.helpers.validators.ValidationError;
+import com.somworld.seller_ui.models.WeekDays;
 import com.somworld.seller_ui.models.dtos.RegistrationPageDTO;
 import com.somworld.seller_ui.models.dtos.ShopNameDTO;
+import com.somworld.seller_ui.views.WeakDaysSelectDialog;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,7 +32,9 @@ import java.util.Vector;
  */
 public class RegisterFragment_3 extends RegisterFragment {
 
-  private EditText shopName,openingTime,closingTime,closingDays;
+  private EditText shopName,openingTime,closingTime, closingDays;
+
+
 
   private static class DataValidator implements IValidatorListener {
 
@@ -59,6 +68,7 @@ public class RegisterFragment_3 extends RegisterFragment {
     closingDays = (EditText)v.findViewById(R.id.shop_closing_day);
     nextButton = (Button)v.findViewById(R.id.next_button);
     backButton = (Button)v.findViewById(R.id.previous_button);
+    closingDays.setOnClickListener(new LocalClickListener(Util.getWeakReference(this)));
     setUp();
     return v;
   }
@@ -69,7 +79,7 @@ public class RegisterFragment_3 extends RegisterFragment {
     shopNameDTO.setShopName(shopName.getText().toString());
     shopNameDTO.setShopOpeningTime(openingTime.getText().toString());
     shopNameDTO.setShopClosingTime(closingTime.getText().toString());
-    shopNameDTO.setShopClosingDays(closingDays.getText().toString());
+    shopNameDTO.setShopClosingDays(closingDays.toString());
     return shopNameDTO;
   }
 
@@ -114,6 +124,23 @@ public class RegisterFragment_3 extends RegisterFragment {
   @Override
   protected boolean validateWhenMoveToNextPage() {
     return false;
+  }
+
+
+  private static class LocalClickListener implements View.OnClickListener {
+    private Fragment mParent;
+    LocalClickListener(Fragment parent) {
+      mParent = parent;
+    }
+
+    @Override
+    public void onClick(View view) {
+      switch (view.getId()) {
+        case R.id.shop_closing_day : {
+          new WeakDaysSelectDialog(mParent.getActivity()).show();
+        }
+      }
+    }
   }
 
 }
