@@ -93,6 +93,7 @@
 
     <style name="Theme.defaultAppTheme.multi_select_list_row" parent="android:Widget.TextView">
         <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/multiselct_row_color_text</item>
     </style>
     
     <style name="dialog_animation">
@@ -110,6 +111,7 @@
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
+
 
 
 </resources>

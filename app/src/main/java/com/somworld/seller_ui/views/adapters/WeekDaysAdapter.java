@@ -49,33 +49,9 @@ public class WeekDaysAdapter extends BaseAdapter {
   public View getView(int position, View convertView, ViewGroup parent) {
     if(convertView == null)
       convertView = inflater.inflate(R.layout.dialog_multiselect_list_row,parent,false);
-    CheckBox checkBox = (CheckBox)convertView.findViewById(R.id.multi_select_list_checkBox);
     TextView textView = (TextView)convertView.findViewById(R.id.multi_select_list_text);
     textView.setText(days[position].toString());
     return convertView;
   }
 
-
-  private static  class localOnclickListener implements View.OnClickListener {
-
-    @Override
-    public void onClick(View view) {
-      switch (view.getId()) {
-        case R.id.multi_select_list_checkBox :
-          checkBoxClicked(view);
-          break;
-        default:break;
-      }
-    }
-
-    private void checkBoxClicked(View view) {
-      CheckBox checkBox = (CheckBox)view;
-      if(checkBox.isChecked()) {
-        checkBox.setChecked(true);
-      }
-      else {
-        checkBox.setChecked(false);
-      }
-    }
-  }
 }

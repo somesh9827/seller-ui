@@ -22,7 +22,8 @@ import com.somworld.seller_ui.helpers.validators.rules.MinDate;
 import com.somworld.seller_ui.helpers.validators.rules.NotEmpty;
 import com.somworld.seller_ui.helpers.validators.rules.RULE;
 import com.somworld.seller_ui.models.OfferItems;
-import com.somworld.seller_ui.models.OnCompleteListener;
+import com.somworld.seller_ui.views.callback.IDialogCallback;
+import com.somworld.seller_ui.views.callback.OnCompleteListener;
 import com.somworld.seller_ui.models.ParcelableKeys;
 
 import java.lang.ref.WeakReference;
@@ -315,12 +316,12 @@ public class UpdateOffer extends Activity implements View.OnClickListener, OnCom
         return;
       }
       if (status == OnCompleteListener.SUCCESS) {
-        if (data.containsKey("date")) {
-          Date date = new Date(((Date) (data.get("date"))).getTime());
+        if (data.containsKey(IDialogCallback.TAG.DATE)) {
+          Date date = new Date(((Date) (data.get(IDialogCallback.TAG.DATE))).getTime());
           mParent.setDateToTextBox(date);
-        } else if (data.containsKey("fromTime") && data.containsKey("toTime")) {
-          Date fromTime = new Date(((Date) (data.get("fromTime"))).getTime());
-          Date toTime = new Date(((Date) (data.get("toTime"))).getTime());
+        } else if (data.containsKey(IDialogCallback.TAG.FROM_TIME) && data.containsKey(IDialogCallback.TAG.TO_TIME)) {
+          Date fromTime = new Date(((Date) (data.get(IDialogCallback.TAG.FROM_TIME))).getTime());
+          Date toTime = new Date(((Date) (data.get(IDialogCallback.TAG.TO_TIME))).getTime());
           mParent.setTimeToTextBox(fromTime, toTime);
         }
 

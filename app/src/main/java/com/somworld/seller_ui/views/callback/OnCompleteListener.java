@@ -1,4 +1,4 @@
-package com.somworld.seller_ui.models;
+package com.somworld.seller_ui.views.callback;
 
 import java.util.Map;
 

@@ -9,7 +9,8 @@ import android.widget.TimePicker;
 
 import com.somworld.seller_ui.R;
 import com.somworld.seller_ui.helpers.Utils;
-import com.somworld.seller_ui.models.OnCompleteListener;
+import com.somworld.seller_ui.views.callback.IDialogCallback;
+import com.somworld.seller_ui.views.callback.OnCompleteListener;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -64,8 +65,8 @@ public class TimePickerDialog extends Dialog implements View.OnClickListener {
     Date fromTime = getFormatedTime(fromTimePicker);
     Date toTime = getFormatedTime(toTimePicker);
     Map<String, Object> map = new HashMap<String, Object>();
-    map.put("fromTime", fromTime);
-    map.put("toTime", toTime);
+    map.put(IDialogCallback.TAG.FROM_TIME, fromTime);
+    map.put(IDialogCallback.TAG.TO_TIME, toTime);
     mOnCompleteListener.complete(OnCompleteListener.SUCCESS, map);
     dismiss();
   }

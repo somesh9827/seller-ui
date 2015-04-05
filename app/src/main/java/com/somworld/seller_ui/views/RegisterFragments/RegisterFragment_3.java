@@ -1,30 +1,33 @@
 package com.somworld.seller_ui.views.RegisterFragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.somworld.seller_ui.R;
+import com.somworld.seller_ui.common.AppConstant;
 import com.somworld.seller_ui.helpers.Util;
+import com.somworld.seller_ui.helpers.Utils;
 import com.somworld.seller_ui.helpers.validators.IValidatorListener;
 import com.somworld.seller_ui.helpers.validators.RuleValueAdapter;
 import com.somworld.seller_ui.helpers.validators.ValidationError;
-import com.somworld.seller_ui.models.WeekDays;
 import com.somworld.seller_ui.models.dtos.RegistrationPageDTO;
 import com.somworld.seller_ui.models.dtos.ShopNameDTO;
+import com.somworld.seller_ui.views.TimePickerDialog;
 import com.somworld.seller_ui.views.WeakDaysSelectDialog;
+import com.somworld.seller_ui.views.callback.IDialogCallback;
+import com.somworld.seller_ui.views.callback.OnCompleteListener;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 /**
@@ -32,9 +35,7 @@ import java.util.Vector;
  */
 public class RegisterFragment_3 extends RegisterFragment {
 
-  private EditText shopName,openingTime,closingTime, closingDays;
-
-
+  private EditText shopName, shopTiming, closingDays;
 
   private static class DataValidator implements IValidatorListener {
 
@@ -63,12 +64,13 @@ public class RegisterFragment_3 extends RegisterFragment {
                            @Nullable Bundle savedInstanceState) {
     View v = inflater.inflate(R.layout.register_fragment_3,container,false);
     shopName = (EditText)v.findViewById(R.id.shop_name);
-    openingTime= (EditText)v.findViewById(R.id.shop_opening_time);
-    closingTime = (EditText)v.findViewById(R.id.shop_closing_time);
+    shopTiming = (EditText)v.findViewById(R.id.shop_timing);
     closingDays = (EditText)v.findViewById(R.id.shop_closing_day);
     nextButton = (Button)v.findViewById(R.id.next_button);
     backButton = (Button)v.findViewById(R.id.previous_button);
-    closingDays.setOnClickListener(new LocalClickListener(Util.getWeakReference(this)));
+    LocalClickListener localClickListener = new LocalClickListener(Util.getWeakReference(this));
+    closingDays.setOnClickListener(localClickListener);
+    shopTiming.setOnClickListener(localClickListener);
     setUp();
     return v;
   }
@@ -77,9 +79,8 @@ public class RegisterFragment_3 extends RegisterFragment {
   protected RegistrationPageDTO getCurrentFragmentData() {
     ShopNameDTO shopNameDTO = new ShopNameDTO();
     shopNameDTO.setShopName(shopName.getText().toString());
-    shopNameDTO.setShopOpeningTime(openingTime.getText().toString());
-    shopNameDTO.setShopClosingTime(closingTime.getText().toString());
-    shopNameDTO.setShopClosingDays(closingDays.toString());
+    shopNameDTO.setShopOpeningTime(shopTiming.getText().toString());
+    shopNameDTO.setShopClosingDays(closingDays.getText().toString());
     return shopNameDTO;
   }
 
@@ -92,8 +93,7 @@ public class RegisterFragment_3 extends RegisterFragment {
   protected void setCurrentFragmentData(RegistrationPageDTO bundle) {
     ShopNameDTO shopNameDTO = (ShopNameDTO)bundle;
     shopName.setText(shopNameDTO.getShopName());
-    openingTime.setText(shopNameDTO.getShopOpeningTime());
-    closingTime.setText(shopNameDTO.getShopClosingTime());
+    shopTiming.setText(shopNameDTO.getShopOpeningTime());
     closingDays.setText(shopNameDTO.getShopClosingDays());
   }
 
@@ -116,6 +116,14 @@ public class RegisterFragment_3 extends RegisterFragment {
     super.onValidationSuccess(null);
   }
 
+  void setShopTiming(String timing) {
+    shopTiming.setText(timing);
+  }
+
+  void setClosingDays(String commaSaperatedDays) {
+    closingDays.setText(commaSaperatedDays);
+  }
+
   @Override
   protected boolean validateWhenMoveToPreviousPage() {
     return false;
@@ -128,18 +136,62 @@ public class RegisterFragment_3 extends RegisterFragment {
 
 
   private static class LocalClickListener implements View.OnClickListener {
-    private Fragment mParent;
-    LocalClickListener(Fragment parent) {
+    private RegisterFragment_3 mParent;
+    LocalClickListener(RegisterFragment_3 parent) {
       mParent = parent;
     }
 
     @Override
     public void onClick(View view) {
-      switch (view.getId()) {
-        case R.id.shop_closing_day : {
-          new WeakDaysSelectDialog(mParent.getActivity()).show();
+      if (mParent != null && mParent.getActivity() != null) {
+        LocalOnCompleteListener completeListener = new LocalOnCompleteListener(mParent);
+        switch (view.getId()) {
+          case R.id.shop_closing_day:
+            new WeakDaysSelectDialog(Util.getWeakReference(mParent.getActivity()),completeListener,null).show();
+            break;
+          case R.id.shop_timing:
+            new TimePickerDialog(mParent.getActivity(),completeListener).show();
+            break;
+          default:break;
         }
       }
+      else {
+        Log.d(AppConstant.LOG.TAG,"fregmant_3/onClick/mParent is null");
+      }
+    }
+  }
+
+
+  private static class LocalOnCompleteListener implements OnCompleteListener {
+    private RegisterFragment_3 mParent;
+
+    LocalOnCompleteListener(RegisterFragment_3 parent) {
+      mParent = parent;
+    }
+
+    @Override
+    public void complete(int status, Map<String, Object> data) {
+      if(mParent == null) Log.d(AppConstant.LOG.TAG, "Fragment_3 is null when returning from dialog");
+      if(status == OnCompleteListener.FAIL) {
+        Log.d(AppConstant.LOG.TAG, "Dialog cancel button clicked");
+        return;
+      }
+      if(status == OnCompleteListener.SUCCESS) {
+        if(data == null) Log.d(AppConstant.LOG.TAG, "No data from dialog");
+        else if(data.containsKey(IDialogCallback.TAG.DAYS)) {
+          mParent.setClosingDays((String)data.get(IDialogCallback.TAG.DAYS));
+        }
+        else if(data.containsKey(IDialogCallback.TAG.FROM_TIME) && data.containsKey(IDialogCallback.TAG.FROM_TIME)) {
+          setShopTiming(data);
+        }
+      }
+    }
+
+    private void setShopTiming(Map<String, Object> data) {
+      Date fromTime = new Date(((Date) (data.get(IDialogCallback.TAG.FROM_TIME))).getTime());
+      Date toTime = new Date(((Date) (data.get(IDialogCallback.TAG.FROM_TIME))).getTime());
+      String validOfferTimeString = Utils.validTimeToValidTimeString(fromTime, toTime);
+      mParent.setShopTiming(validOfferTimeString);
     }
   }
 

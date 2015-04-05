@@ -10,7 +10,8 @@ import android.widget.DatePicker;
 
 import com.somworld.seller_ui.R;
 import com.somworld.seller_ui.helpers.Utils;
-import com.somworld.seller_ui.models.OnCompleteListener;
+import com.somworld.seller_ui.views.callback.IDialogCallback;
+import com.somworld.seller_ui.views.callback.OnCompleteListener;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -66,7 +67,7 @@ public class DateAndTimePickerDialog extends Dialog implements View.OnClickListe
       case R.id.date_time_picker_save:
         Date date = getFormatedDate();
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("date", date);
+        map.put(IDialogCallback.TAG.DATE, date);
         mOnCompleteListener.complete(OnCompleteListener.SUCCESS, map);
         dismiss();
         break;
