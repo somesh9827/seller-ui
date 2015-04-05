@@ -78,5 +78,5 @@
     <string name="userInfoTitle">Seller Detail</string>
     <string name="WeekDaysDialogTitle">Select shop closing days</string>
     <string name="shop_timing">Shop Timing</string>
-
+    <string name="register_fragment_title">Step %1$s of %2$s</string>
 </resources>

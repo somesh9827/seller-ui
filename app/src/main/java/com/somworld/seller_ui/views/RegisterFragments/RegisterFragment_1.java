@@ -42,7 +42,8 @@ public class RegisterFragment_1 extends RegisterFragment {
 
   @Override
   protected String getTitle() {
-    return  getActivity().getString(R.string.SignUpTitle);
+    String title = getActivity().getString(R.string.register_fragment_title);
+    return  String.format(title,1,4);
   }
 
   @Override
