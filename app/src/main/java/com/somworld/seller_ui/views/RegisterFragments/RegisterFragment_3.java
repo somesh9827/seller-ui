@@ -17,6 +17,9 @@ import com.somworld.seller_ui.helpers.Utils;
 import com.somworld.seller_ui.helpers.validators.IValidatorListener;
 import com.somworld.seller_ui.helpers.validators.RuleValueAdapter;
 import com.somworld.seller_ui.helpers.validators.ValidationError;
+import com.somworld.seller_ui.helpers.validators.Validator;
+import com.somworld.seller_ui.helpers.validators.rules.NotEmpty;
+import com.somworld.seller_ui.helpers.validators.rules.RULE;
 import com.somworld.seller_ui.models.dtos.RegistrationPageDTO;
 import com.somworld.seller_ui.models.dtos.ShopNameDTO;
 import com.somworld.seller_ui.views.TimePickerDialog;
@@ -24,6 +27,8 @@ import com.somworld.seller_ui.views.WeakDaysSelectDialog;
 import com.somworld.seller_ui.views.callback.IDialogCallback;
 import com.somworld.seller_ui.views.callback.OnCompleteListener;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -120,6 +125,35 @@ public class RegisterFragment_3 extends RegisterFragment {
     shopTiming.setText(timing);
   }
 
+
+
+  @Override
+  protected void validateData() {
+    String shopName = ((EditText)getActivity().findViewById(R.id.shop_name)).getText().toString();
+    String shopTiming = ((EditText)getActivity().findViewById(R.id.shop_timing)).getText().toString();
+
+    RULE notEmpty;
+    notEmpty = new NotEmpty();
+
+    RuleValueAdapter shopNameRuleValueAdapter,shopTimingRuleValueAdapter;
+
+    shopNameRuleValueAdapter = new RuleValueAdapter(R.id.shop_name,shopName);
+    shopNameRuleValueAdapter.addRule(notEmpty,String.format(getString(R.string.not_empty_error),"Shop Name"));
+
+    shopTimingRuleValueAdapter = new RuleValueAdapter(R.id.shop_timing,shopTiming);
+    shopTimingRuleValueAdapter.addRule(notEmpty,String.format(getString(R.string.not_empty_error),"Shop Timing"));
+
+    List<RuleValueAdapter> ruleValueAdapters = new ArrayList<RuleValueAdapter>();
+    ruleValueAdapters.add(shopNameRuleValueAdapter);
+    ruleValueAdapters.add(shopTimingRuleValueAdapter);
+
+    Validator validator = new Validator(new DataValidator(Util.getWeakReference(this)));
+
+    validator.validate(ruleValueAdapters);
+  }
+
+
+
   void setClosingDays(String commaSaperatedDays) {
     closingDays.setText(commaSaperatedDays);
   }
@@ -131,7 +165,7 @@ public class RegisterFragment_3 extends RegisterFragment {
 
   @Override
   protected boolean validateWhenMoveToNextPage() {
-    return false;
+    return true;
   }
 
 
@@ -150,7 +184,7 @@ public class RegisterFragment_3 extends RegisterFragment {
             new WeakDaysSelectDialog(Util.getWeakReference(mParent.getActivity()),completeListener,null).show();
             break;
           case R.id.shop_timing:
-            new TimePickerDialog(mParent.getActivity(),completeListener).show();
+            new TimePickerDialog(mParent.getActivity(),completeListener,mParent.getString(R.string.shop_opening_time),mParent.getString(R.string.shop_closing_time)).show();
             break;
           default:break;
         }
@@ -181,7 +215,7 @@ public class RegisterFragment_3 extends RegisterFragment {
         else if(data.containsKey(IDialogCallback.TAG.DAYS)) {
           mParent.setClosingDays((String)data.get(IDialogCallback.TAG.DAYS));
         }
-        else if(data.containsKey(IDialogCallback.TAG.FROM_TIME) && data.containsKey(IDialogCallback.TAG.FROM_TIME)) {
+        else if(data.containsKey(IDialogCallback.TAG.FROM_TIME) && data.containsKey(IDialogCallback.TAG.TO_TIME)) {
           setShopTiming(data);
         }
       }
@@ -189,9 +223,9 @@ public class RegisterFragment_3 extends RegisterFragment {
 
     private void setShopTiming(Map<String, Object> data) {
       Date fromTime = new Date(((Date) (data.get(IDialogCallback.TAG.FROM_TIME))).getTime());
-      Date toTime = new Date(((Date) (data.get(IDialogCallback.TAG.FROM_TIME))).getTime());
-      String validOfferTimeString = Utils.validTimeToValidTimeString(fromTime, toTime);
-      mParent.setShopTiming(validOfferTimeString);
+      Date toTime = new Date(((Date) (data.get(IDialogCallback.TAG.TO_TIME))).getTime());
+      String shopTiming = Utils.validTimeToValidTimeString(fromTime, toTime);
+      mParent.setShopTiming(shopTiming);
     }
   }
 

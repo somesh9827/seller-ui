@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.somworld.seller_ui.R;
@@ -29,10 +30,15 @@ public class TimePickerDialog extends Dialog implements View.OnClickListener {
 
   private TimePicker toTimePicker;
 
-  public TimePickerDialog(Activity _context, OnCompleteListener onCompleteListener) {
+  private String mFromHeading,mToHeading;
+
+  public TimePickerDialog(Activity _context, OnCompleteListener onCompleteListener,String timeFromHeading,String timeToHeading) {
     super(_context);
     mAct = _context;
     mOnCompleteListener = onCompleteListener;
+    mFromHeading = timeFromHeading;
+    mToHeading = timeToHeading;
+
   }
 
   @Override
@@ -44,6 +50,22 @@ public class TimePickerDialog extends Dialog implements View.OnClickListener {
     findViewById(R.id.time_picker_cancel).setOnClickListener(this);
     fromTimePicker = (TimePicker) findViewById(R.id.from_time_picker);
     toTimePicker = (TimePicker) findViewById(R.id.to_time_picker);
+    setTimeFromHeading(mFromHeading);
+    setTimeToHeading(mToHeading);
+  }
+
+  private void setTimeFromHeading(String heading){
+    TextView fromHeading = (TextView)findViewById(R.id.time_picker_from_heading);
+    if(heading != null && fromHeading != null) {
+      fromHeading.setText(heading);
+    }
+  }
+
+  private void setTimeToHeading(String heading) {
+    TextView toHeading = (TextView)findViewById(R.id.time_picker_to_heading);
+    if(heading != null && toHeading != null) {
+      toHeading.setText(heading);
+    }
   }
 
   @Override

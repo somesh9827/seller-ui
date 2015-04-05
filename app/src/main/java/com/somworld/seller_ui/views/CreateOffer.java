@@ -140,7 +140,7 @@ public class CreateOffer extends Activity {
           new DateAndTimePickerDialog(mParent, this).show();
           break;
         case R.id.create_offer_valid_time:
-          new TimePickerDialog(mParent, this).show();
+          new TimePickerDialog(mParent, this,mParent.getString(R.string.offer_valid_from),mParent.getString(R.string.offer_valid_till)).show();
         default:
           break;
       }
@@ -275,7 +275,6 @@ public class CreateOffer extends Activity {
       Vector<Integer> keys = error.getAllKeys();
       int firstKey = keys.get(0);
       String errorMessage = error.getFirstErrorMessage(firstKey);
-      //Toast.makeText(mParent,errorMessage,Toast.LENGTH_LONG).show();
       mParent.setErrorMessage(errorMessage);
     }
 

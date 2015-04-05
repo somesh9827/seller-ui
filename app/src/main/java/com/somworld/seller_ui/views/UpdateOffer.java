@@ -219,7 +219,7 @@ public class UpdateOffer extends Activity implements View.OnClickListener, OnCom
           new DateAndTimePickerDialog(mParent, this).show();
           break;
         case R.id.update_offer_valid_time:
-          new TimePickerDialog(mParent, this).show();
+          new TimePickerDialog(mParent, this,mParent.getString(R.string.offer_valid_from),mParent.getString(R.string.offer_valid_till)).show();
           break;
         case R.id.update_offer_save_button:
           validateOffer();
