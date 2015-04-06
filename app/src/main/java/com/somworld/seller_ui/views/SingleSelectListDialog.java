@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.somworld.seller_ui.R;
 import com.somworld.seller_ui.views.adapters.SingleListAdapter;
@@ -27,11 +26,11 @@ public class SingleSelectListDialog extends Dialog implements AdapterView.OnItem
   private ListView singleSelectList;
   private Context mContext;
   private String mTitle;
-  private List<String> mValues;
+  private String[] mValues;
   private OnCompleteListener mListener;
   private String mTag;
 
-  public SingleSelectListDialog(Context context,String title,List<String> values,OnCompleteListener listener,String tag) {
+  public SingleSelectListDialog(Context context,String title,String[] values,OnCompleteListener listener,String tag) {
     super(context);
     mTitle = title;
     mValues = values;
@@ -50,20 +49,15 @@ public class SingleSelectListDialog extends Dialog implements AdapterView.OnItem
     singleSelectList.setClickable(true);
     singleSelectList.setOnItemClickListener(this);
     List<String> cities = new ArrayList();
-    cities.add("Bangalore");
-    cities.add("Pune");
-    cities.add("Mumbei");
-    cities.add("Delhi");
-    mValues = cities;
-    SingleListAdapter adapter = new SingleListAdapter(super.getContext(),cities);
+
+    SingleListAdapter adapter = new SingleListAdapter(super.getContext(),mValues);
     singleSelectList.setAdapter(adapter);
   }
 
   @Override
   public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-    Toast.makeText(getContext(),mValues.get(i),Toast.LENGTH_LONG).show();
     Map<String,Object> data  = new HashMap<>();
-    data.put(mTag,mValues.get(i));
+    data.put(mTag,mValues[i]);
     mListener.complete(OnCompleteListener.SUCCESS,data);
     dismiss();
   }

@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.somworld.seller_ui.R;
+import com.somworld.seller_ui.helpers.SatateCityHelper;
 import com.somworld.seller_ui.helpers.Util;
 import com.somworld.seller_ui.helpers.validators.IValidatorListener;
 import com.somworld.seller_ui.helpers.validators.RuleValueAdapter;
@@ -20,6 +20,7 @@ import com.somworld.seller_ui.helpers.validators.Validator;
 import com.somworld.seller_ui.helpers.validators.rules.NotEmpty;
 import com.somworld.seller_ui.helpers.validators.rules.PincodeRule;
 import com.somworld.seller_ui.helpers.validators.rules.RULE;
+import com.somworld.seller_ui.models.City;
 import com.somworld.seller_ui.models.dtos.AddressDTO;
 import com.somworld.seller_ui.models.dtos.RegistrationPageDTO;
 import com.somworld.seller_ui.views.SingleSelectListDialog;
@@ -71,11 +72,21 @@ public class RegisterFragment_4 extends RegisterFragment {
     public void onClick(View view) {
       switch (view.getId()) {
         case R.id.city :
-          new SingleSelectListDialog(Util.getWeakReference(mParent.getActivity()),"select city",null,new LocalCompleteListener(mParent),
+          String stateName = mParent.state.getText().toString();
+          if(stateName.equals("")) return;
+          String[] cityList = SatateCityHelper.getAllCityByState(Util.getWeakReference(mParent.getActivity()),stateName);
+          new SingleSelectListDialog(Util.getWeakReference(mParent.getActivity()),"select city",cityList,new LocalCompleteListener(mParent),
                                      IDialogCallback.TAG.CITY).show();
+          break;
+        case R.id.state :
+          String[] stateList = SatateCityHelper.getAllStates(Util.getWeakReference(mParent.getActivity()),"India");
+          new SingleSelectListDialog(Util.getWeakReference(mParent.getActivity()),"select State",stateList,new LocalCompleteListener(mParent),
+                                     IDialogCallback.TAG.STATE).show();
       }
     }
   }
+
+
 
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -89,7 +100,9 @@ public class RegisterFragment_4 extends RegisterFragment {
     city = (EditText)v.findViewById(R.id.city);
     state = (EditText)v.findViewById(R.id.state);
     pinCode = (EditText)v.findViewById(R.id.pincode);
-    city.setOnClickListener(new LocalOnClickListener(Util.getWeakReference(this)));
+    LocalOnClickListener localOnClickListener = new LocalOnClickListener(Util.getWeakReference(this));
+    city.setOnClickListener(localOnClickListener);
+    state.setOnClickListener(localOnClickListener);
     setUp();
     return v;
   }
@@ -200,6 +213,10 @@ public class RegisterFragment_4 extends RegisterFragment {
     city.setText(cityText);
   }
 
+  private void setState(String stateText) {
+    state.setText(stateText);
+  }
+
   private static  class LocalCompleteListener implements OnCompleteListener {
     private RegisterFragment_4 mParent;
     LocalCompleteListener(RegisterFragment_4 fragment) {
@@ -207,10 +224,14 @@ public class RegisterFragment_4 extends RegisterFragment {
     }
     @Override
     public void complete(int status, Map<String, Object> data) {
-      Toast.makeText(mParent.getActivity(),data.toString(),Toast.LENGTH_LONG).show();
       if(status == OnCompleteListener.SUCCESS) {
         if(data != null && data.containsKey(IDialogCallback.TAG.CITY)) {
           mParent.setCity((String)data.get(IDialogCallback.TAG.CITY));
+        }
+
+        else if(data != null && data.containsKey(IDialogCallback.TAG.STATE)){
+          mParent.setState((String) data.get(IDialogCallback.TAG.STATE));
+          mParent.setCity("");
         }
       }
     }

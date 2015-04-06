@@ -47,6 +47,18 @@
                 />
         <EditText
                 android:layout_marginTop="@dimen/form_element_padding"
+                android:id="@+id/state"
+                android:layout_width="match_parent"
+                android:inputType="textCapWords|textNoSuggestions"
+                android:layout_height="@dimen/form_text_default_height"
+                android:editable="false"
+                android:focusable="false"
+                android:hint="@string/state"
+                style="@style/default_form_edit_text"
+                android:background="@drawable/default_form_text_selector"
+                />
+        <EditText
+                android:layout_marginTop="@dimen/form_element_padding"
                 android:id="@+id/city"
                 android:layout_width="match_parent"
                 android:inputType="textCapWords|textNoSuggestions"
@@ -67,18 +79,6 @@
                 android:editable="true"
                 android:focusable="true"
                 android:hint="@string/pinCode"
-                style="@style/default_form_edit_text"
-                android:background="@drawable/default_form_text_selector"
-                />
-        <EditText
-                android:layout_marginTop="@dimen/form_element_padding"
-                android:id="@+id/state"
-                android:layout_width="match_parent"
-                android:inputType="textCapWords|textNoSuggestions"
-                android:layout_height="@dimen/form_text_default_height"
-                android:editable="true"
-                android:focusable="true"
-                android:hint="@string/state"
                 style="@style/default_form_edit_text"
                 android:background="@drawable/default_form_text_selector"
                 />

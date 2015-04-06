@@ -12,5 +12,6 @@ public interface IDialogCallback {
     String DATE = "date";
 
     String CITY = "city";
+    String STATE = "state";
   }
 }

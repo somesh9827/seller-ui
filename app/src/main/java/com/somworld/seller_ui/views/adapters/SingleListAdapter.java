@@ -15,22 +15,22 @@ import java.util.List;
  * Created by somesh.shrivastava on 05/04/15.
  */
 public class SingleListAdapter extends BaseAdapter {
-  List<String> mValues;
+  String[] mValues;
   private LayoutInflater inflater;
 
-  public SingleListAdapter(Context context,List<String> values) {
+  public SingleListAdapter(Context context,String[] values) {
     if(context == null || values == null) throw new IllegalArgumentException("Context or values can't be null");
     mValues = values;
     inflater = LayoutInflater.from(context);
   }
   @Override
   public int getCount() {
-    return mValues.size();
+    return mValues.length;
   }
 
   @Override
   public Object getItem(int i) {
-    return mValues.get(i);
+    return mValues[i];
   }
 
   @Override
@@ -43,7 +43,7 @@ public class SingleListAdapter extends BaseAdapter {
     if(convertView == null)
       convertView = inflater.inflate(R.layout.dialog_single_select_row,viewGroup,false);
     TextView textView = (TextView)convertView.findViewById(R.id.single_select_list_text);
-    textView.setText(mValues.get(position).toString());
+    textView.setText(mValues[position].toString());
     return convertView;
   }
 }

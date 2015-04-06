@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bangalore">Bangalore</string>
+    <string name="delhi">Delhi</string>
+    <string name="mumbai">Mumbai</string>
+    <string name="kolkata">Kolkata</string>
+    <string name="pune">Pune</string>
+    <string name="jabalpur">Jabalpur</string>
+</resources>
