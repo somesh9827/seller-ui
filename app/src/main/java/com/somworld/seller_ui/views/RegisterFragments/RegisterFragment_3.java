@@ -166,7 +166,7 @@ public class RegisterFragment_3 extends RegisterFragment {
 
   @Override
   protected boolean validateWhenMoveToNextPage() {
-    return true;
+    return false;
   }
 
 

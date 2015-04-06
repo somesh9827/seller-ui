@@ -1,5 +1,6 @@
 package com.somworld.seller_ui.views.RegisterFragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.somworld.seller_ui.R;
+import com.somworld.seller_ui.helpers.Util;
 import com.somworld.seller_ui.helpers.validators.IValidatorListener;
 import com.somworld.seller_ui.helpers.validators.RuleValueAdapter;
 import com.somworld.seller_ui.helpers.validators.ValidationError;
@@ -19,11 +22,15 @@ import com.somworld.seller_ui.helpers.validators.rules.PincodeRule;
 import com.somworld.seller_ui.helpers.validators.rules.RULE;
 import com.somworld.seller_ui.models.dtos.AddressDTO;
 import com.somworld.seller_ui.models.dtos.RegistrationPageDTO;
+import com.somworld.seller_ui.views.SingleSelectListDialog;
+import com.somworld.seller_ui.views.callback.IDialogCallback;
+import com.somworld.seller_ui.views.callback.OnCompleteListener;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 /**
@@ -54,6 +61,22 @@ public class RegisterFragment_4 extends RegisterFragment {
     }
   }
 
+  private static class LocalOnClickListener implements View.OnClickListener {
+    private RegisterFragment_4 mParent;
+    LocalOnClickListener(RegisterFragment_4 parent) {
+      mParent = parent;
+    }
+
+    @Override
+    public void onClick(View view) {
+      switch (view.getId()) {
+        case R.id.city :
+          new SingleSelectListDialog(Util.getWeakReference(mParent.getActivity()),"select city",null,new LocalCompleteListener(mParent),
+                                     IDialogCallback.TAG.CITY).show();
+      }
+    }
+  }
+
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
@@ -66,6 +89,7 @@ public class RegisterFragment_4 extends RegisterFragment {
     city = (EditText)v.findViewById(R.id.city);
     state = (EditText)v.findViewById(R.id.state);
     pinCode = (EditText)v.findViewById(R.id.pincode);
+    city.setOnClickListener(new LocalOnClickListener(Util.getWeakReference(this)));
     setUp();
     return v;
   }
@@ -170,6 +194,26 @@ public class RegisterFragment_4 extends RegisterFragment {
     errorTextView.setText("");
     errorTextView.setVisibility(View.GONE);
     super.onValidationSuccess(null);
+  }
+
+  private void setCity(String cityText) {
+    city.setText(cityText);
+  }
+
+  private static  class LocalCompleteListener implements OnCompleteListener {
+    private RegisterFragment_4 mParent;
+    LocalCompleteListener(RegisterFragment_4 fragment) {
+      mParent = fragment;
+    }
+    @Override
+    public void complete(int status, Map<String, Object> data) {
+      Toast.makeText(mParent.getActivity(),data.toString(),Toast.LENGTH_LONG).show();
+      if(status == OnCompleteListener.SUCCESS) {
+        if(data != null && data.containsKey(IDialogCallback.TAG.CITY)) {
+          mParent.setCity((String)data.get(IDialogCallback.TAG.CITY));
+        }
+      }
+    }
   }
 
 }

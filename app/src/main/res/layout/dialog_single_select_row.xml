@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.somworld.seller_ui.views.widget.CheckableLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                           android:orientation="horizontal"
+                                                           android:layout_width="match_parent"
+                                                           android:layout_marginTop="5dp"
+                                                           android:layout_marginBottom="5dp"
+                                                           android:layout_height="match_parent">
+
+    <com.somworld.seller_ui.views.widget.ListItemRadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                          android:id="@+id/single_select_list_radio"
+                                                          android:text=""
+                                                          android:focusable="false"
+                                                          android:checked="false"
+            />
+    <TextView
+            android:id="@+id/single_select_list_text"
+            style="@style/Theme.defaultAppTheme.multi_select_list_row"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+</com.somworld.seller_ui.views.widget.CheckableLinearLayout>

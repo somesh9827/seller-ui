@@ -10,5 +10,7 @@ public interface IDialogCallback {
     String TO_TIME = "to_time";
     String TIME = "time";
     String DATE = "date";
+
+    String CITY = "city";
   }
 }
