@@ -1,7 +1,6 @@
 package com.somworld.store.net.resource;
 
 import com.somworld.net.Rest.RestResourceManager;
-import com.somworld.net.Rest.RESTResource;
 
 /**
  * Created by somesh.shrivastava on 26/03/15.

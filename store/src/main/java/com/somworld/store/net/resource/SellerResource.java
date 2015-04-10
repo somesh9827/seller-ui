@@ -1,7 +1,6 @@
 package com.somworld.store.net.resource;
 
 
-import com.somworld.net.Rest.RESTResource;
 import com.somworld.net.Rest.RESTResourceParam;
 import com.somworld.net.Rest.RESTUtil;
 import com.somworld.net.Rest.RestResourceManager;

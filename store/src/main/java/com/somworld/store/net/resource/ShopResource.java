@@ -2,7 +2,6 @@ package com.somworld.store.net.resource;
 
 
 
-import com.somworld.net.Rest.RESTResource;
 import com.somworld.net.Rest.RESTResourceParam;
 import com.somworld.net.Rest.RESTUtil;
 import com.somworld.net.Rest.RestResourceManager;
@@ -23,7 +22,7 @@ public class ShopResource {
                                                                   placeholder);
   }
 
-  public static String getShopOffers(String shopId,Map<String,String> params) {
+  public static String getShopOffers(String shopId, Map<String, String> params) {
     List<RESTResourceParam> restResourceParams = RESTUtil.createRESTResourceParam(params);
     List<String> placeholder = new ArrayList<String>();
     placeholder.add(shopId);
@@ -31,4 +30,10 @@ public class ShopResource {
                                                                   restResourceParams, placeholder);
   }
 
+  public static String getShopLocation(String shopId) {
+    List<String> placeholder = new ArrayList<String>();
+    placeholder.add(shopId);
+    return RestResourceManager.getInstance().getQualifiedResource(RESTResource.SHOP.LOCATION,
+                                                                  null, placeholder);
+  }
 }
