@@ -30,6 +30,7 @@ public interface RESTResource {
   public interface SHOP {
     String HOME = "/shops/{shopId}";
     String Offer = HOME + "/offer/{offer_id}";
+    String LOCATION = HOME + "/location/";
   }
 
   public interface LOCATION {
