@@ -31,10 +31,10 @@ import java.util.List;
 /**
  * Created by somesh.shrivastava on 29/03/15.
  */
-public class StringNetworkresponseListenr<T extends IEntity> extends NetworkResponseListener<T> implements Response.Listener<String>,
+public class StringNetworkResponseListenr<T extends IEntity> extends NetworkResponseListener<T> implements Response.Listener<String>,
                                                                       Response.ErrorListener {
 
-  public StringNetworkresponseListenr(ICallback<T> callback, Class<T> jsonMapperClass) {
+  public StringNetworkResponseListenr(ICallback<T> callback, Class<T> jsonMapperClass) {
     super(callback, jsonMapperClass);
   }
 
