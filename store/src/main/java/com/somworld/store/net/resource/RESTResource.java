@@ -1,4 +1,4 @@
-package com.somworld.net.Rest;
+package com.somworld.store.net.resource;
 
 /**
  * Created by somesh.shrivastava on 25/03/15.
@@ -36,9 +36,6 @@ public interface RESTResource {
     String HOME = "/locations/{locationId}/";
     String NEAR_BY_OFFER = HOME + "near_by_offer/" + "{distance}/?preference={}";
   }
-
-  String placeholderStartDelimiter = "{";
-  String placeholderEndDelimiter = "}";
 
 
 }

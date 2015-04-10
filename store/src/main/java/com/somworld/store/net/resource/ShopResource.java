@@ -1,4 +1,4 @@
-package com.somworld.vollywraper.net.resource;
+package com.somworld.store.net.resource;
 
 
 

@@ -1,4 +1,4 @@
-package com.somworld.vollywraper.net.resource;
+package com.somworld.store.net.resource;
 
 
 import com.somworld.net.Rest.RESTResource;
