@@ -8,8 +8,8 @@ import com.somworld.vollywraper.persistene.ICallback;
  */
 public class SellerDataManager extends NetworkDataManagerImpl {
 
-  public SellerDataManager(ICallback callback) {
-    super(callback);
+  public SellerDataManager(ICallback callback,Class mapperClass) {
+    super(callback,mapperClass);
   }
 
   public void getSellerInfo(String SellerId){

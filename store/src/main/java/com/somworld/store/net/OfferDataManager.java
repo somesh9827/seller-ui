@@ -9,8 +9,8 @@ import com.somworld.vollywraper.persistene.ICallback;
  */
 public class OfferDataManager<T extends IEntity> extends NetworkDataManagerImpl {
 
-    public OfferDataManager(ICallback<T> callback) {
-      super(callback);
+    public OfferDataManager(ICallback<T> callback,Class<T> mapperClass) {
+      super(callback,mapperClass);
     }
 
   public void createOffer(){}

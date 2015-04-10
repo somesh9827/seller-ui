@@ -9,13 +9,8 @@ import com.somworld.vollywraper.persistene.ICallback;
  */
 public class UserDataManager extends NetworkDataManagerImpl {
 
-  public UserDataManager(ICallback callback) {
-    super(callback);
-  }
-
-  @Override
-  public ICallback getCallBack() {
-    return null;
+  public UserDataManager(ICallback callback,Class mapperClass) {
+    super(callback,mapperClass);
   }
 
   public void register(RoleType role){}
